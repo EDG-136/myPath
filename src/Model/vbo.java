@@ -15,7 +15,7 @@ public class vbo {
 
     public vbo(float[] vertices, long size){
 
-        //create a gl buffer and assign the functional pointer to vboID
+        //create a gl buffer and assign the buffer ID to vboID
         vboID = glGenBuffers();
         //bind created buffer to the OpenGL
         bind();
