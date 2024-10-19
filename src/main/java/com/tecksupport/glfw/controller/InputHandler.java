@@ -1,6 +1,8 @@
 package com.tecksupport.glfw.controller;
 
 
+import com.tecksupport.glfw.model.Mesh;
+import com.tecksupport.glfw.model.Shader;
 import com.tecksupport.glfw.view.Window;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -8,6 +10,8 @@ import static org.lwjgl.glfw.GLFW.*;
 
 public class InputHandler {
     private Window window;
+    private Shader shader;
+    private Mesh mesh;
 
     float[] vertices = {
             0.5f,  0.5f, 0.0f,  // top right
@@ -26,7 +30,10 @@ public class InputHandler {
 
     public void init() {
         window = new Window(800, 600, "myPath");
+
         window.init();
+        shader = new Shader("src/main/java/com/tecksupport/glfw/shader/vertexShader.txt", "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt");
+        mesh = new Mesh(vertices, indices);
 
 
     }
@@ -34,8 +41,10 @@ public class InputHandler {
     public void run() {
         while (!window.shouldClose()) {
             window.pollEvents();
+            mesh.Draw(shader);
 
             processInput();
+
 
 
             window.update();
@@ -58,3 +67,4 @@ public class InputHandler {
     }
 
 }
+
