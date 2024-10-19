@@ -4,6 +4,8 @@ import org.lwjgl.opengl.GLUtil;
 import org.lwjgl.system.MemoryUtil;
 
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import java.util.Vector;
 
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
@@ -13,7 +15,7 @@ public class ebo {
 
     private int eboID; //Vertex Buffer Object
 
-    public ebo(float[] vertices, long size) {
+    public ebo(int[] indices){
 
         //create a gl buffer and assign the functional pointer to vboID
         eboID = glGenBuffers();
@@ -21,8 +23,10 @@ public class ebo {
         bind();
 
         //create a floatBuffer to store the buffer data
-        FloatBuffer buffer = MemoryUtil.memAllocFloat(vertices.length);
-        buffer.put(vertices).flip();
+        IntBuffer buffer = MemoryUtil.memAllocInt(indices.length);
+
+        buffer.put(indices);
+        buffer.flip();
 
         //give the buffer data to OpenGL Vertex Buffer Object
         glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
