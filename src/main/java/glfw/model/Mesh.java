@@ -9,7 +9,7 @@ public class Mesh {
     //public Vector<Texture> textures;
     public Vao vao = new Vao();
 
-    public Mesh(float[] v, int[] i){
+    public Mesh(float[] v, int[] i) {
         this.vertices = v;
         this.indices = i;
         //this.textures = t;
@@ -31,7 +31,7 @@ public class Mesh {
 
     }
 
-    public void Draw(Shader s){
+    public void Draw(Shader s) {
 
         s.bind();
         vao.bind();
@@ -40,8 +40,6 @@ public class Mesh {
         int numSpecular = 0;
 
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
-
-
     }
 
 }

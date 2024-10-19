@@ -4,10 +4,11 @@ import org.joml.Matrix4f;
 import org.lwjgl.system.MemoryStack;
 
 import java.nio.FloatBuffer;
+
 import static org.lwjgl.opengl.GL20.*;
 
 public class Shader {
-    private int programId;
+    private final int programId;
     private int UniformID;
 
     public Shader(String vertexFile, String fragmentFile) {
@@ -41,17 +42,20 @@ public class Shader {
         return programId;
     }
 
-    protected int getUniformLocation(String uniformName){
+    protected int getUniformLocation(String uniformName) {
         return glGetUniformLocation(programId, uniformName);
     }
 
-    public void setUniform(String uniformName, Matrix4f viewMatrix ){
+    public void setUniform(String uniformName, Matrix4f viewMatrix) {
         int location = getUniformLocation(uniformName);
-        try(MemoryStack stack = MemoryStack.stackPush()){
+        try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(16);
             viewMatrix.get(buffer);
-            glUniformMatrix4fv(location,true, buffer);
+            glUniformMatrix4fv(location, true, buffer);
         }
 
+    }
+    public int getProgramId() {
+        return programId;
     }
 }

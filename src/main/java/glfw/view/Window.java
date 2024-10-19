@@ -1,9 +1,13 @@
 package glfw.view;
 
+import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
 
 import org.lwjgl.opengl.*;
 
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.system.MemoryUtil.NULL;
@@ -75,8 +79,9 @@ public class Window {
         }
         glfwDestroyWindow(windowHandle);
         glfwTerminate();
-        glfwSetErrorCallback(null).free();
-
+        GLFWErrorCallback callback = glfwSetErrorCallback(null);
+        if (callback != null)
+            callback.free();
     }
 
     public void pollEvents(){

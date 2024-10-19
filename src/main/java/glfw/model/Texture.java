@@ -14,18 +14,17 @@ import static org.lwjgl.system.MemoryStack.stackPush;
 
 public class Texture {
     public int programID;
-    public  int widthIMG, heightIMG, compIMG;
+    public int widthIMG, heightIMG, compIMG;
 
-
-    public Texture(String filePath){
-        try(MemoryStack stack = stackPush()){
+    public Texture(String filePath) {
+        try (MemoryStack stack = stackPush()) {
             //create int buffers for stbi
             IntBuffer widthBuffer = stack.mallocInt(1); //think of buffer as just arrays
             IntBuffer heightBuffer = stack.mallocInt(1);
             IntBuffer compBuffer = stack.mallocInt(1);
 
             ByteBuffer image = stbi_load(filePath, widthBuffer, heightBuffer, compBuffer, 4);
-            if (image == null){
+            if (image == null) {
                 throw new RuntimeException("Failed to load texture: " + stbi_failure_reason());
             }
 
@@ -49,9 +48,9 @@ public class Texture {
             stbi_image_free(image);
 
         }
-        
+
     }
-    
+
     public void bind() {
         glBindTexture(GL_TEXTURE_2D, programID);
     }

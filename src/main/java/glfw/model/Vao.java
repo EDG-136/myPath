@@ -9,30 +9,34 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class Vao {
 
-    private int vaoID;
+    private final int vaoID;
 
-    public Vao(){
+    public Vao() {
         vaoID = glGenVertexArrays();
         glBindVertexArray(vaoID);
 
     }
-    public void LinkVBO(Vbo vbo, int layout, int dimension){
+
+    public void LinkVBO(Vbo vbo, int layout, int dimension) {
         vbo.bind();
         glVertexAttribPointer(layout, dimension, GL_FLOAT, false, 0, 0);
         glEnableVertexAttribArray(layout);
         vbo.unbind();
     }
-    public void bind(){
+
+    public void bind() {
         glBindVertexArray(vaoID);
 
     }
-    public void unbind(){
+
+    public void unbind() {
         glBindVertexArray(0);
     }
-    public void cleanup(){
+
+    public void cleanup() {
         unbind();
 
-        if(vaoID!=0){
+        if (vaoID != 0) {
             glDeleteBuffers(vaoID);
         }
     }

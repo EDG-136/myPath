@@ -5,14 +5,12 @@ import org.lwjgl.system.MemoryUtil;
 import java.nio.IntBuffer;
 
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL15.GL_ARRAY_BUFFER;
-import static org.lwjgl.opengl.GL15.GL_STATIC_DRAW;
 
 public class Ebo {
 
-    private int eboID; //Vertex Buffer Object
+    private final int eboID; //Vertex Buffer Object
 
-    public Ebo(int[] indices){
+    public Ebo(int[] indices) {
 
         //create a gl buffer and assign the functional pointer to vboID
         eboID = glGenBuffers();
