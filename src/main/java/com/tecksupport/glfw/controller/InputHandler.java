@@ -24,7 +24,7 @@ public class InputHandler {
     int[] indices = {
 
             0, 1, 3,   // first triangle
-            1, 2, 3    // second triangle
+            3, 1, 2    // second triangle
 
     };
 
@@ -40,14 +40,12 @@ public class InputHandler {
 
     public void run() {
         while (!window.shouldClose()) {
-            window.pollEvents();
+            processInput();
             mesh.Draw(shader);
 
-            processInput();
-
-
-
             window.update();
+            window.pollEvents();
+
         }
 
         cleanup();
@@ -67,4 +65,3 @@ public class InputHandler {
     }
 
 }
-
