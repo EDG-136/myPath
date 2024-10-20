@@ -19,27 +19,25 @@ public class Mesh {
         Vbo vbo = new Vbo(vertices);
         Ebo ebo = new Ebo(indices);
 
-
         vao.LinkVBO(vbo, 0, 3);
-        vao.LinkVBO(vbo, 1, 3);
-        vao.LinkVBO(vbo, 2, 3);
-        vao.LinkVBO(vbo, 3, 2);
 
         vao.unbind();
         vbo.unbind();
         ebo.unbind();
-
     }
 
     public void Draw(Shader s) {
 
+        glClearColor(0, 0, 0.4f, 1);
+        glClear(GL_COLOR_BUFFER_BIT);
+
         s.bind();
         vao.bind();
 
-        int numDiffuse = 0;
-        int numSpecular = 0;
+        //int numDiffuse = 0;
+        //int numSpecular = 0;
 
         glDrawElements(GL_TRIANGLES, indices.length, GL_UNSIGNED_INT, 0);
+        vao.cleanup();
     }
-
 }
