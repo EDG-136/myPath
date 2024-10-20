@@ -3,25 +3,34 @@ package com.tecksupport.glfw.model;
 import org.joml.Matrix4f;
 import org.lwjgl.system.MemoryStack;
 
+import java.io.IOException;
 import java.nio.FloatBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import static org.lwjgl.opengl.GL20.*;
 
 public class Shader {
-    private final int programId;
+    private int programId;
+    private int vertexShaderID;
+    private int fragmentShaderID;
     private int UniformID;
 
     public Shader(String vertexFile, String fragmentFile) {
-        programId = glCreateProgram();
-        int vertexShaderId = loadShader(vertexFile, GL_VERTEX_SHADER);
-        int fragmentShaderId = loadShader(fragmentFile, GL_FRAGMENT_SHADER);
 
-        glAttachShader(programId, vertexShaderId);
-        glAttachShader(programId, fragmentShaderId);
+        String vertexCode = loadShaderSource(vertexFile);
+        String fragmentCode = loadShaderSource(fragmentFile);
+
+        vertexShaderID = compileShader(vertexCode, GL_VERTEX_SHADER);
+        fragmentShaderID = compileShader(fragmentCode, GL_FRAGMENT_SHADER);
+        programId = glCreateProgram();
+
+        glAttachShader(programId, vertexShaderID);
+        glAttachShader(programId, fragmentShaderID);
         glLinkProgram(programId);
 
-        glDetachShader(programId, vertexShaderId);
-        glDetachShader(programId, fragmentShaderId);
+        glDetachShader(programId, vertexShaderID);
+        glDetachShader(programId, fragmentShaderID);
     }
 
     public void bind() {
@@ -36,10 +45,29 @@ public class Shader {
         glDeleteProgram(programId);
     }
 
-    private int loadShader(String filePath, int type) {
+    private String loadShaderSource(String filePath) {
         // Loading and compiling shaders would be handled here
         // Assume shaders are read from file and compiled
-        return programId;
+        try{
+            return new String(Files.readAllBytes(Paths.get(filePath)));
+
+        } catch(IOException e){
+            System.err.println("Error: Couldn't Read shader file.");
+            e.printStackTrace();
+            return new String("");
+        }
+    }
+    private int compileShader(String shaderCode, int type){
+        int shaderID = glCreateShader(type);
+        glShaderSource(shaderID, shaderCode);
+        glCompileShader(shaderID);
+
+        if(glGetShaderi(shaderID, GL_COMPILE_STATUS) == GL_FALSE){
+            System.err.println("Error: shader compilation failed.");
+            System.err.println(glGetShaderInfoLog(shaderID));
+            return -1;
+        }
+        return shaderID;
     }
 
     protected int getUniformLocation(String uniformName) {
