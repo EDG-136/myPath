@@ -8,6 +8,8 @@ import java.nio.IntBuffer;
 import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11C.*;
 import static org.lwjgl.opengl.GL13C.glActiveTexture;
+import static org.lwjgl.opengl.GL20.glUniform1i;
+import static org.lwjgl.opengl.GL20C.glGetUniformLocation;
 import static org.lwjgl.opengl.GL30C.glGenerateMipmap;
 import static org.lwjgl.stb.STBImage.*;
 import static org.lwjgl.system.MemoryStack.stackPush;
@@ -49,6 +51,12 @@ public class Texture {
 
         }
 
+    }
+
+    public void texUnit(Shader shader, String uniform, int unit){
+        int texUni = glGetUniformLocation(shader.getProgramId(), uniform);
+        shader.bind();
+        glUniform1i(texUni, unit);
     }
 
     public void bind() {
