@@ -6,8 +6,8 @@ import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.system.MemoryStack;
 import java.nio.FloatBuffer;
-import static org.lwjgl.opengl.GL20.glGetUniformLocation;
-import static org.lwjgl.opengl.GL20.glUniformMatrix4fv;
+
+import static org.lwjgl.opengl.GL20.*;
 
 public class Camera {
 
@@ -46,5 +46,16 @@ public class Camera {
             glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), uniform), false, buffer );
         }
     }
+    public void forward(){
+        position = position.add(orientation.mul(speed));
+    }
+    public void left(){
+        position = position.add(orientation.cross(Up).normalize().negate().mul(speed));
+    }
+    public void right(){
+        position = position.add(orientation.cross(Up).normalize().mul(speed));
+    }
+    public void backward(){
+        position = position.add(orientation.mul(-speed));
+    }
 }
-
