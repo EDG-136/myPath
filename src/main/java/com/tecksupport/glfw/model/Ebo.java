@@ -1,14 +1,12 @@
 package com.tecksupport.glfw.model;
 
 import org.lwjgl.system.MemoryUtil;
-
 import java.nio.IntBuffer;
-
 import static org.lwjgl.opengl.GL15.*;
 
 public class Ebo {
 
-    private final int eboID; //Vertex Buffer Object
+    private int eboID; //Vertex Buffer Object
 
     public Ebo(int[] indices) {
 
@@ -24,7 +22,7 @@ public class Ebo {
         buffer.flip();
 
         //give the buffer data to OpenGL Vertex Buffer Object
-        glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
 
     }
 
@@ -36,13 +34,14 @@ public class Ebo {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
+    public int getEboID(){
+        return this.eboID;
+    }
     public void cleanup() {
         unbind();
         //delete all buffer objects until vbo returns 0
         if (eboID != 0) {
             glDeleteBuffers(eboID);
         }
-
-
     }
 }
