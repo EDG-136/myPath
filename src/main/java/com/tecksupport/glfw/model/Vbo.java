@@ -1,26 +1,23 @@
 package com.tecksupport.glfw.model;
 
 import org.lwjgl.system.MemoryUtil;
-
 import java.nio.FloatBuffer;
+import java.util.ArrayList;
 
 import static org.lwjgl.opengl.GL15.*;
 
 public class Vbo {
 
-    private final int vboID; //Vertex Buffer Object
+    private int vboID; //Vertex Buffer Object
 
     public Vbo(float[] vertices) {
-
         //create a gl buffer and assign the buffer ID to vboID
         vboID = glGenBuffers();
         //bind created buffer to the OpenGL
         bind();
-
         //create a floatBuffer to store the buffer data
         FloatBuffer buffer = MemoryUtil.memAllocFloat(vertices.length);
-        buffer.put(vertices).flip();
-
+        buffer.put(vertices);
         //give the buffer data to OpenGL Vertex Buffer Object
         glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
 
@@ -35,6 +32,9 @@ public class Vbo {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     }
+    public int getVboID(){
+        return this.vboID;
+    }
 
     public void cleanup() {
         unbind();
@@ -42,9 +42,5 @@ public class Vbo {
         if (vboID != 0) {
             glDeleteBuffers(vboID);
         }
-
-
     }
-
-
 }
