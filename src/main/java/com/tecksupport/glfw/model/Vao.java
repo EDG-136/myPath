@@ -2,19 +2,17 @@ package com.tecksupport.glfw.model;
 
 import static org.lwjgl.opengl.GL11.GL_FLOAT;
 import static org.lwjgl.opengl.GL15.glDeleteBuffers;
-import static org.lwjgl.opengl.GL20.glEnableVertexAttribArray;
-import static org.lwjgl.opengl.GL20.glVertexAttribPointer;
+import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class Vao {
 
-    private final int vaoID;
+    private int vaoID;
 
     public Vao() {
         vaoID = glGenVertexArrays();
-        glBindVertexArray(vaoID);
-
+        bind();
     }
 
     public void LinkVBO(Vbo vbo, int layout, int dimension) {
@@ -26,7 +24,9 @@ public class Vao {
 
     public void bind() {
         glBindVertexArray(vaoID);
-
+    }
+    public int getVaoID(){
+        return this.vaoID;
     }
 
     public void unbind() {
@@ -34,11 +34,10 @@ public class Vao {
     }
 
     public void cleanup() {
-        unbind();
-
         if (vaoID != 0) {
             glDeleteBuffers(vaoID);
+            glDisableVertexAttribArray(0);
         }
+        unbind();
     }
 }
-
