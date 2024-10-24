@@ -48,11 +48,14 @@ public class Window {
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE); // Forward compatible profile
 
+
         // Create the window
         windowHandle = glfwCreateWindow(width, height, title, NULL, NULL);
         if (windowHandle == NULL) {
             throw new RuntimeException("Failed to create the GLFW window");
         }
+        glfwSetWindowSizeCallback(windowHandle, this::onWindowSizeCallback);
+
         glfwMakeContextCurrent(windowHandle);
         // Enable v-sync
         glfwSwapInterval(0);
@@ -64,6 +67,10 @@ public class Window {
 
 
 
+    }
+
+    void onWindowSizeCallback(long window, int width, int height) {
+        GL11.glViewport(0, 0, width, height);
     }
 
     public void update() {
