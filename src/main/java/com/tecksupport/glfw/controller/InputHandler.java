@@ -1,11 +1,17 @@
 package com.tecksupport.glfw.controller;
 
 
+import com.tecksupport.glfw.model.Loader;
 import com.tecksupport.glfw.model.Mesh;
+import com.tecksupport.glfw.model.Model;
 import com.tecksupport.glfw.model.Shader;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Window;
 import org.joml.Vector3f;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -44,9 +50,18 @@ public class InputHandler {
     }
 
     public void run() {
+        Model model;
+        Loader loader = new Loader();
+        try {
+            model = new Model("src/main/java/com/tecksupport/glfw/model/MyLovelySchool.obj", loader);
+        } catch (IOException e) {
+            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Model Loading Error", e);
+            return;
+        }
         while (!window.shouldClose()) {
             processInput();
-            mesh.Draw(shader);
+//            mesh.Draw(shader);
+            model.Draw(shader);
 
             window.update();
             window.pollEvents();
