@@ -1,5 +1,6 @@
 package com.tecksupport.glfw.model;
 
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryUtil;
 import java.nio.IntBuffer;
 import static org.lwjgl.opengl.GL15.*;
@@ -16,7 +17,7 @@ public class Ebo {
         bind();
 
         //create a floatBuffer to store the buffer data
-        IntBuffer buffer = MemoryUtil.memAllocInt(indices.length);
+        IntBuffer buffer = BufferUtils.createIntBuffer(indices.length);
 
         buffer.put(indices);
         buffer.flip();

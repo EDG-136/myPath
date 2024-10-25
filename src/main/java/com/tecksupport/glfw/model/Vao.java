@@ -15,9 +15,9 @@ public class Vao {
         bind();
     }
 
-    public void LinkVBO(Vbo vbo, int layout, int dimension) {
+    public void LinkVBO(Vbo vbo, int layout, int dimension, int stride, long offset) {
         vbo.bind();
-        glVertexAttribPointer(layout, dimension, GL_FLOAT, false, 0, 0);
+        glVertexAttribPointer(layout, dimension, GL_FLOAT, false, stride, offset);
         glEnableVertexAttribArray(layout);
         vbo.unbind();
     }

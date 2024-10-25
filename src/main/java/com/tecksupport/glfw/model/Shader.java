@@ -1,6 +1,7 @@
 package com.tecksupport.glfw.model;
 
 import org.joml.Matrix4f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 
 import java.io.IOException;
@@ -14,7 +15,8 @@ public class Shader {
     private int programId;
     private int vertexShaderID;
     private int fragmentShaderID;
-    private int UniformID;
+    private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+    private int camLocation;
 
     public Shader(String vertexFile, String fragmentFile) {
 
@@ -27,7 +29,9 @@ public class Shader {
 
         glAttachShader(programId, vertexShaderID);
         glAttachShader(programId, fragmentShaderID);
+        bindAttributes();
         glLinkProgram(programId);
+        glValidateProgram(programId);
 
         glDetachShader(programId, vertexShaderID);
         glDetachShader(programId, fragmentShaderID);
@@ -42,6 +46,12 @@ public class Shader {
     }
 
     public void cleanup() {
+
+        unbind();
+        glDetachShader(programId, vertexShaderID);
+        glDetachShader(programId, fragmentShaderID);
+        glDeleteShader(vertexShaderID);
+        glDeleteShader(fragmentShaderID);
         glDeleteProgram(programId);
     }
 
@@ -73,16 +83,32 @@ public class Shader {
     protected int getUniformLocation(String uniformName) {
         return glGetUniformLocation(programId, uniformName);
     }
+    protected void getAllUniformLocations(){
+        camLocation = getUniformLocation("camera");
 
-    public void setUniform(String uniformName, Matrix4f viewMatrix) {
+    }
+
+    public void setUniform(String uniformName, Matrix4f matrix) {
         int location = getUniformLocation(uniformName);
         try (MemoryStack stack = MemoryStack.stackPush()) {
             FloatBuffer buffer = stack.mallocFloat(16);
-            viewMatrix.get(buffer);
+            matrix.get(buffer);
             glUniformMatrix4fv(location, true, buffer);
         }
+    }
+    public void setUniformMat4(int location, Matrix4f matrix){
+        matrix.get(matrixBuffer);
+        matrixBuffer.flip();
+        glUniformMatrix4fv(location, false, matrixBuffer);
+    }
+
+    public void bindAttributes(){
+        glBindAttribLocation(programId, 0, "position");
+        glBindAttribLocation(programId, 1, "aTex");
+
 
     }
+
     public int getProgramId() {
         return programId;
     }

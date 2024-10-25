@@ -1,77 +1,72 @@
 package com.tecksupport.glfw.model;
 
-import org.lwjgl.system.MemoryStack;
-
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.IntBuffer;
 
-import static org.lwjgl.opengl.ARBInternalformatQuery2.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11C.*;
-import static org.lwjgl.opengl.GL13C.glActiveTexture;
-import static org.lwjgl.opengl.GL20.glUniform1i;
-import static org.lwjgl.opengl.GL20C.glGetUniformLocation;
-import static org.lwjgl.opengl.GL30C.glGenerateMipmap;
-import static org.lwjgl.stb.STBImage.*;
-import static org.lwjgl.system.MemoryStack.stackPush;
+import javax.imageio.ImageIO;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class Texture {
-    public int programID;
-    public int widthIMG, heightIMG, compIMG;
 
-    public Texture(String filePath) {
-        try (MemoryStack stack = stackPush()) {
-            //create int buffers for stbi
-            IntBuffer widthBuffer = stack.mallocInt(1); //think of buffer as just arrays
-            IntBuffer heightBuffer = stack.mallocInt(1);
-            IntBuffer compBuffer = stack.mallocInt(1);
+    private int width, height;
+    private int texture;
 
-            ByteBuffer image = stbi_load(filePath, widthBuffer, heightBuffer, compBuffer, 4);
-            if (image == null) {
-                throw new RuntimeException("Failed to load texture: " + stbi_failure_reason());
-            }
-
-            programID = glGenTextures(); //create a texture id so OpenGL knows where to look for the texture
-            glActiveTexture(1);
-
-            glBindTexture(GL_TEXTURE_2D, programID);
-
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-            glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-            widthIMG = widthBuffer.get(0);
-            heightIMG = heightBuffer.get(0);
-
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, widthIMG, heightIMG, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-
-            glGenerateMipmap(GL_TEXTURE_2D);
-
-            stbi_image_free(image);
-
-        }
-
+    public Texture(String path) {
+        texture = load(path);
     }
 
-    public void texUnit(Shader shader, String uniform, int unit){
-        int texUni = glGetUniformLocation(shader.getProgramId(), uniform);
-        shader.bind();
-        glUniform1i(texUni, unit);
+    private int load(String path) {
+        int[] pixels = null;
+        try {
+            BufferedImage image = ImageIO.read(new FileInputStream(path));
+            width = image.getWidth();
+            height = image.getHeight();
+            pixels = new int[width * height];
+            image.getRGB(0, 0, width, height, pixels, 0, width);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        int[] data = new int[width * height];
+        for (int i = 0; i < width * height; i++) {
+            int a = (pixels[i] & 0xff000000) >> 24;
+            int r = (pixels[i] & 0xff0000) >> 16;
+            int g = (pixels[i] & 0xff00) >> 8;
+            int b = (pixels[i] & 0xff);
+
+            data[i] = a << 24 | b << 16 | g << 8 | r;
+        }
+
+        int result = glGenTextures();
+        glBindTexture(GL_TEXTURE_2D, result);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+
+        IntBuffer buffer = ByteBuffer.allocateDirect(data.length << 2)
+                .order(ByteOrder.nativeOrder()).asIntBuffer();
+        buffer.put(data).flip();
+
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
+                GL_UNSIGNED_BYTE, buffer);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        return result;
     }
 
     public void bind() {
-        glBindTexture(GL_TEXTURE_2D, programID);
+        glBindTexture(GL_TEXTURE_2D, texture);
     }
 
-    public void cleanup() {
-        glDeleteTextures(programID);
+    public void unbind() {
+        glBindTexture(GL_TEXTURE_2D, 0);
     }
 
-    public int getWidth() {
-        return widthIMG;
+    public int getTextureID() {
+        return texture;
     }
 
-    public int getHeight() {
-        return heightIMG;
-    }
 }

@@ -1,11 +1,9 @@
 package com.tecksupport.glfw.controller;
 
 
-import com.tecksupport.glfw.model.Loader;
-import com.tecksupport.glfw.model.Mesh;
-import com.tecksupport.glfw.model.Model;
-import com.tecksupport.glfw.model.Shader;
+import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.view.Camera;
+import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
 import org.joml.Vector3f;
 
@@ -21,56 +19,61 @@ public class InputHandler {
     private Shader shader;
     private Mesh mesh;
     private Camera camera;
+    private RawModel rawModel;
+    private Renderer renderer = new Renderer();
+    private Loader loader;
+    private TexturedModel texturedModel;
+    private RawModel square;
 
     float[] vertices = {
-            0.5f,  0.5f, 0.0f,  // top right
-            0.5f, -0.5f, 0.0f,  // bottom right
-            -0.5f, -0.5f, 0.0f,  // bottom left
-            -0.5f,  0.5f, 0.0f   // top left
-
+            -0.5f, 0.5f, 0,
+            -0.5f, -0.5f, 0,
+            0.5f, -0.5f, 0,
+            0.5f, 0.5f, 0
     };
 
-    int[] indices = {
-
-            0, 1, 3,   // first triangle
-            3, 1, 2    // second triangle
-
+    int[] indices ={
+            0,1,3,
+            3,1,2
     };
-    Vector3f vec3 = new Vector3f(0.0f, 0.0f, 2.0f);
+
 
     public void init() {
         window = new Window(800, 600, "myPath");
-
         window.init();
-        shader = new Shader("src/main/java/com/tecksupport/glfw/shader/vertexShader.txt", "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt");
-        mesh = new Mesh(vertices, indices);
-        camera = new Camera(800, 600, vec3);
+
+        loader = new Loader();
+
+        square = loader.loadToVAO(vertices, indices);
+
+
+        shader = new Shader("src/main/java/com/tecksupport/glfw/shader/vertexShader.txt", "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt");;
+        //rawModel = Model.loadModel("src/main/java/com/tecksupport/glfw/model/stall.obj", loader);
+        texturedModel = new TexturedModel(rawModel, new Texture("src/main/java/com/tecksupport/glfw/model/stallTexture.png"));
+
+        //camera = new Camera();
+        //camera.createMatrix(70.0f, 0.1f, 1000, shader, "camera");
+
 
 
     }
 
     public void run() {
-        Model model;
-        Loader loader = new Loader();
-        try {
-            model = new Model("src/main/java/com/tecksupport/glfw/model/MyLovelySchool.obj", loader);
-        } catch (IOException e) {
-            Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "Model Loading Error", e);
-            return;
-        }
-        while (!window.shouldClose()) {
-            processInput();
-//            mesh.Draw(shader);
-            model.Draw(shader);
 
+
+        while (!window.shouldClose()) {
+
+
+            renderer.prepare();
+            shader.bind();
+            renderer.render(square);
+            shader.unbind();
+            //renderer.render(mesh);
             window.update();
             window.pollEvents();
-
         }
-
         cleanup();
     }
-
     public void processInput() {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_W) == GLFW_PRESS) {
             camera.forward();
@@ -88,6 +91,8 @@ public class InputHandler {
     }
 
     public void cleanup() {
+        shader.cleanup();
+        loader.cleanUp();
         // renderer.cleanup();
         // mesh.cleanup();
         window.cleanup();

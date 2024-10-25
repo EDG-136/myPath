@@ -10,24 +10,6 @@ import java.util.List;
 import static java.nio.file.Files.readAllBytes;
 
 public class Model {
-    private ArrayList<Mesh> meshes;
-    private ArrayList<Character> data;
-    //json type
-    private ArrayList<Vector3f> translationsMeshes;
-    private ArrayList<Quaterniond> rotationMeshes;
-    private ArrayList<Vector3f> scalesMeshes;
-    private ArrayList<Matrix4f> matricesMeshes;
-    private ArrayList<String> loadedTexName;
-    private ArrayList<Texture> loadedTex;
-
-
-    public Model(String filePath, Loader loader) throws IOException {
-        loadModel(filePath, loader);
-    }
-
-    public void Draw(Shader shader) {
-
-    }
 
     public static RawModel loadModel(String filePath, Loader loader) {
 
@@ -115,7 +97,7 @@ public class Model {
             indicesArray[i] = indices.get(i);
         }
 
-        return loader.loadToVAO(verticesArray, indicesArray);
+        return loader.loadToVAO(verticesArray, textureArray, indicesArray);
     }
 
     private static void processVertex(String[] vertexData, List<Integer> indices, List<Vector2f> textures, List<Vector3f> normals, float[] textureArray, float[] normalsArray) {

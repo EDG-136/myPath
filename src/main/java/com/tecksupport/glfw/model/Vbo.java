@@ -1,8 +1,9 @@
 package com.tecksupport.glfw.model;
 
-import org.lwjgl.system.MemoryUtil;
+import org.lwjgl.BufferUtils;
+
 import java.nio.FloatBuffer;
-import java.util.ArrayList;
+
 
 import static org.lwjgl.opengl.GL15.*;
 
@@ -16,8 +17,9 @@ public class Vbo {
         //bind created buffer to the OpenGL
         bind();
         //create a floatBuffer to store the buffer data
-        FloatBuffer buffer = MemoryUtil.memAllocFloat(vertices.length);
+        FloatBuffer buffer = BufferUtils.createFloatBuffer(vertices.length);
         buffer.put(vertices);
+        buffer.flip();
         //give the buffer data to OpenGL Vertex Buffer Object
         glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
 
