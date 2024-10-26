@@ -7,6 +7,7 @@ import org.lwjgl.opengl.*;
 
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL11.glViewport;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 
@@ -62,8 +63,14 @@ public class Window {
 
         GL.createCapabilities();
 
+        glfwSetWindowSizeCallback(windowHandle, this::onSizeCallBack);
 
 
+
+    }
+
+    public void onSizeCallBack(long window, int width, int height){
+        glViewport(0,0,width, height);
     }
 
     public void update() {

@@ -4,6 +4,7 @@ import com.tecksupport.glfw.model.Shader;
 import org.joml.Math;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
 import org.lwjgl.system.MemoryStack;
 import java.nio.FloatBuffer;
 
@@ -27,7 +28,7 @@ public class Camera {
     private Matrix4f projection;
 
     public Camera(){
-        this.position = new Vector3f(0.0f, 0.0f, 0.0f);
+        this.position = new Vector3f(0.0f, 0.0f, 1.0f);
         this.orientation = new Vector3f(0.0f,0.0f,-1.0f);
         this.Up = new Vector3f(0.0f, 1.0f, 0.0f);
         this.height = 800;
@@ -43,14 +44,34 @@ public class Camera {
 
         float FOVrads = Math.toRadians(FOVdeg);
 
+        view.lookAt(position, position.add(orientation, new Vector3f()), Up, view);
+        projection.perspective(FOVrads, (float)(width / height), nearPlane, farPlane);
+
+        Matrix4f cameraMat = projection.mul(view);
+        float[] matrixData = new float[16];
+
+        cameraMat.get(matrixData);
+
+
+        glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), uniform), false, matrixData);
+
+    }
+
+    public Matrix4f getMatrix(float FOVdeg, float nearPlane, float farPlane, Shader shader, String uniform){
+        model = new Matrix4f();
+        view = new Matrix4f();
+        view.identity();
+        projection = new Matrix4f();
+        projection.identity();
+
+        float FOVrads = Math.toRadians(FOVdeg);
+
         view.lookAt(position, position.add(orientation), Up);
         projection.perspective(FOVrads, (float)(width / height), nearPlane, farPlane);
 
-        Matrix4f camera = projection.mul(view);
-        float[] matrixData = new float[16];
-        camera.get(matrixData);
+        Matrix4f cameraMat = projection.mul(view);
+        return cameraMat;
 
-        glUniformMatrix4fv(glGetUniformLocation(shader.getProgramId(), uniform), false, matrixData);
 
     }
     public Matrix4f getModel(){
@@ -68,7 +89,7 @@ public class Camera {
         position = position.add(orientation.mul(speed));
     }
     public void left(){
-        position = position.add(orientation.cross(Up).normalize().negate().mul(speed));
+        position = position.add(orientation.cross(Up).normalize().mul(-speed));
     }
     public void right(){
         position = position.add(orientation.cross(Up).normalize().mul(speed));
