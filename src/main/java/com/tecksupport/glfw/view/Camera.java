@@ -49,6 +49,7 @@ public class Camera {
 
     public void down() {
         position.y -= MOVE_SPEED;
+        
     }
 
     public void up() {
