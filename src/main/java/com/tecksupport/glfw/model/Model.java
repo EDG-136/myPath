@@ -1,13 +1,13 @@
 package com.tecksupport.glfw.model;
 
-import org.joml.*;
+import org.joml.Vector2f;
+import org.joml.Vector3f;
 
-import java.io.*;
-import java.nio.file.Paths;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-
-import static java.nio.file.Files.readAllBytes;
 
 public class Model {
 
@@ -75,6 +75,8 @@ public class Model {
                 processVertex(vertex1, indices, textures, normals, textureArray, normalArray);
                 processVertex(vertex2, indices, textures, normals, textureArray, normalArray);
                 processVertex(vertex3, indices, textures, normals, textureArray, normalArray);
+
+                System.out.println(line);
                 line = reader.readLine();
 
             }

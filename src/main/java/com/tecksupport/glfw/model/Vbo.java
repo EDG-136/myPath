@@ -4,7 +4,6 @@ import org.lwjgl.BufferUtils;
 
 import java.nio.FloatBuffer;
 
-
 import static org.lwjgl.opengl.GL15.*;
 
 public class Vbo {

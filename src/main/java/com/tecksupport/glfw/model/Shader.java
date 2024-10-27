@@ -5,7 +5,6 @@ import com.tecksupport.glfw.view.Camera;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL20;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -101,7 +100,7 @@ public class Shader {
 
     public void loadMatrix(int location, Matrix4f matrix) {
         matrix.get(matrixBuffer);
-        GL20.glUniformMatrix4fv(location, false, matrixBuffer);
+        glUniformMatrix4fv(location, false, matrixBuffer);
     }
 
     public void setUniformMat4(int location, Matrix4f matrix) {
@@ -118,7 +117,7 @@ public class Shader {
     }
 
     int getUniformLocation(String uniformName) {
-        return GL20.glGetUniformLocation(programId, uniformName);
+        return glGetUniformLocation(programId, uniformName);
     }
 
 

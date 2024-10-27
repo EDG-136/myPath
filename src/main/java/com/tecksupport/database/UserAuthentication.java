@@ -54,8 +54,7 @@ public class UserAuthentication {
         return false;
     }
 
-    public boolean isPasswordCorrect(String username, String password)
-    {
+    public boolean isPasswordCorrect(String username, String password) {
         try {
             Statement statement = mySQL.getConnection().createStatement();
             String query = "SELECT " + PASSWORD_COLUMN + " FROM " + TABLE_NAME + " WHERE " + USERNAME_COLUMN + " = " + username + ";";

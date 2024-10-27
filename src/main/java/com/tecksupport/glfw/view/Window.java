@@ -3,17 +3,14 @@ package com.tecksupport.glfw.view;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.glfw.GLFWKeyCallback;
-
 import org.lwjgl.glfw.GLFWVidMode;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
-
 
 import java.nio.IntBuffer;
 
-import static java.awt.SystemColor.window;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.glViewport;
+import static org.lwjgl.opengl.GL40.glViewport;
 import static org.lwjgl.system.MemoryStack.stackPush;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
@@ -21,10 +18,10 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Window {
 
     private long windowHandle;
-    private int width;
-    private int height;
-    private String title;
-    private boolean resized;
+    private final int width;
+    private final int height;
+    private final String title;
+    private final boolean resized;
 
     private GLFWKeyCallback keyCallback;
 
@@ -89,8 +86,8 @@ public class Window {
         glfwSetWindowSizeCallback(windowHandle, this::onSizeCallBack);
     }
 
-    public void onSizeCallBack(long window, int width, int height){
-        glViewport(0,0,width, height);
+    public void onSizeCallBack(long window, int width, int height) {
+        glViewport(0, 0, width, height);
     }
 
     public void update() {
@@ -98,6 +95,7 @@ public class Window {
 
         glfwPollEvents();
     }
+
     public void cleanup() {
         // Release the key callback
         if (keyCallback != null) {
@@ -108,14 +106,15 @@ public class Window {
         glfwSetErrorCallback(null).free();
     }
 
-    public void pollEvents(){
+    public void pollEvents() {
         glfwPollEvents();
     }
 
-    public boolean shouldClose(){
+    public boolean shouldClose() {
         return glfwWindowShouldClose(windowHandle);
     }
-    public long getWindowID(){
+
+    public long getWindowID() {
         return this.windowHandle;
     }
 

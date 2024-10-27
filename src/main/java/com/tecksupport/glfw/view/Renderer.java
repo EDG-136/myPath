@@ -1,23 +1,25 @@
 package com.tecksupport.glfw.view;
 
-import com.tecksupport.glfw.model.*;
+import com.tecksupport.glfw.model.Entity;
+import com.tecksupport.glfw.model.RawModel;
+import com.tecksupport.glfw.model.Shader;
+import com.tecksupport.glfw.model.TexturedModel;
 import com.tecksupport.glfw.utils.Maths;
 import org.joml.Matrix4f;
-import org.lwjgl.opengl.*;
 
 import static org.lwjgl.opengl.GL40.*;
 
-public class Renderer{
+public class Renderer {
 
     private static final float FOV = 70;
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000;
 
-    private Window window;
+    private final Window window;
 
     private Matrix4f projectionMatrix;
 
-    public Renderer(Shader shader, Window window){
+    public Renderer(Shader shader, Window window) {
         this.window = window;
         createProjectionMatrix();
         shader.bind();
@@ -27,8 +29,8 @@ public class Renderer{
 
 
     public void prepare() {
-        glEnable(GL11.GL_DEPTH_TEST);
-        glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+        glEnable(GL_DEPTH_TEST);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(0.2f, 0.2f, 0.2f, 1);
     }
 
@@ -37,8 +39,8 @@ public class Renderer{
         TexturedModel model = entity.getModel();
         RawModel rawModel = model.getRawModel();
         glBindVertexArray(rawModel.getVaoID());
-        GL20.glEnableVertexAttribArray(0);
-        GL20.glEnableVertexAttribArray(1);
+        glEnableVertexAttribArray(0);
+        glEnableVertexAttribArray(1);
         Matrix4f transformationMatrix = Maths.createTransformationMatrix(entity.getPosition(),
                 entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);

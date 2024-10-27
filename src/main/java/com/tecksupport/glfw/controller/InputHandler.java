@@ -5,12 +5,7 @@ import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
-
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -28,82 +23,81 @@ public class InputHandler {
     private Entity entity;
 
     float[] vertices = {
-            -0.5f,0.5f,0,
-            -0.5f,-0.5f,0,
-            0.5f,-0.5f,0,
-            0.5f,0.5f,0,
+            -0.5f, 0.5f, 0,
+            -0.5f, -0.5f, 0,
+            0.5f, -0.5f, 0,
+            0.5f, 0.5f, 0,
 
-            -0.5f,0.5f,1,
-            -0.5f,-0.5f,1,
-            0.5f,-0.5f,1,
-            0.5f,0.5f,1,
+            -0.5f, 0.5f, 1,
+            -0.5f, -0.5f, 1,
+            0.5f, -0.5f, 1,
+            0.5f, 0.5f, 1,
 
-            0.5f,0.5f,0,
-            0.5f,-0.5f,0,
-            0.5f,-0.5f,1,
-            0.5f,0.5f,1,
+            0.5f, 0.5f, 0,
+            0.5f, -0.5f, 0,
+            0.5f, -0.5f, 1,
+            0.5f, 0.5f, 1,
 
-            -0.5f,0.5f,0,
-            -0.5f,-0.5f,0,
-            -0.5f,-0.5f,1,
-            -0.5f,0.5f,1,
+            -0.5f, 0.5f, 0,
+            -0.5f, -0.5f, 0,
+            -0.5f, -0.5f, 1,
+            -0.5f, 0.5f, 1,
 
-            -0.5f,0.5f,1,
-            -0.5f,0.5f,0,
-            0.5f,0.5f,0,
-            0.5f,0.5f,1,
+            -0.5f, 0.5f, 1,
+            -0.5f, 0.5f, 0,
+            0.5f, 0.5f, 0,
+            0.5f, 0.5f, 1,
 
-            -0.5f,-0.5f,1,
-            -0.5f,-0.5f,0,
-            0.5f,-0.5f,0,
-            0.5f,-0.5f,1
+            -0.5f, -0.5f, 1,
+            -0.5f, -0.5f, 0,
+            0.5f, -0.5f, 0,
+            0.5f, -0.5f, 1
 
     };
 
     float[] textureCoords = {
 
-            0,0,
-            0,1,
-            1,1,
-            1,0,
-            0,0,
-            0,1,
-            1,1,
-            1,0,
-            0,0,
-            0,1,
-            1,1,
-            1,0,
-            0,0,
-            0,1,
-            1,1,
-            1,0,
-            0,0,
-            0,1,
-            1,1,
-            1,0,
-            0,0,
-            0,1,
-            1,1,
-            1,0
-
+            0, 0,
+            0, 1,
+            1, 1,
+            1, 0,
+            0, 0,
+            0, 1,
+            1, 1,
+            1, 0,
+            0, 0,
+            0, 1,
+            1, 1,
+            1, 0,
+            0, 0,
+            0, 1,
+            1, 1,
+            1, 0,
+            0, 0,
+            0, 1,
+            1, 1,
+            1, 0,
+            0, 0,
+            0, 1,
+            1, 1,
+            1, 0
 
 
     };
 
     int[] indices = {
-            0,1,3,
-            3,1,2,
-            4,5,7,
-            7,5,6,
-            8,9,11,
-            11,9,10,
-            12,13,15,
-            15,13,14,
-            16,17,19,
-            19,17,18,
-            20,21,23,
-            23,21,22
+            0, 1, 3,
+            3, 1, 2,
+            4, 5, 7,
+            7, 5, 6,
+            8, 9, 11,
+            11, 9, 10,
+            12, 13, 15,
+            15, 13, 14,
+            16, 17, 19,
+            19, 17, 18,
+            20, 21, 23,
+            23, 21, 22
 
 
     };
@@ -121,11 +115,11 @@ public class InputHandler {
 
 //        rawModel = loader.loadToVAO(vertices, textureCoords, indices);
 
-        rawModel = Model.loadModel("stall", loader);
+        rawModel = Model.loadModel("School", loader);
 
-        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("stallTexture")));
+        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 
-        entity = new Entity(texturedModel, new Vector3f(0,0,-25),0,0,0,1);
+        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 1);
 
         camera = new Camera();
 //        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
@@ -154,18 +148,25 @@ public class InputHandler {
         }
         cleanup();
     }
+
     public void processInput() {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_W) == GLFW_PRESS) {
             camera.forward();
         }
-        if(glfwGetKey(window.getWindowID(), GLFW_KEY_A) == GLFW_PRESS){
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_A) == GLFW_PRESS) {
             camera.left();
         }
-        if(glfwGetKey(window.getWindowID(), GLFW_KEY_S) == GLFW_PRESS){
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_S) == GLFW_PRESS) {
             camera.backward();
         }
-        if(glfwGetKey(window.getWindowID(), GLFW_KEY_D) == GLFW_PRESS){
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_D) == GLFW_PRESS) {
             camera.right();
+        }
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_E) == GLFW_PRESS) {
+            camera.up();
+        }
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_Q) == GLFW_PRESS) {
+            camera.down();
         }
         // Handle more inputs here
     }
