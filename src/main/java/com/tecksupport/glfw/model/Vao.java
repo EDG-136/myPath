@@ -8,7 +8,7 @@ import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
 public class Vao {
 
-    private int vaoID;
+    private final int vaoID;
 
     public Vao() {
         vaoID = glGenVertexArrays();
@@ -25,7 +25,8 @@ public class Vao {
     public void bind() {
         glBindVertexArray(vaoID);
     }
-    public int getVaoID(){
+
+    public int getVaoID() {
         return this.vaoID;
     }
 

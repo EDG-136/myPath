@@ -1,8 +1,11 @@
 package com.tecksupport.glfw.model;
 
+import com.tecksupport.glfw.utils.Maths;
+import com.tecksupport.glfw.view.Camera;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.system.MemoryStack;
+import org.lwjgl.opengl.GL20;
 
 import java.io.IOException;
 import java.nio.FloatBuffer;
@@ -12,11 +15,13 @@ import java.nio.file.Paths;
 import static org.lwjgl.opengl.GL20.*;
 
 public class Shader {
-    private int programId;
-    private int vertexShaderID;
-    private int fragmentShaderID;
-    private static FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
-    private int camLocation;
+    private final int programId;
+    private final int vertexShaderID;
+    private final int fragmentShaderID;
+    private static final FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
+    private int location_transformationMatrix;
+    private int location_projectionMatrix;
+    private int location_viewMatrix;
 
     public Shader(String vertexFile, String fragmentFile) {
 
@@ -35,6 +40,7 @@ public class Shader {
 
         glDetachShader(programId, vertexShaderID);
         glDetachShader(programId, fragmentShaderID);
+        getAllUniformLocations();
     }
 
     public void bind() {
@@ -58,21 +64,22 @@ public class Shader {
     private String loadShaderSource(String filePath) {
         // Loading and compiling shaders would be handled here
         // Assume shaders are read from file and compiled
-        try{
+        try {
             return new String(Files.readAllBytes(Paths.get(filePath)));
 
-        } catch(IOException e){
+        } catch (IOException e) {
             System.err.println("Error: Couldn't Read shader file.");
             e.printStackTrace();
-            return new String("");
+            return "";
         }
     }
-    private int compileShader(String shaderCode, int type){
+
+    private int compileShader(String shaderCode, int type) {
         int shaderID = glCreateShader(type);
         glShaderSource(shaderID, shaderCode);
         glCompileShader(shaderID);
 
-        if(glGetShaderi(shaderID, GL_COMPILE_STATUS) == GL_FALSE){
+        if (glGetShaderi(shaderID, GL_COMPILE_STATUS) == GL_FALSE) {
             System.err.println("Error: shader compilation failed.");
             System.err.println(glGetShaderInfoLog(shaderID));
             return -1;
@@ -80,34 +87,61 @@ public class Shader {
         return shaderID;
     }
 
-    protected int getUniformLocation(String uniformName) {
-        return glGetUniformLocation(programId, uniformName);
-    }
-    protected void getAllUniformLocations(){
-        camLocation = getUniformLocation("camera");
-
+    public void loadVector(int location, Vector3f vector) {
+        glUniform3f(location, vector.x, vector.y, vector.z);
     }
 
-    public void setUniform(String uniformName, Matrix4f matrix) {
-        int location = getUniformLocation(uniformName);
-        try (MemoryStack stack = MemoryStack.stackPush()) {
-            FloatBuffer buffer = stack.mallocFloat(16);
-            matrix.get(buffer);
-            glUniformMatrix4fv(location, true, buffer);
+    public void loadBoolean(int location, boolean value) {
+        float toLoad = 0;
+        if (value) {
+            toLoad = 1;
         }
+        glUniform1f(location, toLoad);
     }
-    public void setUniformMat4(int location, Matrix4f matrix){
+
+    public void loadMatrix(int location, Matrix4f matrix) {
         matrix.get(matrixBuffer);
-        matrixBuffer.flip();
+        GL20.glUniformMatrix4fv(location, false, matrixBuffer);
+    }
+
+    public void setUniformMat4(int location, Matrix4f matrix) {
+        matrix.get(matrixBuffer);
+//        matrixBuffer.flip();
         glUniformMatrix4fv(location, false, matrixBuffer);
     }
 
-    public void bindAttributes(){
+    public void bindAttributes() {
         glBindAttribLocation(programId, 0, "position");
         glBindAttribLocation(programId, 1, "aTex");
 
 
     }
+
+    int getUniformLocation(String uniformName) {
+        return GL20.glGetUniformLocation(programId, uniformName);
+    }
+
+
+    void getAllUniformLocations() {
+        location_transformationMatrix = getUniformLocation("transformationMatrix");
+        location_projectionMatrix = getUniformLocation("projectionMatrix");
+        location_viewMatrix = getUniformLocation("viewMatrix");
+
+    }
+
+    public void loadTransformationMatrix(Matrix4f matrix) {
+        loadMatrix(location_transformationMatrix, matrix);
+    }
+
+    public void loadViewMatrix(Camera camera) {
+        Matrix4f viewMatrix = Maths.createViewMatrix(camera);
+        loadMatrix(location_viewMatrix, viewMatrix);
+    }
+
+    public void loadProjectionMatrix(Matrix4f projection) {
+        loadMatrix(location_projectionMatrix, projection);
+    }
+
 
     public int getProgramId() {
         return programId;

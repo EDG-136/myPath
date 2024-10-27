@@ -9,7 +9,7 @@ import static org.lwjgl.opengl.GL15.*;
 
 public class Vbo {
 
-    private int vboID; //Vertex Buffer Object
+    private final int vboID; //Vertex Buffer Object
 
     public Vbo(float[] vertices) {
         //create a gl buffer and assign the buffer ID to vboID
@@ -34,7 +34,8 @@ public class Vbo {
         glBindBuffer(GL_ARRAY_BUFFER, 0);
 
     }
-    public int getVboID(){
+
+    public int getVboID() {
         return this.vboID;
     }
 

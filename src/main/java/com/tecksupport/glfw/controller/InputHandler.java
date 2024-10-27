@@ -21,66 +21,136 @@ public class InputHandler {
     private Mesh mesh;
     private Camera camera;
     private RawModel rawModel;
-    private Renderer renderer = new Renderer();
+    private Renderer renderer;
     private Loader loader;
     private TexturedModel texturedModel;
     private RawModel square;
     private Entity entity;
 
     float[] vertices = {
-            -0.5f, 0.5f, 0,
-            -0.5f, -0.5f, 0,
-            0.5f, -0.5f, 0,
-            0.5f, 0.5f, 0
+            -0.5f,0.5f,0,
+            -0.5f,-0.5f,0,
+            0.5f,-0.5f,0,
+            0.5f,0.5f,0,
+
+            -0.5f,0.5f,1,
+            -0.5f,-0.5f,1,
+            0.5f,-0.5f,1,
+            0.5f,0.5f,1,
+
+            0.5f,0.5f,0,
+            0.5f,-0.5f,0,
+            0.5f,-0.5f,1,
+            0.5f,0.5f,1,
+
+            -0.5f,0.5f,0,
+            -0.5f,-0.5f,0,
+            -0.5f,-0.5f,1,
+            -0.5f,0.5f,1,
+
+            -0.5f,0.5f,1,
+            -0.5f,0.5f,0,
+            0.5f,0.5f,0,
+            0.5f,0.5f,1,
+
+            -0.5f,-0.5f,1,
+            -0.5f,-0.5f,0,
+            0.5f,-0.5f,0,
+            0.5f,-0.5f,1
+
     };
 
-    int[] indices ={
+    float[] textureCoords = {
+
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0,
+            0,0,
+            0,1,
+            1,1,
+            1,0
+
+
+
+    };
+
+    int[] indices = {
             0,1,3,
-            3,1,2
+            3,1,2,
+            4,5,7,
+            7,5,6,
+            8,9,11,
+            11,9,10,
+            12,13,15,
+            15,13,14,
+            16,17,19,
+            19,17,18,
+            20,21,23,
+            23,21,22
+
+
     };
 
 
     public void init() {
         window = new Window(800, 600, "myPath");
         window.init();
-
         loader = new Loader();
+        shader = new Shader(
+                "src/main/java/com/tecksupport/glfw/shader/vertexShader.txt",
+                "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt"
+        );
+        renderer = new Renderer(shader, window);
 
-        square = loader.loadToVAO(vertices, indices);
+//        rawModel = loader.loadToVAO(vertices, textureCoords, indices);
 
+        rawModel = Model.loadModel("stall", loader);
 
-        shader = new Shader("src/main/java/com/tecksupport/glfw/shader/vertexShader.txt", "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt");;
-        rawModel = Model.loadModel("src/main/java/com/tecksupport/glfw/model/stall.obj", loader);
-        texturedModel = new TexturedModel(rawModel, new Texture("src/main/java/com/tecksupport/glfw/model/stallTexture.png"));
+        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("stallTexture")));
 
-
-        entity = new Entity(texturedModel, new Vector3f(-1,0,0),0,0,0,1);
+        entity = new Entity(texturedModel, new Vector3f(0,0,-25),0,0,0,1);
 
         camera = new Camera();
-        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
-
-        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
-        shader.setUniform("camera", camMat);
+//        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
+//
+//        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
+//        shader.setUniform("camera", camMat);
 
 
     }
 
     public void run() {
-
-
         while (!window.shouldClose()) {
-
-            camera.forward();
+//            entity.increasePosition(1, 1, 0);
+            entity.increaseRotation(0, 1, 0);
+            processInput();
             renderer.prepare();
             shader.bind();
-            processInput();
+            shader.loadViewMatrix(camera);
             //camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
 
-            renderer.render(texturedModel);
+            renderer.render(entity, shader);
+//            renderer.render(rawModel);
+//            renderer.render(entity, shader);
             shader.unbind();
-            //renderer.render(mesh);
             window.update();
-            window.pollEvents();
         }
         cleanup();
     }

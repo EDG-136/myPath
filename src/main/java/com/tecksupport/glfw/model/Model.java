@@ -11,11 +11,11 @@ import static java.nio.file.Files.readAllBytes;
 
 public class Model {
 
-    public static RawModel loadModel(String filePath, Loader loader) {
+    public static RawModel loadModel(String modelName, Loader loader) {
 
         FileReader fileReader = null;
         try {
-            fileReader = new FileReader(new File(filePath));
+            fileReader = new FileReader("src/main/resources/models/" + modelName + ".obj");
         } catch (FileNotFoundException e) {
             System.err.println("Couldn't Open File");
             e.printStackTrace();

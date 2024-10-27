@@ -1,18 +1,19 @@
 package com.tecksupport.glfw.model;
 
 public class TexturedModel {
-    private RawModel rawModel;
-    private Texture texture;
+    private final RawModel rawModel;
+    private final ModelTexture texture;
 
-    public TexturedModel(RawModel model, Texture texture){
+    public TexturedModel(RawModel model, ModelTexture texture) {
         this.rawModel = model;
         this.texture = texture;
     }
 
-    public RawModel getRawModel(){
+    public RawModel getRawModel() {
         return rawModel;
     }
-    public Texture getTexture(){
+
+    public ModelTexture getTexture() {
         return texture;
     }
 }

@@ -8,7 +8,7 @@ public class Mesh {
     public int[] indices;
     //public Vector<Texture> textures;
     public Vao vao = new Vao();
-    private int vaoID;
+    private final int vaoID;
 
     public Mesh(float[] v, int[] i) {
         this.vertices = v;
@@ -27,9 +27,14 @@ public class Mesh {
         vbo.unbind();
         ebo.unbind();
     }
-    public int getVaoID(){return vaoID;}
 
-    public int getVertexCount(){return vertices.length;}
+    public int getVaoID() {
+        return vaoID;
+    }
+
+    public int getVertexCount() {
+        return vertices.length;
+    }
 
     public void Draw(Shader s) {
 

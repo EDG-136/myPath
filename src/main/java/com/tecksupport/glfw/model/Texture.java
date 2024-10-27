@@ -14,23 +14,21 @@ import static org.lwjgl.opengl.GL11.*;
 public class Texture {
 
     private int width, height;
-    private int texture;
+    private final int texture;
 
-    public Texture(String path) {
+    public Texture(String path) throws IOException {
         texture = load(path);
     }
 
-    private int load(String path) {
+    private int load(String path) throws IOException {
         int[] pixels = null;
-        try {
-            BufferedImage image = ImageIO.read(new FileInputStream(path));
-            width = image.getWidth();
-            height = image.getHeight();
-            pixels = new int[width * height];
-            image.getRGB(0, 0, width, height, pixels, 0, width);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        BufferedImage image = ImageIO.read(new FileInputStream(path));
+        width = image.getWidth();
+        height = image.getHeight();
+        pixels = new int[width * height];
+        image.getRGB(0, 0, width, height, pixels, 0, width);
+
 
         int[] data = new int[width * height];
         for (int i = 0; i < width * height; i++) {
