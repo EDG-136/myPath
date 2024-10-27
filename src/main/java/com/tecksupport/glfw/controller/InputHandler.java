@@ -21,6 +21,7 @@ public class InputHandler {
     private TexturedModel texturedModel;
     private RawModel square;
     private Entity entity;
+    private ModelData modelData;
 
     float[] vertices = {
             -0.5f, 0.5f, 0,
@@ -115,7 +116,7 @@ public class InputHandler {
 
 //        rawModel = loader.loadToVAO(vertices, textureCoords, indices);
 
-        rawModel = Model.loadModel("School", loader);
+        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
 
         texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 

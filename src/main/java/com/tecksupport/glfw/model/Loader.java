@@ -16,6 +16,13 @@ public class Loader {
     private final List<Integer> vbos = new ArrayList<>();
     private final List<Integer> textures = new ArrayList<>();
 
+    public RawModel loadToVAO(ModelData modelData) {
+        return loadToVAO(
+                modelData.getVertices(),
+                modelData.getTextureCoords(),
+                modelData.getIndices()
+        );
+    }
 
     public RawModel loadToVAO(float[] vertices, float[] textureCoords, int[] indices) {
         int vaoID = createVAO();

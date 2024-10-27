@@ -103,12 +103,6 @@ public class Shader {
         glUniformMatrix4fv(location, false, matrixBuffer);
     }
 
-    public void setUniformMat4(int location, Matrix4f matrix) {
-        matrix.get(matrixBuffer);
-//        matrixBuffer.flip();
-        glUniformMatrix4fv(location, false, matrixBuffer);
-    }
-
     public void bindAttributes() {
         glBindAttribLocation(programId, 0, "position");
         glBindAttribLocation(programId, 1, "aTex");
