@@ -120,7 +120,7 @@ public class InputHandler {
 
         texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 
-        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 1);
+        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
 
         camera = new Camera();
 //        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
@@ -134,7 +134,7 @@ public class InputHandler {
     public void run() {
         while (!window.shouldClose()) {
 //            entity.increasePosition(1, 1, 0);
-            entity.increaseRotation(0, 1, 0);
+//            entity.increaseRotation(0, 1, 0);
             processInput();
             renderer.prepare();
             shader.bind();
