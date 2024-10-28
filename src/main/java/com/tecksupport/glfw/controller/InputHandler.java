@@ -169,6 +169,12 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_LEFT_ALT) == GLFW_PRESS) {
             camera.down();
         }
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_Q) == GLFW_PRESS) {
+            camera.yawLeft();
+        }
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_E) == GLFW_PRESS) {
+            camera.yawRight();
+        }
         // Handle more inputs here
     }
 
