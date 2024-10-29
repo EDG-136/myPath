@@ -6,6 +6,12 @@ import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
 import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.system.Callback;
+import org.lwjgl.system.MemoryUtil;
+
+import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -22,86 +28,9 @@ public class InputHandler {
     private RawModel square;
     private Entity entity;
     private ModelData modelData;
-
-    float[] vertices = {
-            -0.5f, 0.5f, 0,
-            -0.5f, -0.5f, 0,
-            0.5f, -0.5f, 0,
-            0.5f, 0.5f, 0,
-
-            -0.5f, 0.5f, 1,
-            -0.5f, -0.5f, 1,
-            0.5f, -0.5f, 1,
-            0.5f, 0.5f, 1,
-
-            0.5f, 0.5f, 0,
-            0.5f, -0.5f, 0,
-            0.5f, -0.5f, 1,
-            0.5f, 0.5f, 1,
-
-            -0.5f, 0.5f, 0,
-            -0.5f, -0.5f, 0,
-            -0.5f, -0.5f, 1,
-            -0.5f, 0.5f, 1,
-
-            -0.5f, 0.5f, 1,
-            -0.5f, 0.5f, 0,
-            0.5f, 0.5f, 0,
-            0.5f, 0.5f, 1,
-
-            -0.5f, -0.5f, 1,
-            -0.5f, -0.5f, 0,
-            0.5f, -0.5f, 0,
-            0.5f, -0.5f, 1
-
-    };
-
-    float[] textureCoords = {
-
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0,
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0,
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0,
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0,
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0,
-            0, 0,
-            0, 1,
-            1, 1,
-            1, 0
-
-
-    };
-
-    int[] indices = {
-            0, 1, 3,
-            3, 1, 2,
-            4, 5, 7,
-            7, 5, 6,
-            8, 9, 11,
-            11, 9, 10,
-            12, 13, 15,
-            15, 13, 14,
-            16, 17, 19,
-            19, 17, 18,
-            20, 21, 23,
-            23, 21, 22
-
-
-    };
+    private Callback mouseMovement;
+    private Callback mouseButton;
+    private Vector3f mouseRotatePos = new Vector3f();
 
 
     public void init() {
@@ -127,8 +56,8 @@ public class InputHandler {
 //
 //        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
 //        shader.setUniform("camera", camMat);
-
-
+        mouseMovement = glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
+        mouseButton = glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
     }
 
     public void run() {
@@ -175,10 +104,44 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_E) == GLFW_PRESS) {
             camera.yawRight();
         }
-        // Handle more inputs here
+        // Mouse
+
+    }
+
+    void mouseButtonCallback(long window, int button, int action, int mods) {
+        if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+            DoubleBuffer yaw = BufferUtils.createDoubleBuffer(1);
+            DoubleBuffer pitch = BufferUtils.createDoubleBuffer(1);
+
+            glfwGetCursorPos(window, yaw, pitch);
+
+            mouseRotatePos.x = (float) yaw.get(0);
+            mouseRotatePos.y = (float) yaw.get(0);
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+        } else {
+            glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+        }
+    }
+
+    void cursorCallback(long window, double xPos, double yPos) {
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) != GLFW_PRESS)
+            return;
+        double yaw = xPos - mouseRotatePos.x;
+        double pitch = yPos - mouseRotatePos.y;
+
+        mouseRotatePos.x = (float) xPos;
+        mouseRotatePos.y = (float) yPos;
+
+        camera.addRotation((float) yaw, (float) pitch, 0);
     }
 
     public void cleanup() {
+        if (mouseMovement != null)
+            mouseMovement.free();
+
+        if (mouseButton != null)
+            mouseButton.free();
+
         shader.cleanup();
         loader.cleanUp();
         // renderer.cleanup();
