@@ -95,7 +95,7 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_SPACE) == GLFW_PRESS) {
             camera.up();
         }
-        if (glfwGetKey(window.getWindowID(), GLFW_KEY_LEFT_ALT) == GLFW_PRESS) {
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS) {
             camera.down();
         }
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_Q) == GLFW_PRESS) {
@@ -129,10 +129,10 @@ public class InputHandler {
         double yaw = xPos - mouseRotatePos.x;
         double pitch = yPos - mouseRotatePos.y;
 
+        camera.addRotation((float) pitch, (float) yaw, 0);
+
         mouseRotatePos.x = (float) xPos;
         mouseRotatePos.y = (float) yPos;
-
-        camera.addRotation((float) yaw, (float) pitch, 0);
     }
 
     public void cleanup() {
