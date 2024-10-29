@@ -19,6 +19,8 @@ public class Camera {
     private float yaw = 0.0f;
     private float roll;
 
+    private float speed = 1.0f;
+
 
     public Camera(){}
 
@@ -42,16 +44,35 @@ public class Camera {
     }
 
     public void forward(){
-        position.z-=0.4f;
+        float adjacentx = -Math.sin(Math.toRadians(-yaw));
+        float adjacentz = -Math.cos(Math.toRadians(-yaw));
+
+        position.x += adjacentx * speed;
+        position.z+= adjacentz * speed;
     }
     public void left(){
-        position.x-=0.4f;
+
+        float adjacentx = -Math.sin(Math.toRadians(yaw));
+        float adjacentz = -Math.cos(Math.toRadians(yaw));
+
+        position.x -= adjacentx * speed;
+        position.z-= adjacentz * speed;
     }
     public void right(){
-        position.x+=0.4f;
+        float adjacentx = Math.sin(Math.toRadians(yaw));
+        float adjacentz = Math.cos(Math.toRadians(yaw));
+
+        position.x -= adjacentx * speed;
+        position.z-= adjacentz * speed;
+
+
     }
     public void backward(){
-        position.z+=0.4f;
+        float adjacentx = Math.sin(Math.toRadians(-yaw));
+        float adjacentz = Math.cos(Math.toRadians(-yaw));
+
+        position.x += adjacentx * speed;
+        position.z+= adjacentz * speed;
     }
 
     public void up(){position.y += 0.4f;}
