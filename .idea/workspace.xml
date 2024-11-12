@@ -5,18 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/ClassInfoQueryTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/CourseInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/MySQLDatabase.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/Schedule.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/ClassInfoQueryTest.class" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/CourseInfo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/MySQLDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/MySQLDatabase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/Schedule.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/MySQLDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/UserAuthentication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +40,7 @@
     "JUnit.ClassInfoQueryTest.executor": "Debug",
     "JUnit.PathfinderTests.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Pathfinder",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",

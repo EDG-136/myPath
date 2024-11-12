@@ -1,12 +1,6 @@
 package com.tecksupport.database;
 
 public class Schedule {
-<<<<<<< Updated upstream
-    String name;
-    String time;
-    String courseName;
-    String location;
-=======
     private final int courseID;
     private final String facultyID;
     private final String startTime;
@@ -52,5 +46,4 @@ public class Schedule {
     public String getEndDate() {
         return endDate;
     }
->>>>>>> Stashed changes
 }

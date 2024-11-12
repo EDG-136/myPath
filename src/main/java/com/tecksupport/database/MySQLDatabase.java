@@ -1,14 +1,11 @@
 package com.tecksupport.database;
 
-<<<<<<< Updated upstream
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-=======
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
->>>>>>> Stashed changes
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,19 +22,11 @@ public class MySQLDatabase {
         this.url = "jdbc:mysql://" + url;
         this.sqlUsername = sqlUsername;
         this.sqlPassword = sqlPassword;
-<<<<<<< Updated upstream
-        Connect();
-    }
-
-    void Connect() {
-        try {
-=======
     }
 
     public void Connect() {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
->>>>>>> Stashed changes
             connection = DriverManager.getConnection(
                     url,
                     sqlUsername,
@@ -45,19 +34,14 @@ public class MySQLDatabase {
             );
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "MySQL can't connect!", e);
-<<<<<<< Updated upstream
-=======
         } catch (ClassNotFoundException e) {
             logger.log(Level.SEVERE, "JDBC Driver not found!", e);
->>>>>>> Stashed changes
         }
     }
 
     Connection getConnection() {
         return connection;
     }
-<<<<<<< Updated upstream
-=======
 
     public CourseInfo getCourseInfo(int courseID) {
         try {
@@ -150,5 +134,4 @@ public class MySQLDatabase {
             throw new RuntimeException(e);
         }
     }
->>>>>>> Stashed changes
 }
