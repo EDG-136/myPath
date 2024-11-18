@@ -5,6 +5,12 @@ import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
+import imgui.ImGui;
+import imgui.flag.ImGuiCond;
+import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.ImGuiDir;
+import imgui.gl3.ImGuiImplGl3;
+import imgui.glfw.ImGuiImplGlfw;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.system.Callback;
@@ -29,6 +35,11 @@ public class InputHandler {
     private Callback mouseMovement;
     private Callback mouseButton;
     private Vector3f mouseRotatePos = new Vector3f();
+    private DoubleBuffer yaw = BufferUtils.createDoubleBuffer(1);
+    private DoubleBuffer pitch = BufferUtils.createDoubleBuffer(1);
+
+    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
+    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
     float[] vertices = {
             -0.5f, 0.5f, 0,
@@ -138,10 +149,16 @@ public class InputHandler {
         mouseMovement = glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         mouseButton = glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
 
+        System.out.println("Initializing ImGui");
+        ImGui.createContext();
+        imGuiGlfw.init(window.getWindowID(), true);
+        imGuiGl3.init(window.getGlslVersion());
+        System.out.println("Initialized ImGui");
     }
 
     public void run() {
         while (!window.shouldClose()) {
+            startFrameImGui();
 //            entity.increasePosition(1, 1, 0);
 //            entity.increaseRotation(0, 1, 0);
             processInput();
@@ -154,6 +171,10 @@ public class InputHandler {
 //            renderer.render(rawModel);
 //            renderer.render(entity, shader);
             shader.unbind();
+
+            ImGui.showDemoWindow();
+
+            endFrameImGui();
             window.update();
         }
         cleanup();
@@ -190,8 +211,6 @@ public class InputHandler {
 
     void mouseButtonCallback(long window, int button, int action, int mods) {
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-            DoubleBuffer yaw = BufferUtils.createDoubleBuffer(1);
-            DoubleBuffer pitch = BufferUtils.createDoubleBuffer(1);
 
             glfwGetCursorPos(window, yaw, pitch);
 
@@ -220,7 +239,27 @@ public class InputHandler {
         loader.cleanUp();
         // renderer.cleanup();
         // mesh.cleanup();
+        imGuiGl3.shutdown();
+        imGuiGlfw.shutdown();
+        ImGui.destroyContext();
         window.cleanup();
     }
 
+    void startFrameImGui() {
+        imGuiGl3.newFrame();
+        imGuiGlfw.newFrame();
+        ImGui.newFrame();
+    }
+
+    void endFrameImGui() {
+        ImGui.render();
+        imGuiGl3.renderDrawData(ImGui.getDrawData());
+
+        if (ImGui.getIO().hasConfigFlags(ImGuiConfigFlags.ViewportsEnable)) {
+            final long backupWindowPtr = glfwGetCurrentContext();
+            ImGui.updatePlatformWindows();
+            ImGui.renderPlatformWindowsDefault();
+            glfwMakeContextCurrent(backupWindowPtr);
+        }
+    }
 }

@@ -142,4 +142,8 @@ public class Window {
         glfwGetWindowSize(windowHandle, null, h);
         return h.get(0);
     }
+
+    public String getGlslVersion() {
+        return glslVersion;
+    }
 }
