@@ -5,10 +5,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/MySQLDatabase.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/Schedule.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/UserAuthentication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/UserAuthentication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/src/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/LoginPage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GUI/src/mainSidebar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/mainSidebar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/UserSchedules.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BuildingCoordinates.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Node.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Pathfinder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Visual.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/MySQLDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/MySQLDatabase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/Schedule.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserAuthentication.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserSchedules.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Camera.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Camera.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/services/DistanceMatrixService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/services/OSMNode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/services/OSMParser.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/services/OSMWay.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,25 +58,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "JUnit.ClassInfoQueryTest.executor": "Debug",
-    "JUnit.PathfinderTests.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.1256584"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LoginPage.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.mainSidebar.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ClassInfoQueryTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.PathfinderTests.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.1256584&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/com/tecksupport" />
       <recent name="C:\Users\gorek\For-resume\pathfinder_algorithum\CampusGraph\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.GUI">
+    <configuration name="GUI" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.tecksupport.GUI.LoginPage" />
+      <module name="MyPath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <envs>
         <env name="ORS_API_KEY" value="5b3ce3597851110001cf6248b1f4cd365d7c45eeaced5f4c2d025be7" />
@@ -73,6 +107,7 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.GUI" />
       <item itemvalue="Application.Main" />
       <item itemvalue="JUnit.PathfinderTests" />
     </list>

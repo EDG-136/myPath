@@ -1,3 +1,5 @@
+package com.tecksupport.GUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -76,7 +78,7 @@ public class LoginPage {
                     messageLabel.setText("Login successful!");
                     messageLabel.setForeground(Color.GREEN);
                     loginFrame.dispose();
-                    //new mainSidebar();
+                    new mainSidebar();
                 } else {
                     messageLabel.setText("Invalid username or password.");
                     messageLabel.setForeground(Color.RED);

@@ -7,11 +7,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="MyPath" />
-<<<<<<< Updated upstream
         <module name="myPath" />
-=======
         <module name="CampusGraph" />
->>>>>>> Stashed changes
       </profile>
     </annotationProcessing>
   </component>

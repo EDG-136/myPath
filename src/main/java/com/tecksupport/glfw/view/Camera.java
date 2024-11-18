@@ -12,17 +12,21 @@ import java.util.Vector;
 import static org.lwjgl.opengl.GL20.*;
 
 public class Camera {
-
+    private static final float MOVE_SPEED = 1.2f;
+    private static final float ROTATE_SENSITIVE = 0.1f;
     private Vector3f position = new Vector3f(0,0,0);
-
     private float pitch;
     private float yaw = 0.0f;
     private float roll;
 
-    private float speed = 1.0f;
-
 
     public Camera(){}
+
+    public void addRotation(float pitch, float yaw, float roll) {
+        this.yaw += yaw * ROTATE_SENSITIVE;
+        this.pitch += pitch * ROTATE_SENSITIVE;
+        this.roll += roll * ROTATE_SENSITIVE;
+    }
 
     public Vector3f getPosition() {
         return position;
@@ -44,43 +48,46 @@ public class Camera {
     }
 
     public void forward(){
-        float adjacentx = -Math.sin(Math.toRadians(-yaw));
-        float adjacentz = -Math.cos(Math.toRadians(-yaw));
+        float xVector = -Math.sin(Math.toRadians(-yaw));
+        float zVector = -Math.cos(Math.toRadians(-yaw));
 
-        position.x += adjacentx * speed;
-        position.z+= adjacentz * speed;
+        position.x += xVector * MOVE_SPEED;
+        position.z += zVector * MOVE_SPEED;
     }
     public void left(){
+        float xVector = -Math.cos(Math.toRadians(yaw));
+        float zVector = -Math.sin(Math.toRadians(yaw));
 
-        float adjacentx = -Math.sin(Math.toRadians(yaw));
-        float adjacentz = -Math.cos(Math.toRadians(yaw));
-
-        position.x -= adjacentx * speed;
-        position.z-= adjacentz * speed;
+        position.x += xVector * MOVE_SPEED;
+        position.z += zVector * MOVE_SPEED;
     }
-    public void right(){
-        float adjacentx = Math.sin(Math.toRadians(yaw));
-        float adjacentz = Math.cos(Math.toRadians(yaw));
+    public void right() {
+        float xVector = Math.cos(Math.toRadians(yaw));
+        float zVector = Math.sin(Math.toRadians(yaw));
 
-        position.x -= adjacentx * speed;
-        position.z-= adjacentz * speed;
-
-
+        position.x += xVector * MOVE_SPEED;
+        position.z += zVector * MOVE_SPEED;
     }
     public void backward(){
-        float adjacentx = Math.sin(Math.toRadians(-yaw));
-        float adjacentz = Math.cos(Math.toRadians(-yaw));
+        float xVector = Math.sin(Math.toRadians(-yaw));
+        float zVector = Math.cos(Math.toRadians(-yaw));
 
-        position.x += adjacentx * speed;
-        position.z+= adjacentz * speed;
+        position.x += xVector * MOVE_SPEED;
+        position.z += zVector * MOVE_SPEED;
     }
 
-    public void up(){position.y += 0.4f;}
-    public void down(){position.y -= 0.4f;}
+    public void up(){
+        position.y += MOVE_SPEED;
+    }
+    public void down() {
+        position.y -= MOVE_SPEED;
+    }
 
     public void yawLeft(){
-        yaw -= 0.4f;
+        yaw -= MOVE_SPEED;
     }
-    public void yawRight(){yaw += 0.4f;}
+    public void yawRight(){
+        yaw += MOVE_SPEED;
+    }
 
 }

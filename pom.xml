@@ -19,7 +19,7 @@
 
     <profiles>
         <profile>
-<<<<<<< Updated upstream
+
             <id>lwjgl-natives-macos-x86_64</id>
             <activation>
                 <os>
@@ -29,7 +29,7 @@
             </activation>
             <properties>
                 <lwjgl.natives>natives-macos</lwjgl.natives>
-=======
+
             <id>lwjgl-natives-macos-aarch64</id>
             <activation>
                 <os>
@@ -39,7 +39,7 @@
             </activation>
             <properties>
                 <lwjgl.natives>natives-macos-arm64</lwjgl.natives>
->>>>>>> Stashed changes
+
             </properties>
         </profile>
         <profile>
@@ -88,7 +88,7 @@
         <dependency>
             <groupId>org.lwjgl</groupId>
             <artifactId>lwjgl-opengl</artifactId>
-<<<<<<< Updated upstream
+
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
@@ -149,7 +149,7 @@
             <artifactId>annotations</artifactId>
             <version>24.0.0</version>
             <scope>compile</scope>
-=======
+
         </dependency>
         <dependency>
             <groupId>org.lwjgl</groupId>
@@ -220,7 +220,7 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20240303</version>
->>>>>>> Stashed changes
+
         </dependency>
     </dependencies>
 

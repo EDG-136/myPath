@@ -1,3 +1,5 @@
+package com.tecksupport.GUI;
+
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
@@ -19,7 +21,7 @@ public class mainSidebar extends JFrame {
 
         JFrame newFrame = new JFrame("Main Page");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        newFrame.setSize(226, 500);
+        newFrame.setSize(700, 500);
         newFrame.setLayout(new BorderLayout());
 
         JPanel mainButtonsPanel = new JPanel();
