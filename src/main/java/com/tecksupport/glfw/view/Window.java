@@ -22,6 +22,7 @@ public class Window {
     private final int height;
     private final String title;
     private final boolean resized;
+    private String glslVersion = null;
 
     private GLFWKeyCallback keyCallback;
 
@@ -46,10 +47,7 @@ public class Window {
 
         // Configure GLFW: Setting hints for the window (OpenGL version, etc.)
         glfwDefaultWindowHints();
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // OpenGL 3.x
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE); // Forward compatible profile
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        decideGlGlslVersions();
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE); // Window is initially hidden
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE); // Enable resizing
 
@@ -84,6 +82,21 @@ public class Window {
         GL.createCapabilities();
 
         glfwSetWindowSizeCallback(windowHandle, this::onSizeCallBack);
+    }
+
+    private void decideGlGlslVersions() {
+        final boolean isMac = System.getProperty("os.name").toLowerCase().contains("mac");
+        if (isMac) {
+            glslVersion = "#version 150";
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+            glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+            glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);          // Required on Mac
+        } else {
+            glslVersion = "#version 130";
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+            glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+        }
     }
 
     public void onSizeCallBack(long window, int width, int height) {
