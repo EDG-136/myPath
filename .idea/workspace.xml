@@ -5,34 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/src/LoginPage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/LoginPage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GUI/src/mainSidebar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/mainSidebar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/UserSchedules.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Renderer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/BuildingCoordinates.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main$2.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main$3.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Main.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Pathfinder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Visual.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/MySQLDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/MySQLDatabase.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/Schedule.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserAuthentication.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserAuthentication.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserSchedules.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Camera.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Camera.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/services/DistanceMatrixService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/services/OSMNode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/services/OSMParser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/services/OSMWay.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
