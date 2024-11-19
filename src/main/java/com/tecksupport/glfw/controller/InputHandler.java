@@ -39,11 +39,8 @@ public class InputHandler {
     private RawModel square;
     private Entity entity;
     private ModelData modelData;
-    private Callback mouseMovement;
-    private Callback mouseButton;
-    private Vector3f mouseRotatePos = new Vector3f();
-    private DoubleBuffer yaw = BufferUtils.createDoubleBuffer(1);
-    private DoubleBuffer pitch = BufferUtils.createDoubleBuffer(1);
+    private double oldYaw;
+    private double oldPitch;
 
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
@@ -568,8 +565,8 @@ public class InputHandler {
 //        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
 //        shader.setUniform("camera", camMat);
 
-        mouseMovement = glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
-        mouseButton = glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
+        glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
+        glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
 
         System.out.println("Initializing ImGui");
         ImGui.createContext();
@@ -633,11 +630,6 @@ public class InputHandler {
 
     void mouseButtonCallback(long window, int button, int action, int mods) {
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
-
-            glfwGetCursorPos(window, yaw, pitch);
-
-            mouseRotatePos.x = (float) yaw.get(0);
-            mouseRotatePos.y = (float) pitch.get(0);
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
         } else {
             glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
@@ -645,15 +637,19 @@ public class InputHandler {
     }
 
     void cursorCallback(long window, double xPos, double yPos) {
-        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) != GLFW_PRESS)
+        if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) != GLFW_PRESS) {
+            oldYaw = xPos;
+            oldPitch = yPos;
             return;
-        double yaw = xPos - mouseRotatePos.x;
-        double pitch = yPos - mouseRotatePos.y;
+        }
+
+        double yaw = xPos - oldYaw;
+        double pitch = yPos - oldPitch;
 
         camera.addRotation((float) pitch, (float) yaw, 0);
 
-        mouseRotatePos.x = (float) xPos;
-        mouseRotatePos.y = (float) yPos;
+        oldYaw = xPos;
+        oldPitch = yPos;
     }
 
     public void cleanup() {
