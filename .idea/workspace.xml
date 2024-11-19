@@ -4,11 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
     </list>
@@ -70,7 +67,7 @@
       <recent name="C:\Users\gorek\For-resume\pathfinder_algorithum\CampusGraph\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.GUI">
+  <component name="RunManager">
     <configuration name="GUI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.tecksupport.GUI.LoginPage" />
       <module name="MyPath" />
@@ -118,6 +115,19 @@
       <option name="presentableId" value="Default" />
       <updated>1730938481219</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey">
+      <option name="closed" value="true" />
+      <created>1732025184408</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1732025184408</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey" />
   </component>
 </project>

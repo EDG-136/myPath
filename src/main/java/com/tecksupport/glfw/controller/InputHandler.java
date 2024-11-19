@@ -174,44 +174,44 @@ public class InputHandler {
         CategoryNode academicHalls = new CategoryNode("Academic Halls");
         CategoryNode serviceBuildings = new CategoryNode("Service Buildings");
         //Academic Halls
-        academicHalls.addSubcategory(new CategoryNode("Academic Hall", "Details about Academic Hall."));
-        academicHalls.addSubcategory(new CategoryNode("Arts Building", "Details about Arts Building."));
-        academicHalls.addSubcategory(new CategoryNode("Extended Learning Building", "Details about Extended Learning Building."));
-        academicHalls.addSubcategory(new CategoryNode("Markstein Hall", "Details about Markstein Hall."));
-        academicHalls.addSubcategory(new CategoryNode("Science Hall 1", "Details about Science Hall 1."));
-        academicHalls.addSubcategory(new CategoryNode("Science Hall 2", "Details about Science Hall 2."));
-        academicHalls.addSubcategory(new CategoryNode("Social & Behavioral Sciences Building", "Details about Social & Behavioral Sciences Building."));
-        academicHalls.addSubcategory(new CategoryNode("University Commons", "Details about University Commons."));
-        academicHalls.addSubcategory(new CategoryNode("University Hall", "Details about University Hall."));
-        academicHalls.addSubcategory(new CategoryNode("Viasat Engineering Pavilion", "Details about Viasat Engineering Pavilion."));
+        academicHalls.addSubcategory(new CategoryNode("Academic Hall"));
+        academicHalls.addSubcategory(new CategoryNode("Arts Building"));
+        academicHalls.addSubcategory(new CategoryNode("Extended Learning Building"));
+        academicHalls.addSubcategory(new CategoryNode("Markstein Hall"));
+        academicHalls.addSubcategory(new CategoryNode("Science Hall 1"));
+        academicHalls.addSubcategory(new CategoryNode("Science Hall 2"));
+        academicHalls.addSubcategory(new CategoryNode("Social & Behavioral Sciences Building"));
+        academicHalls.addSubcategory(new CategoryNode("University Commons"));
+        academicHalls.addSubcategory(new CategoryNode("University Hall"));
+        academicHalls.addSubcategory(new CategoryNode("Viasat Engineering Pavilion"));
         // Service Buildings
-        serviceBuildings.addSubcategory(new CategoryNode("Administrative Building", "Details about Academic Hall."));
-        serviceBuildings.addSubcategory(new CategoryNode("Center for Children & Families", "Details about Arts Building."));
-        serviceBuildings.addSubcategory(new CategoryNode("Epstein Family Veterans Center", "Details about Markstein Hall."));
-        serviceBuildings.addSubcategory(new CategoryNode("Kellogg Library", "Details about Science Hall 1."));
-        serviceBuildings.addSubcategory(new CategoryNode("M. Gordon Clarke Fieldhouse", "Details about Science Hall 2."));
-        serviceBuildings.addSubcategory(new CategoryNode("McMahan House", "Details about Social & Behavioral Sciences Building."));
-        serviceBuildings.addSubcategory(new CategoryNode("Public Safety Building", "Details about University Commons."));
-        serviceBuildings.addSubcategory(new CategoryNode("Sports Center", "Details about University Hall."));
-        serviceBuildings.addSubcategory(new CategoryNode("Student Health & Counseling Services Building", "Details about Viasat Engineering Pavilion."));
-        serviceBuildings.addSubcategory(new CategoryNode("University Student Union", "Details about Extended Learning Building."));
+        serviceBuildings.addSubcategory(new CategoryNode("Administrative Building"));
+        serviceBuildings.addSubcategory(new CategoryNode("Center for Children & Families"));
+        serviceBuildings.addSubcategory(new CategoryNode("Epstein Family Veterans Center"));
+        serviceBuildings.addSubcategory(new CategoryNode("Kellogg Library"));
+        serviceBuildings.addSubcategory(new CategoryNode("M. Gordon Clarke Fieldhouse"));
+        serviceBuildings.addSubcategory(new CategoryNode("McMahan House"));
+        serviceBuildings.addSubcategory(new CategoryNode("Public Safety Building"));
+        serviceBuildings.addSubcategory(new CategoryNode("Sports Center"));
+        serviceBuildings.addSubcategory(new CategoryNode("Student Health & Counseling Services Building"));
+        serviceBuildings.addSubcategory(new CategoryNode("University Student Union"));
         // Add Academic Halls and Service Buildings to Buildings category
         buildings.addSubcategory(academicHalls);
         buildings.addSubcategory(serviceBuildings);
         //Health & Safety category
         CategoryNode healthSafety = new CategoryNode("Health & Safety");
-        healthSafety.addSubcategory(new CategoryNode("Emergency Phones", "Details about emergency phones on campus."));
-        healthSafety.addSubcategory(new CategoryNode("AED Locations", "Locations of Automated External Defibrillators."));
-        healthSafety.addSubcategory(new CategoryNode("Lactation Rooms", "Details about lactation rooms."));
-        healthSafety.addSubcategory(new CategoryNode("Public Safety Building", "Details about lactation rooms."));
-        healthSafety.addSubcategory(new CategoryNode("Student Health & Counseling Services Building", "Details about lactation rooms."));
+        healthSafety.addSubcategory(new CategoryNode("Emergency Phones"));
+        healthSafety.addSubcategory(new CategoryNode("AED Locations"));
+        healthSafety.addSubcategory(new CategoryNode("Lactation Rooms"));
+        healthSafety.addSubcategory(new CategoryNode("Public Safety Building"));
+        healthSafety.addSubcategory(new CategoryNode("Student Health & Counseling Services Building"));
         //Parking & Transit
         CategoryNode ParkingTransit = new CategoryNode("Parking & Transit");
-        ParkingTransit.addSubcategory(new CategoryNode("Emergency Phones", "Details about emergency phones on campus."));
-        ParkingTransit.addSubcategory(new CategoryNode("AED Locations", "Locations of Automated External Defibrillators."));
-        ParkingTransit.addSubcategory(new CategoryNode("Lactation Rooms", "Details about lactation rooms."));
-        ParkingTransit.addSubcategory(new CategoryNode("Public Safety Building", "Details about lactation rooms."));
-        ParkingTransit.addSubcategory(new CategoryNode("Student Health & Counseling Services Building", "Details about lactation rooms."));
+        ParkingTransit.addSubcategory(new CategoryNode("Emergency Phones"));
+        ParkingTransit.addSubcategory(new CategoryNode("AED Locations"));
+        ParkingTransit.addSubcategory(new CategoryNode("Lactation Rooms"));
+        ParkingTransit.addSubcategory(new CategoryNode("Public Safety Building"));
+        ParkingTransit.addSubcategory(new CategoryNode("Student Health & Counseling Services Building"));
         // Add main categories to root
         root.addSubcategory(buildings);
         root.addSubcategory(healthSafety);
@@ -269,111 +269,159 @@ public class InputHandler {
     public void init() {
         NavigationUI();
         // Existing building messages
-        buildingMessages.put("Academic Hall", "<html>Academic Hall\n" +
+        buildingMessages.put("Academic Hall", "Academic Hall\n" +
                 "Acronym: ACD, Building No. 14\n" +
-                "One of the three original buildings on campus, Academic Hall was the first to provide lecture classroom and computer lab space, " +
-                "including a 145-seat, stadium-style lecture hall. Academic Hall features the campus’ landmark clock tower, which is also present on CSUSM’s campus logo. " +
-                "First-year students are frequent visitors to the building, which is home to many general education classes.</html>");
+                "One of the three original buildings on campus, Academic Hall was the first to provide lecture" +
+                " classroom and computer lab space, " +
+                "including a 145-seat, stadium-style lecture hall. Academic Hall features the campus’ landmark clock tower," +
+                " which is also present on CSUSM’s campus logo. " +
+                "First-year students are frequent visitors to the building, which is home to many general education classes.");
 
-        buildingMessages.put("Arts Building", "<html>Arts Building\n" +
+        buildingMessages.put("Arts Building", "Arts Building\n" +
                 "Acronym: ARTS, Building No. 26-27\n" +
-                "Built as part of a master-planned second phase of the original campus buildings, the Arts Building opened in 2003 and serves as the home of the university’s School of Arts. " +
-                "The building includes music and recording studios, a lobby art gallery, a 150-seat performance hall, a dance studio and much more.</html>");
+                "Built as part of a master-planned second phase of the original campus buildings," +
+                " the Arts Building opened in 2003 and serves as the home of the university’s School of Arts. " +
+                "The building includes music and recording studios, a lobby art gallery, a 150-seat performance hall," +
+                " a dance studio and much more.");
 
-        buildingMessages.put("Extended Learning Building", "<html>Extended Learning Building\n" +
-                "The largest academic building on campus, the 135,000-square-foot Extended Learning building brought all Extended Learning operations under one roof for the first time when it opened in 2019. " +
-                "It was the first academic building in California established through a unique public-private partnership, requiring no state funds for its design, planning or construction. " +
-                "It is also home to student support centers, community outreach centers, lab and research facilities, the STEM Education Center and the Innovation Hub.</html>");
+        buildingMessages.put("Extended Learning Building", "Extended Learning Building\n" +
+                "The largest academic building on campus, the 135,000-square-foot Extended Learning building brought all" +
+                " Extended Learning operations under one roof for the first time when it opened in 2019. " +
+                "It was the first academic building in California established through a unique " +
+                "public-private partnership, requiring no state funds for its design, planning or construction. " +
+                "It is also home to student support centers, community outreach centers, lab and research facilities," +
+                " the STEM Education Center and the Innovation Hub.");
 
-        buildingMessages.put("Markstein Hall", "<html>Markstein Hall\n" +
+        buildingMessages.put("Markstein Hall", "Markstein Hall\n" +
                 "Acronym: MARK, Building No. 13\n" +
-                "The name of the building, home to the College of Business Administration, honors the owners of the San Marcos-based Markstein Beverage Co., who recognized the importance of helping build a strong program for business students. " +
-                "Today, Markstein Hall is the central hub of business leadership in the region, offering signature programs such as the Center for Leadership Innovation and Mentorship Building, In the Executive’s Chair and Senior Experience, among others.</html>");
+                "The name of the building, home to the College of Business Administration, honors the owners of the " +
+                "San Marcos-based Markstein Beverage Co., who recognized the importance of helping build a strong program for" +
+                " business students. " +
+                "Today, Markstein Hall is the central hub of business leadership in the region, " +
+                "offering signature programs such as the Center for Leadership Innovation and Mentorship " +
+                "Building, In the Executive’s Chair and Senior Experience, among others.");
 
-        buildingMessages.put("Science Hall 1", "<html>Science Hall 1\n" +
+        buildingMessages.put("Science Hall 1", "Science Hall 1\n" +
                 "Acronym: SCI1, Building No. 3\n" +
                 "One of the three original buildings on campus, Science Hall 1 houses numerous labs, offices and classrooms. " +
-                "The entrance to the building is a popular destination for students, faculty, and staff, who have been visiting the Campus Coffee cart for more than 15 years.</html>");
+                "The entrance to the building is a popular destination for students, faculty, and staff, " +
+                "who have been visiting the Campus Coffee cart for more than 15 years.");
 
-        buildingMessages.put("Science Hall 2", "<html>Science Hall 2\n" +
+        buildingMessages.put("Science Hall 2", "Science Hall 2\n" +
                 "Acronym: SCI2, Building No. 37\n" +
-                "Though first-time visitors sometimes confuse it with Science Hall 1, CSUSM's second science building is located on the east side of campus between the University Student Union and the parking structure. " +
-                "The building’s opening in 2003 provided much-needed additional lab and classroom space.</html>");
+                "Though first-time visitors sometimes confuse it with Science Hall 1," +
+                " CSUSM's second science building is located on the east side of campus between the University" +
+                " Student Union and the parking structure. " +
+                "The building’s opening in 2003 provided much-needed additional lab and classroom space.");
 
-        buildingMessages.put("Social & Behavioral Sciences Building", "<html>Social & Behavioral Sciences Building\n" +
+        buildingMessages.put("Social & Behavioral Sciences Building", "Social & Behavioral Sciences Building\n" +
                 "Acronym: SBSB, Building No. 31\n" +
-                "Referred to as SBSB for short, the Social & Behavioral Sciences Building is home to the College of Humanities, Arts, Behavioral, and Social Sciences. " +
-                "The university’s largest college has two dozen departments that offer an exciting variety of degrees and programs that make up the core of a liberal arts education at CSUSM.</html>");
+                "Referred to as SBSB for short, the Social & Behavioral Sciences Building" +
+                " is home to the College of Humanities, Arts, Behavioral, and Social Sciences. " +
+                "The university’s largest college has two dozen departments that offer an exciting" +
+                " variety of degrees and programs that make up the core of a liberal arts education at CSUSM.");
 
-        buildingMessages.put("University Commons", "<html>University Commons\n" +
+        buildingMessages.put("University Commons", "University Commons\n" +
                 "Acronym: COM, Building No. 2\n" +
-                "Built as part of CSUSM’s initial core buildings, Commons is best known as the location of the University Bookstore, where students, faculty, staff, and community members can find everything from branded merchandise, souvenirs, school supplies, and spirit apparel to computers, technological accessories, and textbooks.</html>");
+                "Built as part of CSUSM’s initial core buildings, Commons is best known as the location " +
+                "of the University Bookstore, where students, faculty, staff, and community members can" +
+                " find everything from branded merchandise, souvenirs, school supplies, and spirit apparel to computers," +
+                " technological accessories, and textbooks.");
 
-        buildingMessages.put("University Hall", "<html>University Hall\n" +
+        buildingMessages.put("University Hall", "University Hall\n" +
                 "Acronym: UNIV, Building No. 15\n" +
-                "Opened in 1998, University Hall served as a model for future buildings on campus as its array of classroom configurations helped to determine how students respond to different methods of learning. " +
-                "Today, University Hall is home to the College of Education, Health, and Human Services, which includes the School of Education and the School of Nursing as well as departments in human development, kinesiology, public health, social work, and speech-language pathology.</html>");
+                "Opened in 1998, University Hall served as a model for future buildings on campus as its array" +
+                " of classroom configurations helped to determine how students respond to different methods of learning. " +
+                "Today, University Hall is home to the College of Education, Health, and Human Services, which" +
+                " includes the School of Education and the School of Nursing as well as departments" +
+                " in human development, kinesiology, public health, social work, and speech-language pathology.");
 
-        buildingMessages.put("Viasat Engineering Pavilion", "<html>Viasat Engineering Pavilion\n" +
-                "An extensive renovation was completed in spring 2020, turning the former Foundation Classroom Building into a state-of-the-art home for the university’s electrical and software engineering programs. " +
-                "The pavilion is named in honor of the Carlsbad-based global communications company that provided a $1.5 million gift to become the founding partner of CSUSM’s engineering programs.</html>");
+        buildingMessages.put("Viasat Engineering Pavilion", "Viasat Engineering Pavilion\n" +
+                "An extensive renovation was completed in spring 2020, turning the former Foundation Classroom" +
+                " Building into a state-of-the-art home for the university’s electrical and software engineering programs. " +
+                "The pavilion is named in honor of the Carlsbad-based global communications company that provided a" +
+                " $1.5 million gift to become the founding partner of CSUSM’s engineering programs.");
 
         // Add service building messages here
-        buildingMessages.put("Administrative Building", "<html>Administrative Building\n" +
+        buildingMessages.put("Administrative Building", "Administrative Building\n" +
                 "Acronym: ADM, Building No. 1\n" +
-                "The Administrative Building, easily recognized by its iconic rotunda, is home to the university's administrative offices, " +
-                "including the Office of the President. Students are frequent visitors to the third floor and Cougar Central, a one-stop location for Admissions & Student Outreach, " +
-                "Financial Aid and Scholarships, Office of the Registrar, and Student Financial Services.</html>");
+                "The Administrative Building, easily recognized by its iconic rotunda, is home to the university's" +
+                " administrative offices, " +
+                "including the Office of the President. Students are frequent visitors to the third floor and" +
+                " Cougar Central, a one-stop location for Admissions & Student Outreach, " +
+                "Financial Aid and Scholarships, Office of the Registrar, and Student Financial Services.");
 
-        buildingMessages.put("Center for Children & Families", "<html>Center for Children & Families\n" +
+        buildingMessages.put("Center for Children & Families", "Center for Children & Families\n" +
                 "Acronym: CCF, Building No. 22\n" +
-                "Since opening in 2007, CSUSM’s on-campus child-care center has provided convenient, quality care to the families of students, faculty, staff, and the greater community. " +
-                "CCF offers child care and preschool education to children from 6 weeks to 5 years old in a state-of-the-art facility that includes 12 spacious classrooms, three age-specific playgrounds, " +
-                "a full-service kitchen, a kid's kitchen, a children's garden, and internet-accessible cameras.</html>");
+                "Since opening in 2007, CSUSM’s on-campus child-care center has provided convenient," +
+                " quality care to the families of students, faculty, staff, and the greater community. " +
+                "CCF offers child care and preschool education to children from 6 weeks to 5 years old " +
+                "in a state-of-the-art facility that includes 12 spacious classrooms, three age-specific playgrounds, " +
+                "a full-service kitchen, a kid's kitchen, a children's garden, and internet-accessible cameras.");
 
-        buildingMessages.put("Epstein Family Veterans Center", "<html>Epstein Family Veterans Center\n" +
+        buildingMessages.put("Epstein Family Veterans Center", "Epstein Family Veterans Center\n" +
                 "Acronym: VET, Building No. 4\n" +
-                "CSUSM has the highest percentage per capita of student veterans of any California State University campus and proudly serves more than 1,700 military-connected students. " +
-                "The original Veterans Center building was donated to CSUSM in 2014 by students at Stevens Institute of Technology in New Jersey. " +
-                "An extensive renovation and expansion was completed in 2019, providing all of the resources our student veterans and their families need to achieve their academic and career goals.</html>");
+                "CSUSM has the highest percentage per capita of student veterans of any California State University campus" +
+                " and proudly serves more than 1,700 military-connected students. " +
+                "The original Veterans Center building was donated to CSUSM in 2014 by students at Stevens Institute" +
+                " of Technology in New Jersey. " +
+                "An extensive renovation and expansion was completed in 2019, providing all of the resources our" +
+                " student veterans and their families need to achieve their academic and career goals.");
 
-        buildingMessages.put("Kellogg Library", "<html>Kellogg Library\n" +
+        buildingMessages.put("Kellogg Library", "Kellogg Library\n" +
                 "Acronym: KEL, Building No. 17\n" +
-                "Named after Keith Kellogg II, grandson of the famed cereal company magnate, Kellogg Library is an essential partner in teaching and learning, research, and community engagement at CSUSM. " +
-                "The five-story, 200,000-square-foot building, which opened in 2004, includes a 24/5 Zone, available to students, faculty, and staff around the clock, five days a week. " +
-                "The Starbucks located near the main entrance is a popular spot throughout the day.</html>");
+                "Named after Keith Kellogg II, grandson of the famed cereal company magnate, Kellogg Library is an " +
+                "essential partner in teaching and learning, research, and community engagement at CSUSM. " +
+                "The five-story, 200,000-square-foot building, which opened in 2004, includes a 24/5 Zone, available" +
+                " to students, faculty, and staff around the clock, five days a week. " +
+                "The Starbucks located near the main entrance is a popular spot throughout the day.");
 
-        buildingMessages.put("M. Gordon Clarke Fieldhouse", "<html>M. Gordon Clarke Fieldhouse\n" +
+        buildingMessages.put("M. Gordon Clarke Fieldhouse", "M. Gordon Clarke Fieldhouse\n" +
                 "Acronym: CFH, Building No. 23\n" +
-                "Affectionately known as “The Clarke,” the M. Gordon Clarke Field House provided the first on-campus recreation and meeting space for students. " +
-                "Completed in 2003, the building includes a fitness center, gymnasium, locker rooms, a catering kitchen, conference rooms, and office space for Campus Recreation and Cougar Athletics.</html>");
+                "Affectionately known as “The Clarke,” the M. Gordon Clarke Field House provided the first on-campus recreation" +
+                " and meeting space for students. " +
+                "Completed in 2003, the building includes a fitness center, gymnasium, locker rooms, " +
+                "a catering kitchen, conference rooms, and office space for Campus Recreation and Cougar Athletics.");
 
-        buildingMessages.put("McMahan House", "<html>McMahan House\n" +
+        buildingMessages.put("McMahan House", "McMahan House\n" +
                 "Acronym: MCM, Building No. 50\n" +
-                "Built in 2009, the McMahan House is a picturesque on-campus gathering place for conferences, receptions, and even weddings. " +
-                "Once considered as a location for a permanent residence for the university’s president, the McMahan House is composed of four buildings – a great room, a library, " +
-                "a retreat room, and a tower room – connected by pedestrian walkways and a central courtyard that can accommodate up to 175 people.</html>");
-        buildingMessages.put("Sports Center", "<html>Sports Center\n" +
+                "Built in 2009, the McMahan House is a picturesque on-campus gathering place for conferences, receptions," +
+                " and even weddings. " +
+                "Once considered as a location for a permanent residence for the university’s president, " +
+                "the McMahan House is composed of four buildings – a great room, a library, " +
+                "a retreat room, and a tower room – connected by pedestrian walkways and a central courtyard " +
+                "that can accommodate up to 175 people.");
+        buildingMessages.put("Sports Center", "Sports Center\n" +
                 "Acronym: SC, Building No. 24A\n" +
-                "With seating for 1,400, the Sports Center has been the home of men’s and women’s basketball and women’s volleyball since 2016. " +
-                "The 25,000-square-foot facility also includes a ticket office, offices for coaches, a student-athlete lounge, and student-athlete locker rooms for all sports. " +
-                "The Department of Athletics sponsors 13 NCAA Division II teams that compete in the California Collegiate Athletic Association. " +
-                "Students can obtain free tickets for athletics events online.</html>");
+                "With seating for 1,400, the Sports Center has been the home of men’s and women’s basketball" +
+                " and women’s volleyball since 2016. " +
+                "The 25,000-square-foot facility also includes a ticket office, offices for coaches, a student-athlete lounge, " +
+                "and student-athlete locker rooms for all sports. " +
+                "The Department of Athletics sponsors 13 NCAA Division II teams that compete in the California Collegiate" +
+                " Athletic Association. " +
+                "Students can obtain free tickets for athletics events online.");
 
-        buildingMessages.put("University Student Union", "<html>University Student Union\n" +
+        buildingMessages.put("University Student Union", "University Student Union\n" +
                 "Acronym: USU, Building No. 25\n" +
                 "Known as “the heartbeat of campus,” the USU is the hub of student life at CSUSM. " +
-                "From half a dozen dining options to a convenience store, game rooms, lounges, a ballroom, and an outdoor amphitheater, there is no shortage of spaces and events for students. " +
-                "The USU is also where you’ll find Associated Students, Inc., five student life centers, the Office of the Dean of Students, and Student Life and Leadership.</html>");
-        buildingMessages.put("Student Health & Counseling Services Building", "<html>Student Health & Counseling Services Building\n" +
+                "From half a dozen dining options to a convenience store, game rooms, lounges, a ballroom, and an outdoor amphitheater," +
+                " there is no shortage of spaces and events for students. " +
+                "The USU is also where you’ll find Associated Students, Inc., five student life centers, the Office of the Dean" +
+                " of Students, and Student Life and Leadership.");
+        buildingMessages.put("Student Health & Counseling Services Building", "Student Health & Counseling Services Building\n" +
                 "Acronym: SHCSB, Building No. 21\n" +
-                "Located adjacent to the parking structure on Campus Way Circle, Student Health & Counseling Services (SHCS) offers vital health services to students, " +
-                "including clinical exams, counseling, pharmacy, and health education classes. SHCS is fully accredited through the Accreditation Association for Ambulatory Health Care – achieving the highest ratings in all areas of this comprehensive review – " +
-                "and has a staff of professionals dedicated to serving students in a warm, caring, and professional environment.</html>");
-        buildingMessages.put("Public Safety Building", "<html>Public Safety Building\n" +
+                "Located adjacent to the parking structure on Campus Way Circle, Student Health & Counseling Services" +
+                " (SHCS) offers vital health services to students, " +
+                "including clinical exams, counseling, pharmacy, and health education classes. SHCS is fully accredited through" +
+                " the Accreditation Association for Ambulatory Health Care – achieving the highest ratings in all areas of this" +
+                " comprehensive review – " +
+                "and has a staff of professionals dedicated to serving students in a warm, caring, and professional environment.");
+        buildingMessages.put("Public Safety Building", "Public Safety Building\n" +
                 "Acronym: PSB, Building No. 63\n" +
-                "Home to Parking and Commuter Services and the University Police Department, the Public Safety Building is located at La Moree Road and Barham Drive on the northeast corner of campus. " +
-                "The building is staffed 24 hours a day, 365 days a year, and CSUSM was ranked first in California in the National Council for Home Safety and Security’s 2020 ranking of the safest college campuses in America.</html>");
+                "Home to Parking and Commuter Services and the University Police Department, the Public Safety Building" +
+                " is located at La Moree Road and Barham Drive on the northeast corner of campus. " +
+                "The building is staffed 24 hours a day, 365 days a year, and CSUSM was ranked first in California" +
+                " in the National Council for Home Safety and Security’s 2020 ranking of the safest college campuses in America.");
         buildingMessages.put("Emergency Phones",
                 "Emergency Phones Locations\n"+
                         "1. Parking Lot X\n" +
