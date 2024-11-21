@@ -11,6 +11,8 @@ import imgui.glfw.ImGuiImplGlfw;
 import imgui.type.ImString;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -23,6 +25,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.lwjgl.opengl.GL11.*;
+
+import javax.imageio.ImageIO;
 
 
 public class BuildingInfoUI {
@@ -47,10 +51,20 @@ public class BuildingInfoUI {
     }
     public void init() {
         NavigationUI();
-        icons.put("Buildings", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\free-building-icon-1062-thumb.png"));
-        icons.put("Health & Safety", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Health.png"));
-        icons.put("Parking & Transit", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Parking.png"));
-        icons.put("Services", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Services.png"));
+//        try {
+//            ImageIO.read(new FileInputStream("src/main/resources/textures/free-building-icon-1062-thumb.png"));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            ImageIO.read(new FileInputStream("src/main/resources/textures/free-building-icon-1062-thumb.png"));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+        icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/textures/free-building-icon-1062-thumb.png"));
+        icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/textures/Health.png"));
+        icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/textures/Parking.png"));
+        icons.put("Services", ImageLoader.loadTexture("src/main/resources/textures/Services.png"));
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +
                 "Acronym: ACD, Building No. 14\n" +
