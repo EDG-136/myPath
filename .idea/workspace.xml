@@ -46,30 +46,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LoginPage.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.com.tecksupport.Main.executor": "Run",
-    "Application.mainSidebar.executor": "Run",
-    "JUnit.ClassInfoQueryTest.executor": "Debug",
-    "JUnit.PathfinderTests.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/curth/Documents/GitHub/myPath",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.1256584"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LoginPage.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.tecksupport.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.mainSidebar.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ClassInfoQueryTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.PathfinderTests.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/curth/Documents/GitHub/myPath&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.1256584&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java/com/tecksupport" />
       <recent name="C:\Users\gorek\For-resume\pathfinder_algorithum\CampusGraph\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="GUI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.tecksupport.GUI.LoginPage" />
       <module name="MyPath" />
