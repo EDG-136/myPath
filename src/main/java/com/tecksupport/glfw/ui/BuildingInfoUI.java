@@ -2,14 +2,28 @@ package com.tecksupport.glfw.ui;
 
 import com.tecksupport.glfw.view.Window;
 import imgui.ImGui;
+import imgui.flag.ImGuiCol;
+import imgui.flag.ImGuiStyleVar;
+import imgui.flag.ImGuiTableColumnFlags;
+import imgui.flag.ImGuiTableFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import imgui.type.ImString;
 
+import java.awt.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.nio.ByteBuffer;
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import org.lwjgl.opengl.GL11.*;
+
 
 public class BuildingInfoUI {
     private static boolean isSidebarVisible = false;
@@ -24,15 +38,19 @@ public class BuildingInfoUI {
     private CategoryNode root;
     private CategoryNode currentNode; // The currently displayed category
     private boolean isLoggedIn = false; // To track login status
+    private HashMap<String, Integer> icons = new HashMap<>();
 
     public BuildingInfoUI(Window window)
     {
         this.window = window;
         init();
     }
-
     public void init() {
         NavigationUI();
+        icons.put("Buildings", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\free-building-icon-1062-thumb.png"));
+        icons.put("Health & Safety", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Health.png"));
+        icons.put("Parking & Transit", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Parking.png"));
+        icons.put("Services", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Services.png"));
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +
                 "Acronym: ACD, Building No. 14\n" +
@@ -282,7 +300,8 @@ public class BuildingInfoUI {
                 "Lactation Rooms\n"+
                         "Helpful Links\n" +
                         "<a href='https://www.csusm.edu/wgec/parenting/lactation_spaces.html'>Lactation Spaces</a> | " +
-                        "<a href='https://www.csusm.edu/wgec/parenting/lactation_spaces.html'>Gender Equity Center</a> <br> |" +
+                        "<a href='https://www.csusm.edu/wgec/parenting/lactation_spaces.html'>Gender Equity Center</a> \n" +
+                        "\n" +
                         "Locations:\n" +
                         "1. Administrative Building 6312 Lactation Space\n" +
                         "2. Extended Learning Building 544 Lactation Space\n" +
@@ -310,6 +329,386 @@ public class BuildingInfoUI {
                         " – achieving the highest ratings in all areas of this comprehensive review" +
                         " – and has a staff of professionals dedicated to serving students in a warm" +
                         ", caring, and professional environment.");
+        buildingMessages.put("30 Minute Parking",
+                "30 Minute Parking\n" +
+                        "These are “no permit required” spaces available to the community and guests to park in close proximity, " +
+                        "short-term. There is a 30 minute maximum time limit enforced in these spaces."
+        );
+        buildingMessages.put("Bike Lockers",
+                "Bike Lockers Location\n" +
+                        "1.Outside M.Gorden Clark Firehouse\n" +
+                        "2.Outside SHCSB"
+        );
+        buildingMessages.put("Carpool Parking",
+                "Carpool Parking Location\n" +
+                        "Carpool Parking Lot C\n" +
+                        "Carpool Parking Lot E-Faculty/Staff only\n" +
+                        "Carpool Parking Lot F\n" +
+                        "Carpool Parking PS1"
+        );
+        buildingMessages.put("Bike Racks",
+                "Bike Racks Location\n" +
+                        "1.Sprinter Platform \n" +
+                        "2.Lot O\n" +
+                        "3.M. Gordon Clarke Fieldhouse\n" +
+                        "4.USU on Ground Level Outside\n" +
+                        "5.University Hall Back Right\n" +
+                        "6.Kellogg Library Ground Level\n" +
+                        "7.Lot H\n" +
+                        "8.University Commons Ouside Front Door\n" +
+                        "9. Lot C"
+        );
+        buildingMessages.put("Electric Vehicle Charging Station",
+                "Electric Vehicle Charging Station \n" +
+                        "Our charging stations are networked through ChargePoint and are located on the 1st level of PS1. " +
+                        "A valid CSUSM parking session is required when parked at the electric vehicle charging stations." +
+                        " There is a 4 hour max time limit and all vehicles must be actively charging."
+        );
+        buildingMessages.put("Zip Car Sharing Program",
+                "Car Share\n" +
+                        "Zipcar offers students, staff and faculty the freedom to have a car – even if you don’t own one.  There are 2 cars on the first floor of the parking structure for you to check out and use for quick and day trips. \n" +
+                        "\n" +
+                        "\n" +
+                        "Follow the steps below to sign up and use Zipcar\n" +
+                        "HOW IT WORKS: \n" +
+                        "Apply online it only takes a few minutes. Once you’re approved, you get your very own Zipcard.\n " +
+                        "<a href='https://www.zipcar.com/universities/cal-state-san-marcos'>Zipcar</a> \n" +
+                        "\n" +
+                        "Reserve one of our cars at a low rate – for a couple of hours or the entire day. Do it online or use a phone.\n" +
+                        "\n" +
+                        "Walk to the car, and hold your Zipcard to the windshield. The doors will unlock, and it’s all yours!\n" +
+                        "\n" +
+                        "Drive away…and return the Zipcar to the same reserved parking spot at the end of your reservation. It’s that simple. And remember, gas and insurance are always included!\n" +
+                        "<a href='https://www.zipcar.com/how-it-works'>More Info On Zipcar</a> "
+        );
+        buildingMessages.put("Disabled Parking",
+                "Disable Parking Locations\n" +
+                        "1.Lot K \n" +
+                        "2.Lot J\n" +
+                        "3.Lot M \n" +
+                        "4.Lot N\n" +
+                        "5.PS1\n" +
+                        "6.Lot O\n" +
+                        "7.Lot L\n" +
+                        "8.Lot W\n" +
+                        "9.Lot B\n" +
+                        "10.Lot C\n" +
+                        "11.Lot G\n" +
+                        "12.Lot E\n" +
+                        "13.Lot H"
+        );
+        buildingMessages.put("Faculty/Staff Parking",
+                "Faculty/Staff Parking Locations\n" +
+                        "Lot D - Reserved Parking\n" +
+                        "Lot E - Faculty/Staff Parking\n" +
+                        "Lot H - Faculty/Staff Parking\n" +
+                        "Lot M - Reserved Parking \n"
+        );
+        buildingMessages.put("General Parking",
+                "General Parking Locations\n" +
+                        "Lot B\n" +
+                        "Lot C\n" +
+                        "Lot F\n" +
+                        "Lot G - Service Vehicles Only\n" +
+                        "Lot J\n" +
+                        "Lot K\n" +
+                        "Lot L - 2 hour max.\n" +
+                        "Lot N\n" +
+                        "Lot X\n" +
+                        "Lot Y\n" +
+                        "Lot Z\n" +
+                        "Parking Structure 1\n" +
+                        "Parking Structure 2\n"
+        );
+        buildingMessages.put("Streets",
+                "Streets\n" +
+                        "Campus View Dr.\n" +
+                        "Campus Way\n" +
+                        "South Twin Oaks Valley Rd.\n" +
+                        "The Circle"
+        );
+        buildingMessages.put("Metered Parking",
+                "Metered Parking\n" +
+                        "Parking meters accept quarters, nickels, and dimes. Parking meters cost $1.50 per half hour."
+        );
+        buildingMessages.put("Permit Purchase Stations",
+                "Permit Purchase Stations\n" +
+                        "Pay stations accept 1's, 5's\n" +
+                        "\n" +
+                        "All Day permit: $10\n" +
+                        "3 hour permit: $5\n" +
+                        "24 hour permit: $15\n" +
+                        "License plate for vehicle parked on campus will be required. \n" +
+                        "\n" +
+                        " \n" +
+                        "\n" +
+                        "For more info call Parking and Commuter Services at (760)750-7500."
+        );
+        buildingMessages.put("NCTD Bus Stops",
+                "NCTD Bus Stops\n" +
+                        "The Circle\n" +
+                        "Practice Field\n" +
+                        "Sprinter Platform"
+        );
+        buildingMessages.put("Sprinter Station",
+                "Sprinter Station\n" +
+                        "The Sprinter Runs through CSUSM In the Upper Right Hand Side of Campus "
+        );
+        buildingMessages.put("Admissions",
+                "Admissions\n" +
+                        "Administrative Building 3900\n" +
+                        "\n" +
+                        "760-750-4848 - select option 0\n" +
+                        "Applicant Inquiries: apply@csusm.edu\n" +
+                        "Campus Tours: campustour@csusm.edu\n" +
+                        "How to Apply\n" +
+                        "Everything you need to know about applying to Cal State San Marcos can be found in this section." +
+                        " Please select the category that best describes you for more information on your eligibility and application" +
+                        " requirements.\n" +
+                        "<a href='https://www.csusm.edu/admissions/how-to-apply/freshman/index.html'>Freshman</a>\n" +
+                        "<a href='https://www.csusm.edu/admissions/how-to-apply/transfer/index.html'>Transfer</a>\n" +
+                        "<a href='https://www.csusm.edu/global/admissions/'>International</a>\n" +
+                        "Apply\n" +
+                        "Our online application must be complete through <a href='https://www.calstate.edu/apply'>CAApply</a>," +
+                        " California State University's comprehensive website. Be sure to apply on time! Review" +
+                        "<a href='https://www.csusm.edu/admissions/how-to-apply/freshman/important-deadlines.html'>important dates and deadlines.</a> \n" +
+                        "\n" +
+                        " \n" +
+                        "\n" +
+                        "Pay\n" +
+                        "A non-refundable application processing fee of $55 is required. " +
+                        "(This is required for each campus to which you apply.) " +
+                        "For low-income California residents, a fee waiver may be available online " +
+                        "<a href='https://www.calstate.edu/apply'>CSUMentor</a>\n" +
+                        "\n" +
+                        "\n" +
+                        "Submit\n" +
+                        "Submit official scores from the ACT or SAT exams (first-time freshman) or official transcripts" +
+                        " from each college or university attended.\n" +
+                        "\n" +
+                        "\n" +
+                        "Follow-up\n" +
+                        "Check on the status of your application on <a href='https://my.csusm.edu/'>MyCSUSM</a>" +
+                        "(you will receive login information after you apply).\n" +
+                        "\n" +
+                        "\n" +
+                        "What do I do after I apply? We begin admitting students on a rolling basis in mid-December. " +
+                        " Check your <a href='https://my.csusm.edu/'>MyCSUSM</a>" +
+                        " account regularly to ensure all your information is up to date, and that the office has received" +
+                        " your required documentation."
+        );
+        buildingMessages.put("Cashier's Desk",
+                "Cashier's Desk\n" +
+                        "The University Cashiers are located in Cougar Central, Administrative Building 3900." +
+                        " Students with questions or problems concerning fees, holds, refunds, or payment deadlines" +
+                        " are encouraged to call the Cashiers' Information Line at (760)750-4490."
+        );
+        buildingMessages.put("Financial Aid",
+                "Financial Aid\n" +
+                        "Office Hours\n" +
+                        "Monday - Friday 8:00 am - 5:00 pm\n" +
+                        "CSUSM is closed on major holidays\n" +
+                        "\n" +
+                        "\n" +
+                        "When calling our office please have the student’s student ID number ready." +
+                        " If you are not the student calling, please make sure the student has granted your" +
+                        " written authorization to release information.\n" +
+                        "For more information on FERPA, please visit our" +
+                        " <a href='https://www.csusm.edu/ferpa/index.html'>FERPA</a> website.\n" +
+                        "\n" +
+                        " \n" +
+                        "\n" +
+                        "<a href='https://www.csusm.edu/finaid/index.html'>Learn more about the Financial Aid Office.</a>\n"
+        );
+        buildingMessages.put("Office of the Registrar",
+                "Office of the Registrar\n" +
+                        "<a href='https://www.csusm.edu/enroll/index.html'>Enroll</a>\n" +
+                        "The Office of the Registrar provides an important link between the academic policies of CSUSM" +
+                        " and our academic departments and students.  What is a registrar? A university registrar" +
+                        " maintains the academic records of all registered students by providing services including:\n" +
+                        "\n" +
+                        "Verifying student status\n" +
+                        "Confirming graduation and issuing diplomas\n" +
+                        "Providing transcripts\n" +
+                        "Providing enrollment periods to students to enroll in classes\n"
+        );
+        buildingMessages.put("Student Financial Services",
+                "Student Financial Services\n" +
+                        "<a href='https://www.csusm.edu/sfs/index.html'>Student Financial Services</a>\n" +
+                        "Cougar Central, Administrative Building 3800"
+        );
+        buildingMessages.put("IT Help Desk",
+                "IT Help Desk\n" +
+                        "The Student Technology Help Desk (STH) supports students with a variety of issues, such as:\n" +
+                        "\n" +
+                        "Connecting to the Campus Wi-Fi\n" +
+                        "Assistance with Campus Username/Password\n" +
+                        "Accessing CougarApps\n" +
+                        "Accessing my.csusm.edu\n" +
+                        "Cougar Courses Questions\n" +
+                        "Connecting to Your Campus Email\n" +
+                        "Borrowing Media Equipment\n" +
+                        "Printing on Campus\n" +
+                        "All services require a current campus photo ID (available at the Media Library, directly across from" +
+                        " the Student Tech Help Desk).  \n" +
+                        "\n" +
+                        "The Student Tech Help Desk (STH) is located directly outside of Kellogg 2000," +
+                        " which is an open computer lab with 92 computer stations (with both Macs and PCs)." +
+                        "  Employees of the STH are available to assist you as you get familiarized with the campus " +
+                        "technology.  Please stop by if you have any questions.\n"
+        );
+        buildingMessages.put("Academic Success Center",
+                "Academic Success Center\n" +
+                        "A space where students receive the academic support they need to succeed.\n" +
+                        "\n" +
+                        "Academic Coaching\n" +
+                        "Academic Support Programming\n" +
+                        "Workshops\n"
+        );
+        buildingMessages.put("Personalized Academic Success Services (PASS)",
+                "Personalized Academic Success Services (PASS)\n" +
+                        "<a href=https://www.csusm.edu/readiness/pass/index.html>PASS</a> \n" +
+                        "\n" +
+                        "Personalized Academic Success Services (PASS) works with students to assess " +
+                        "each student’s situation holistically to provide appropriate support and resources" +
+                        " (on-campus or in the community) to help students achieve academic and personal success.\n"
+        );
+        buildingMessages.put("STEM Success Center",
+                "STEM Success Center\n" +
+                        "<a href=https://www.csusm.edu/lts/stemsc/index.html>STEM</a> \n" +
+                        "\n" +
+                        "The Office of Undergraduate Studies is thrilled to announce we are putting the M" +
+                        " back in STEM! This fall the Math Lab and STEM SSC will unify as the STEM Success Center under" +
+                        " the direction of the current math lab director, Jen Brich."
+        );
+        buildingMessages.put("Student Outreach and Referral (SOAR) and Cougar Care Network (CCN)",
+                "Student Outreach and Referral (SOAR) and Cougar Care Network (CCN)\n" +
+                        "<a href=https://www.csusm.edu/ccn/index.html>CCN</a>\n" +
+                        "\n" +
+                        "CCN is CSUSM’s early support program to improve student success, retention," +
+                        " and persistence by providing information, resources, and support needed to ensure" +
+                        " a student's personal and academic success."
+        );
+        buildingMessages.put("Writing Center",
+                "Writing Center\n" +
+                        "<a href=https://www.csusm.edu/writingcenter/information/index.html>Writing Center</a>\n" +
+                        "We work with all writers from all classes at all stages of their writing process. No matter what you are working on, if it involves writing, we want to help. That help is offered in a few, well-practiced ways:\n" +
+                        "\n" +
+                        "One-on-One Sessions where a tutor will sit and talk about your writing with you. " +
+                        "These tutoring sessions and all services offered by the Writing Center respect your ownership " +
+                        "of your writing; we will not tell you what to do, but we will help you feel confident about makin\n" +
+                        "Buddy Sessions for students who want to enjoy tutoring with a friend. \n" +
+                        "Workshops that help you apply a variety of topic lessons to your work and provide you" +
+                        " with helpful resources to take with you. \n" +
+                        "Thesis Retreats for groups of graduate students who want a quiet and tutor-supported" +
+                        " space to chip away at their theses, proposals, and capstone projects.\n" +
+                        "Academic English Support for students who want extra support with academic expectations" +
+                        " regarding grammar, organization, source use, and more."
+
+        );
+        buildingMessages.put("Alumni Association",
+                "Alumni Association Office\n" +
+                        "<a href=https://www.csusm.edu/alumni/membership/joinrenew.html>Association Online Registration Alumni</a> \n" +
+                        "\n" +
+                        "For more info call (760) 750-4406 or visit our office in Commons 201.\n" +
+                        "\n" +
+                        "The mission of the CSUSM Alumni Association is to support and encourage the advancement of the University while fostering lifelong Cougar pride, loyalty, and involvement between alumni, local businesses, and the community at large. \n" +
+                        "\n" +
+                        "Our goal is to:\n" +
+                        "Establish alumni traditions\n" +
+                        "Promote CSU San Marcos as the university of first choice in Southern California\n" +
+                        "Provide leadership and volunteerism through participation in Board of Directors and other various committees\n" +
+                        "Participate in student mentoring and recruitment\n" +
+                        "Legislative advocacy"
+        );
+        buildingMessages.put("Baseball Field",
+                "Baseball Field\n" +
+                        "Clarke Field House\n" +
+                        "Mangrum Track & Field\n" +
+                        "Multi-Purpose Field\n" +
+                        "Practice Field\n" +
+                        "Softball Field\n" +
+                        "Sports Center\n"
+        );
+        buildingMessages.put("Clarke Field House",
+                "Clarke Field House\n" +
+                        "Mangrum Track & Field\n" +
+                        "Multi-Purpose Field\n" +
+                        "Practice Field\n" +
+                        "Softball Field\n" +
+                        "Sports Center\n"
+        );
+        buildingMessages.put("Mangrum Track & Field",
+                "Mangrum Track & Field\n" +
+                        "Multi-Purpose Field\n" +
+                        "Practice Field\n" +
+                        "Softball Field\n" +
+                        "Sports Center\n"
+        );
+        buildingMessages.put("Multi-Purpose Field",
+                "Multi-Purpose Field\n" +
+                        "Practice Field\n" +
+                        "Softball Field\n" +
+                        "Sports Center\n"
+        );
+        buildingMessages.put("Practice Field",
+                "Practice Field\n" +
+                        "Softball Field\n" +
+                        "Sports Center\n"
+        );
+        buildingMessages.put("Softball Field",
+                "Softball Field\n" +
+                        "Sports Center\n"
+        );
+        buildingMessages.put("Sports Center",
+                "Sports Center\n"
+        );
+        buildingMessages.put("Office of Global Education",
+                "Office of Global Education\n" +
+                        "<a href=http://www.csusm.edu/global/intstudents/index.html>International Students Services</a>\n" +
+                        "<a href=https://www.csusm.edu/global/intstudents/contact_international_advising.html>Contact Us</a>"
+        );
+        buildingMessages.put("Career Center",
+                "Career Center\n" +
+                        "We are here to inspire, challenge and prepare all students and alumni to navigate the path" +
+                        " from college to career with clarity, competence and confidence.\n" +
+                        "<a href=http://www.csusm.edu/careers/index.html>Career Center</a>"
+        );
+        buildingMessages.put("CEHHS Advising",
+                "CEHHS Advising\n" +
+                        "CEHHS Advising is located in university 222\n" +
+                        "\n" +
+                        "Academic Advising at CSUSM is a service to guide undergraduates to obtaining their degree." +
+                        " It is divided by college. For information on your specific major or minor, or" +
+                        " to schedule an appointment with an academic advisor, please visit:" +
+                        "<a href=http://www.csusm.edu/academicadvising/>Academic Advising</a>"
+        );
+        buildingMessages.put("CHABSS & CSM Advising",
+                "CHABSS & CSM Advising\n" +
+                        "CHABSS & CSM Advising is located in Administrative Building 1300\n" +
+                        "\n" +
+                        "Academic Advising at CSUSM is a service to guide undergraduates to obtaining their degree." +
+                        " It is divided by college. For information on your specific major or minor, or" +
+                        " to schedule an appointment with an academic advisor, please visit:" +
+                        "<a href=http://www.csusm.edu/academicadvising/>Academic Advising</a>"
+        );
+        buildingMessages.put("COBA Advising",
+                "COBA Advising\n" +
+                        "COBA Advising is located in mark 126\n" +
+                        "\n" +
+                        "Academic Advising at CSUSM is a service to guide undergraduates to obtaining their degree." +
+                        " It is divided by college. For information on your specific major or minor, or" +
+                        " to schedule an appointment with an academic advisor, please visit:" +
+                        "<a href=http://www.csusm.edu/academicadvising/>Academic Advising</a>"
+        );
+        buildingMessages.put("University Bookstore",
+                "University Bookstore\n" +
+                        "Your one-stop-shop for your campus needs. Purchase textbooks, apparel, class supplies" +
+                        " and technology and much more all in one convenient location. \n" +
+                        "\n" +
+                        "<a href=https://www.bkstr.com/csusanmarcosstore/home/>Bookstore</a>\n" +
+                        "<a href=https://www.bkstr.com/csusanmarcosstore/store-hours/>Hours of Operation</a>"
+        );
     }
     // Initialize the navigation tree
     public void NavigationUI() {
@@ -351,24 +750,84 @@ public class BuildingInfoUI {
         //Health & Safety category
         CategoryNode healthSafety = new CategoryNode("Health & Safety");
         healthSafety.addSubcategory(new CategoryNode("Emergency Phones"));
-        healthSafety.addSubcategory(new CategoryNode("AED Locations"));
+        healthSafety.addSubcategory(new CategoryNode("AED"));
         healthSafety.addSubcategory(new CategoryNode("Lactation Rooms"));
         healthSafety.addSubcategory(new CategoryNode("Public Safety Building"));
         healthSafety.addSubcategory(new CategoryNode("Student Health & Counseling Services Building"));
         //Parking & Transit
         CategoryNode ParkingTransit = new CategoryNode("Parking & Transit");
-        ParkingTransit.addSubcategory(new CategoryNode("Emergency Phones"));
-        ParkingTransit.addSubcategory(new CategoryNode("AED Locations"));
-        ParkingTransit.addSubcategory(new CategoryNode("Lactation Rooms"));
-        ParkingTransit.addSubcategory(new CategoryNode("Public Safety Building"));
-        ParkingTransit.addSubcategory(new CategoryNode("Student Health & Counseling Services Building"));
+        CategoryNode AltTran = new CategoryNode("Alternative Transportation");
+        ParkingTransit.addSubcategory(new CategoryNode("30 Minute Parking"));
+        // Add Alternative Transportation to Parking And transit
+        ParkingTransit.addSubcategory(AltTran);
+        AltTran.addSubcategory(new CategoryNode("Bike Lockers"));
+        AltTran.addSubcategory(new CategoryNode("Carpool Parking"));
+        AltTran.addSubcategory(new CategoryNode("Bike Racks"));
+        AltTran.addSubcategory(new CategoryNode("Electric Vehicle Charging Station"));
+        AltTran.addSubcategory(new CategoryNode("Zip Car Sharing Program"));
+        //Parking/Transit Cont
+        ParkingTransit.addSubcategory(new CategoryNode("Disabled Parking"));
+        ParkingTransit.addSubcategory(new CategoryNode("Faculty/Staff Parking"));
+        ParkingTransit.addSubcategory(new CategoryNode("General Parking"));
+        ParkingTransit.addSubcategory(new CategoryNode("Streets"));
+        ParkingTransit.addSubcategory(new CategoryNode("Metered Parking"));
+        ParkingTransit.addSubcategory(new CategoryNode("Permit Purchase Stations"));
+        ParkingTransit.addSubcategory(new CategoryNode("NCTD Bus Stops"));
+        ParkingTransit.addSubcategory(new CategoryNode("Sprinter Station"));
+        //Services
+        CategoryNode Services = new CategoryNode("Services");
+        CategoryNode CougarCentral = new CategoryNode("Cougar Central");
+        CategoryNode LearningCen = new CategoryNode("Learning Centers");
+        CategoryNode Athletics = new CategoryNode("Athletics");
+        CategoryNode AcademicAdvising= new CategoryNode("Academic Advising");
+        // Add Cougar Central to Services
+        Services.addSubcategory(CougarCentral);
+        CougarCentral.addSubcategory(new CategoryNode("Admissions"));
+        CougarCentral.addSubcategory(new CategoryNode("Cashier's Desk"));
+        CougarCentral.addSubcategory(new CategoryNode("Financial Aid"));
+        CougarCentral.addSubcategory(new CategoryNode("Office of the Registrar"));
+        CougarCentral.addSubcategory(new CategoryNode("Student Financial Services"));
+        // IT
+        Services.addSubcategory(new CategoryNode("IT Help Desk"));
+        // Learning Centers
+        Services.addSubcategory(LearningCen);
+        LearningCen.addSubcategory(new CategoryNode("Academic Success Center"));
+        LearningCen.addSubcategory(new CategoryNode("Personalized Academic Success Services (PASS)"));
+        LearningCen.addSubcategory(new CategoryNode("STEM Success Center"));
+        LearningCen.addSubcategory(new CategoryNode("Student Outreach and Referral (SOAR) and Cougar Care Network (CCN)"));
+        LearningCen.addSubcategory(new CategoryNode("Writing Center"));
+        //Alumni Association
+        Services.addSubcategory(new CategoryNode("Alumni Association"));
+        // Athletics
+        Services.addSubcategory(Athletics);
+        Athletics.addSubcategory(new CategoryNode("Baseball Field"));
+        Athletics.addSubcategory(new CategoryNode("Clarke Field House"));
+        Athletics.addSubcategory(new CategoryNode("Mangrum Track & Field"));
+        Athletics.addSubcategory(new CategoryNode("Multi-Purpose Field"));
+        Athletics.addSubcategory(new CategoryNode("Practice Field"));
+        Athletics.addSubcategory(new CategoryNode("Softball Field"));
+        Athletics.addSubcategory(new CategoryNode("Sports Center"));
+        // Office of global education
+        Services.addSubcategory(new CategoryNode("Office of Global Education"));
+        // Career Center
+        Services.addSubcategory(new CategoryNode("Career Center"));
+        // Academic Advising
+        Services.addSubcategory(AcademicAdvising);
+        AcademicAdvising.addSubcategory(new CategoryNode("CEHHS Advising"));
+        AcademicAdvising.addSubcategory(new CategoryNode("CHABSS & CSM Advising"));
+        AcademicAdvising.addSubcategory(new CategoryNode("COBA Advising"));
+        // Bookstore
+        Services.addSubcategory(new CategoryNode("University Bookstore"));
         // Add main categories to root
         root.addSubcategory(buildings);
         root.addSubcategory(healthSafety);
+        root.addSubcategory(ParkingTransit);
+        root.addSubcategory(Services);
 
         return root;
     }
     public void renderUI() {
+        ImGui.pushStyleColor(ImGuiCol.WindowBg, ImGui.getColorU32(1.0f, 1.0f, 1.0f, 1.0f)); // White background
         if (currentNode.subcategories.isEmpty()) {
             // If there are no subcategories, show the description (leaf node)
             renderDescription(currentNode);
@@ -376,31 +835,106 @@ public class BuildingInfoUI {
             // Render the subcategories
             renderSubcategories(currentNode);
         }
+        // Restore the original background color
+        ImGui.popStyleColor();
     }
     // Render subcategories as buttons
     private void renderSubcategories(CategoryNode node) {
         ImGui.text("Subcategories for " + node.name + ":");
+
         for (CategoryNode subcategory : node.subcategories) {
-            if (ImGui.button(subcategory.name)) {
-                currentNode = subcategory; // Navigate to the clicked subcategory
+            String name = subcategory.name;
+
+            // Check if there's an icon for this category
+            Integer iconTextureId = icons.get(name);
+
+            if (iconTextureId != null) {
+                // Adjust padding and item spacing to ensure enough room
+                ImGui.pushStyleVar(ImGuiStyleVar.FramePadding, 8.0f, 4.0f); // More padding for both icon and text
+                ImGui.pushStyleVar(ImGuiStyleVar.ItemSpacing, 8.0f, 4.0f); // Adjust spacing
+
+                if (ImGui.beginTable("button_table", 2, ImGuiTableFlags.SizingFixedFit)) {
+                    // Set up the columns and their widths
+                    ImGui.tableSetupColumn("Icon", ImGuiTableColumnFlags.WidthFixed, 30.0f); // Set width for icon column
+                    ImGui.tableSetupColumn("Text", ImGuiTableColumnFlags.WidthFixed, 200.0f); // Set width for text column
+
+                    // Render the small icon with specified size
+                    ImGui.tableNextColumn();
+                    float iconSize = 24.0f; // Icon size, adjust as needed
+                    ImGui.image(iconTextureId, iconSize, iconSize);
+
+                    ImGui.tableNextColumn();
+
+                    // Render the text button next to the icon
+                    if (ImGui.button(name)) {
+                        currentNode = subcategory; // Navigate to the clicked subcategory
+                    }
+
+                    ImGui.endTable();
+                }
+
+                ImGui.popStyleVar(2); // Pop the style vars to restore original values
+            } else {
+                // Render only a text button if no icon is available
+                if (ImGui.button(name)) {
+                    currentNode = subcategory; // Navigate to the clicked subcategory
+                }
             }
         }
 
-        // Add a "Back" button if not at the root
+        // Back button for navigation
         if (currentNode != root && ImGui.button("Back")) {
-            currentNode = findParentNode(root, currentNode); // Navigate back
+            currentNode = findParentNode(root, currentNode);
         }
     }
+
+
     // Render the description for leaf nodes
     private void renderDescription(CategoryNode node) {
-        String description = buildingMessages.get(node.name);  // Fetch description from the HashMap
+        String description = buildingMessages.get(node.name); // Fetch description from the HashMap
         if (description != null) {
-            ImGui.textWrapped("Description: " + description);
+            ImGui.textWrapped("Description: ");
+
+            // Regular expression to match <a href='URL'>Link Text</a>
+            Pattern linkPattern = Pattern.compile("<a href='(.*?)'>(.*?)</a>");
+            String[] lines = description.split("\n");
+
+            for (String line : lines) {
+                Matcher matcher = linkPattern.matcher(line);
+                boolean foundLink = false;
+
+                while (matcher.find()) {
+                    foundLink = true;
+                    String url = matcher.group(1); // URL
+                    String linkText = matcher.group(2); // Link text
+
+                    // Render link as a button
+                    if (ImGui.button(linkText)) {
+                        openWebpage(url); // Open the URL when clicked
+                    }
+                    ImGui.sameLine(); // Keep links in the same line if desired
+                }
+
+                // Render non-link parts of the line
+                if (!foundLink) {
+                    ImGui.textWrapped(line);
+                }
+            }
         }
 
         // Add a "Back" button to navigate back to the parent
         if (ImGui.button("Back")) {
             currentNode = findParentNode(root, currentNode); // Navigate back
+        }
+    }
+    // Method to open a webpage
+    private void openWebpage(String url) {
+        if (Desktop.isDesktopSupported()) {
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (IOException | URISyntaxException e) {
+                e.printStackTrace(); // Log errors if any
+            }
         }
     }
     // Find the parent node of a given node (recursive search)
@@ -442,4 +976,5 @@ public class BuildingInfoUI {
             subcategories.add(subcategory);
         }
     }
+
 }
