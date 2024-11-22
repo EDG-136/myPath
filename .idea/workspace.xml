@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Add the new buttons for the path finder" />
+    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Add the new buttons for the path finder">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,8 +23,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{ &quot;lastFilter&quot;: { &quot;state&quot;: &quot;OPEN&quot;, &quot;assignee&quot;: &quot;Endless09&quot; } }</component>
-  <component name="GithubPullRequestsUISettings">{ &quot;selectedUrlAndAccountId&quot;: { &quot;url&quot;: &quot;https://github.com/EDG-136/myPath.git&quot;, &quot;accountId&quot;: &quot;c2e08512-7872-4c7a-a611-dbb4f38c668c&quot; } }</component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Endless09"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/EDG-136/myPath.git",
+    "accountId": "c2e08512-7872-4c7a-a611-dbb4f38c668c"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{ &quot;customColor&quot;: &quot;&quot;, &quot;associatedIndex&quot;: 3 }</component>
   <component name="ProjectId" id="2oUyWKNYNmvaVp80AlnzjxJxHxr" />
   <component name="ProjectLevelVcsManager">
@@ -36,7 +48,9 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
+    "RunOnceActivity.git.unshallow": "true",
     "git-widget-placeholder": "Pathfinder",
+    "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/gorek/For-resume/MYPATH/src/main/java/com/tecksupport/glfw/ui"
   }
 }]]></component>
@@ -57,6 +71,7 @@
       </method>
     </configuration>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task id="LOCAL-00001" summary="Resolve merge conflicts with main">
       <option name="closed" value="true" />
@@ -81,6 +96,13 @@
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
       <updated>1732241608282</updated>
+    </task>
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Add the new buttons for the path finder" />
+      <created>1732312406444</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1732312406444</updated>
     </task>
     <option name="localTasksCounter" value="4" />
     <servers />
