@@ -5,6 +5,9 @@ import imgui.ImGui;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.type.ImString;
+import imgui.flag.ImGuiWindowFlags;
+import imgui.flag.ImGuiCond;
+import imgui.flag.ImGuiInputTextFlags;
 
 import java.util.HashMap;
 
@@ -26,7 +29,8 @@ public class AuthUI {
         ImGui.setNextWindowSize(400, 200, ImGuiCond.Always);
         ImGui.setNextWindowPos(window.getWindowWidth() / 2.0f - 200, window.getWindowHeight() / 2.0f - 100, ImGuiCond.Always);
 
-        ImGui.begin("Login Page");
+        int windowFlags = ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoCollapse;
+        ImGui.begin("Login Page", windowFlags);
 
         ImGui.text("Please log in to access the application.");
         ImGui.spacing();

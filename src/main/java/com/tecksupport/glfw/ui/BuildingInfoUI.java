@@ -6,38 +6,25 @@ import imgui.flag.ImGuiCol;
 import imgui.flag.ImGuiStyleVar;
 import imgui.flag.ImGuiTableColumnFlags;
 import imgui.flag.ImGuiTableFlags;
-import imgui.gl3.ImGuiImplGl3;
-import imgui.glfw.ImGuiImplGlfw;
-import imgui.type.ImString;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.ByteBuffer;
-import java.nio.IntBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.lwjgl.opengl.GL11.*;
 
 
 public class BuildingInfoUI {
-    private static boolean isSidebarVisible = false;
     private final Window window;
-    private final HashMap<String, String> userDatabase = new HashMap<>(); // Simulated database
-    private final ImString usernameBuffer = new ImString("", 128); // Using ImGui ImString
-    private final ImString passwordBuffer = new ImString("", 128);
-    private String loginMessage = ""; // Stores the message to display
-    private String signupMessage = ""; // Message for successful signup or welcome message
     private Map<String, String> buildingMessages = new HashMap<>();
     // The root of the navigation tree
     private CategoryNode root;
     private CategoryNode currentNode; // The currently displayed category
-    private boolean isLoggedIn = false; // To track login status
     private HashMap<String, Integer> icons = new HashMap<>();
 
     public BuildingInfoUI(Window window)
@@ -47,10 +34,20 @@ public class BuildingInfoUI {
     }
     public void init() {
         NavigationUI();
+<<<<<<< HEAD
         //icons.put("Buildings", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\free-building-icon-1062-thumb.png"));
         //icons.put("Health & Safety", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Health.png"));
         //icons.put("Parking & Transit", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Parking.png"));
         //icons.put("Services", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Services.png"));
+=======
+        icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/free-building-icon-1062-thumb.png"));
+        icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/Health.png"));
+        icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
+        icons.put("Services", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
+        icons.put("Student Centers", ImageLoader.loadTexture("src/main/resources/Icons/Student Centers.png"));
+        icons.put("Student Housing", ImageLoader.loadTexture("src/main/resources/Icons/Houseing.png"));
+
+>>>>>>> 8339959af55102ede056ca15d0b40ef9a34b93d1
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +
                 "Acronym: ACD, Building No. 14\n" +
@@ -309,26 +306,6 @@ public class BuildingInfoUI {
                         "4. Kellogg Library 3017 Lactation Space"
         );
 
-        buildingMessages.put("Public Safety Building",
-                "Public Safety Building\n" +
-                        "Acronym: PSB, Building No. 63\n" +
-                        "Home to Parking and Commuter Services and the University Police Department," +
-                        " the Public Safety Building is located at La Moree Road and Barham Drive on the northeast corner of campus." +
-                        " The building is staffed 24 hours a day, 365 days a year, and CSUSM was ranked first" +
-                        " in California in the National Council for Home Safety and Security’s 2020 ranking of the " +
-                        "safest college campuses in America."
-        );
-
-        buildingMessages.put("Student Health & Counseling Services Building",
-                "Student Health & Counseling Services Building\n" +
-                        "Acronym: SHCSB, Building No. 21\n" +
-                        "Located adjacent to the parking structure on Campus Way Circle, Student Health" +
-                        " & Counseling Services (SHCS) offers vital health services to students, including clinical exams," +
-                        " counseling, pharmacy, and health education classes. " +
-                        "SHCS is fully accredited through the Accreditation Association for Ambulatory Health Care" +
-                        " – achieving the highest ratings in all areas of this comprehensive review" +
-                        " – and has a staff of professionals dedicated to serving students in a warm" +
-                        ", caring, and professional environment.");
         buildingMessages.put("30 Minute Parking",
                 "30 Minute Parking\n" +
                         "These are “no permit required” spaces available to the community and guests to park in close proximity, " +
@@ -567,7 +544,7 @@ public class BuildingInfoUI {
         );
         buildingMessages.put("Personalized Academic Success Services (PASS)",
                 "Personalized Academic Success Services (PASS)\n" +
-                        "<a href=https://www.csusm.edu/readiness/pass/index.html>PASS</a> \n" +
+                        "<a href='https://www.csusm.edu/readiness/pass/index.html'>PASS</a> \n" +
                         "\n" +
                         "Personalized Academic Success Services (PASS) works with students to assess " +
                         "each student’s situation holistically to provide appropriate support and resources" +
@@ -575,7 +552,7 @@ public class BuildingInfoUI {
         );
         buildingMessages.put("STEM Success Center",
                 "STEM Success Center\n" +
-                        "<a href=https://www.csusm.edu/lts/stemsc/index.html>STEM</a> \n" +
+                        "<a href='https://www.csusm.edu/lts/stemsc/index.html'>STEM</a> \n" +
                         "\n" +
                         "The Office of Undergraduate Studies is thrilled to announce we are putting the M" +
                         " back in STEM! This fall the Math Lab and STEM SSC will unify as the STEM Success Center under" +
@@ -583,7 +560,7 @@ public class BuildingInfoUI {
         );
         buildingMessages.put("Student Outreach and Referral (SOAR) and Cougar Care Network (CCN)",
                 "Student Outreach and Referral (SOAR) and Cougar Care Network (CCN)\n" +
-                        "<a href=https://www.csusm.edu/ccn/index.html>CCN</a>\n" +
+                        "<a href='https://www.csusm.edu/ccn/index.html'>CCN</a>\n" +
                         "\n" +
                         "CCN is CSUSM’s early support program to improve student success, retention," +
                         " and persistence by providing information, resources, and support needed to ensure" +
@@ -591,7 +568,7 @@ public class BuildingInfoUI {
         );
         buildingMessages.put("Writing Center",
                 "Writing Center\n" +
-                        "<a href=https://www.csusm.edu/writingcenter/information/index.html>Writing Center</a>\n" +
+                        "<a href='https://www.csusm.edu/writingcenter/information/index.html'>Writing Center</a>\n" +
                         "We work with all writers from all classes at all stages of their writing process. No matter what you are working on, if it involves writing, we want to help. That help is offered in a few, well-practiced ways:\n" +
                         "\n" +
                         "One-on-One Sessions where a tutor will sit and talk about your writing with you. " +
@@ -608,7 +585,7 @@ public class BuildingInfoUI {
         );
         buildingMessages.put("Alumni Association",
                 "Alumni Association Office\n" +
-                        "<a href=https://www.csusm.edu/alumni/membership/joinrenew.html>Association Online Registration Alumni</a> \n" +
+                        "<a href='https://www.csusm.edu/alumni/membership/joinrenew.html'>Association Online Registration Alumni</a> \n" +
                         "\n" +
                         "For more info call (760) 750-4406 or visit our office in Commons 201.\n" +
                         "\n" +
@@ -660,19 +637,16 @@ public class BuildingInfoUI {
                 "Softball Field\n" +
                         "Sports Center\n"
         );
-        buildingMessages.put("Sports Center",
-                "Sports Center\n"
-        );
         buildingMessages.put("Office of Global Education",
                 "Office of Global Education\n" +
-                        "<a href=http://www.csusm.edu/global/intstudents/index.html>International Students Services</a>\n" +
-                        "<a href=https://www.csusm.edu/global/intstudents/contact_international_advising.html>Contact Us</a>"
+                        "<a href='http://www.csusm.edu/global/intstudents/index.html'>International Students Services</a>\n" +
+                        "<a href='https://www.csusm.edu/global/intstudents/contact_international_advising.html'>Contact Us</a>"
         );
         buildingMessages.put("Career Center",
                 "Career Center\n" +
                         "We are here to inspire, challenge and prepare all students and alumni to navigate the path" +
                         " from college to career with clarity, competence and confidence.\n" +
-                        "<a href=http://www.csusm.edu/careers/index.html>Career Center</a>"
+                        "<a href='http://www.csusm.edu/careers/index.html'>Career Center</a>"
         );
         buildingMessages.put("CEHHS Advising",
                 "CEHHS Advising\n" +
@@ -681,7 +655,7 @@ public class BuildingInfoUI {
                         "Academic Advising at CSUSM is a service to guide undergraduates to obtaining their degree." +
                         " It is divided by college. For information on your specific major or minor, or" +
                         " to schedule an appointment with an academic advisor, please visit:" +
-                        "<a href=http://www.csusm.edu/academicadvising/>Academic Advising</a>"
+                        "<a href='http://www.csusm.edu/academicadvising/'>Academic Advising</a>"
         );
         buildingMessages.put("CHABSS & CSM Advising",
                 "CHABSS & CSM Advising\n" +
@@ -690,7 +664,7 @@ public class BuildingInfoUI {
                         "Academic Advising at CSUSM is a service to guide undergraduates to obtaining their degree." +
                         " It is divided by college. For information on your specific major or minor, or" +
                         " to schedule an appointment with an academic advisor, please visit:" +
-                        "<a href=http://www.csusm.edu/academicadvising/>Academic Advising</a>"
+                        "<a href='http://www.csusm.edu/academicadvising/'>Academic Advising</a>"
         );
         buildingMessages.put("COBA Advising",
                 "COBA Advising\n" +
@@ -699,15 +673,110 @@ public class BuildingInfoUI {
                         "Academic Advising at CSUSM is a service to guide undergraduates to obtaining their degree." +
                         " It is divided by college. For information on your specific major or minor, or" +
                         " to schedule an appointment with an academic advisor, please visit:" +
-                        "<a href=http://www.csusm.edu/academicadvising/>Academic Advising</a>"
+                        "<a href='http://www.csusm.edu/academicadvising/'>Academic Advising</a>"
         );
         buildingMessages.put("University Bookstore",
                 "University Bookstore\n" +
                         "Your one-stop-shop for your campus needs. Purchase textbooks, apparel, class supplies" +
                         " and technology and much more all in one convenient location. \n" +
                         "\n" +
-                        "<a href=https://www.bkstr.com/csusanmarcosstore/home/>Bookstore</a>\n" +
-                        "<a href=https://www.bkstr.com/csusanmarcosstore/store-hours/>Hours of Operation</a>"
+                        "<a href='https://www.bkstr.com/csusanmarcosstore/home/'>Bookstore</a>\n" +
+                        "<a href='https://www.bkstr.com/csusanmarcosstore/store-hours/'>Hours of Operation</a>"
+        );
+        buildingMessages.put("ASI Cougar Pantry (Commons 104)",
+                "ASI Cougar Pantry (Commons 104)\n" +
+                        "Commons 104\n" +
+                        "\n" +
+                        "<a href='https://www.csusm.edu/asi/pantry/index.html/'>Cougar Pantry</a>|" +
+                        "<a href='https://www.csusm.edu/asi/pantry/index.html/'>Associated Students, Inc</a>"
+        );
+        buildingMessages.put("Black Student Center",
+                "Black Student Center\n" +
+                        "University Student Union 4200\n" +
+                        "\n" +
+                        "The mission of The Black Student Center is to promote the academic, cultural, social," +
+                        " and political consciousness of students of color by actively engaging in institutional" +
+                        " partnerships that will result in the overall increase of student recruitment, active member" +
+                        " participation, retention, and graduation rates."
+        );
+        buildingMessages.put("Cross-Cultural Center",
+                "Cross-Cultural Center\n" +
+                        "University Student Union 3400\n" +
+                        "\n" +
+                        "The CROSS-CULTURAL CENTER is dedicated to supporting the students of CSUSM." +
+                        " We provide services and implement programs that foster an inclusive environment" +
+                        " to encourage full and equal participation of all students. Our dedication to" +
+                        " supporting students aligns with the university's commitment to respecting" +
+                        " and modeling the diversity of our region within a context of social justice." +
+                        " We seek involvement of all students and welcome suggestions, dialogue, feedback," +
+                        " and opportunities for collaboration."
+
+        );
+        buildingMessages.put("Gender Equity Center",
+                "Gender Equity Center\n" +
+                        "USU 3200\n" +
+                        "\n" +
+                        "Building on second-wave feminism’s creed of “the personal is political,” we are guided" +
+                        " by principles of intersectional feminism: we recognize that while all women experience" +
+                        " oppression, we also all experience oppression in varying forms based on race, age," +
+                        " class, gender, sexuality, dis/ability, etc. With that in mind, we want everyone" +
+                        " at the Gender Equity Center to feel supported, included, and represented. \n" +
+                        "\n" +
+                        "The GEC is intentionally inclusive of transgender, nonbinary, intersex, and gender non-conforming folks.\n" +
+                        "\n" +
+                        "HOURS\n" +
+                        "Monday - Thursday 9:00 AM - 5:00 PM\n" +
+                        "Friday 9:00 AM - 2:00 PM\n" +
+                        "\n" +
+                        "Available student resources: Desktop Computers (4), Pawprint Station (Paid Printing)," +
+                        " Tables/Chairs, and Couch seats."
+
+        );
+        buildingMessages.put("LGBTQA Pride Center",
+                "LGBTQA Pride Center\n" +
+                        "USU 3100\n" +
+                        "\n" +
+                        "The LGBTQA Pride Center (PC) is an inclusive space which promotes positive interactions" +
+                        " in a diverse environment.  The PC strives to provide a space that celebrates and" +
+                        " affirms students who identify with all genders and sexualities " +
+                        "in the LGBTQ community and their allies.\n" +
+                        "\n" +
+                        "Hours\n" +
+                        "Monday & Thursday 9 AM - 8 PM\n" +
+                        "Friday 9 AM - 1 PM\n" +
+                        "Note: Mondays from 3 - 4 PM quiet space\n" +
+                        "\n" +
+                        "\n" +
+                        "A quiet room is available with computers and there is a main comfortable space with outlets" +
+                        " to study or take online classes."
+        );
+        buildingMessages.put("Latin@/x Center",
+                "Latin@/x Center\n" +
+                        "USU 3300\n" +
+                        "\n" +
+                        "The Latin@/x Center is grounded on community building standards deriving from “Familismo”" +
+                        " principals and operates from a Latinx Critical Theoretical lens. We focus on Latin@/x" +
+                        " student cultural empowerment by providing affirming and validating literature, artwork," +
+                        " and media within our space. We educate students and campus members about Latin@/x " +
+                        "traditions, culture, and issues impacting the community. The center serves " +
+                        "as a connection point to multiple internal and external networks aimed at providing" +
+                        " systems of support for Latin@/x identifying students. These center standards foster" +
+                        " positive transformational experiences and contribute to Latin@/x student success goals.\n" +
+                        "\n" +
+                        "All students are welcome to join us at the center for studying and online classes.\n" +
+                        "\n" +
+                        "HOURS\n" +
+                        "Monday - Thursday 8:30 AM - 3:30 PM\n" +
+                        "Friday 8:30 AM - 1:00 PM"
+
+        );
+        buildingMessages.put("Veterans Center",
+                "Veterans Center\n" +
+                        "CSUSM is home to more than 500 student Veterans; the highest percentage per capita of any" +
+                        " California State University campus. We pride ourselves on our high-touch holistic" +
+                        " approach toward our military-connected students, and offer a wide array of services" +
+                        " and resources for them."
+
         );
     }
     // Initialize the navigation tree
@@ -818,11 +887,27 @@ public class BuildingInfoUI {
         AcademicAdvising.addSubcategory(new CategoryNode("COBA Advising"));
         // Bookstore
         Services.addSubcategory(new CategoryNode("University Bookstore"));
+        //Student Centers
+        CategoryNode StuCen = new CategoryNode("Student Centers");
+        StuCen.addSubcategory(new CategoryNode("ASI Cougar Pantry (Commons 104)"));
+        StuCen.addSubcategory(new CategoryNode("Black Student Center"));
+        StuCen.addSubcategory(new CategoryNode("Cross-Cultural Center"));
+        StuCen.addSubcategory(new CategoryNode("Gender Equity Center"));
+        StuCen.addSubcategory(new CategoryNode("Latin@/x Center"));
+        StuCen.addSubcategory(new CategoryNode("LGBTQA Pride Center"));
+        StuCen.addSubcategory(new CategoryNode("Veterans Center"));
+        // Student housing
+        CategoryNode hou = new CategoryNode("Student Housing");
+        hou.addSubcategory(new CategoryNode("North Commons"));
+        hou.addSubcategory(new CategoryNode("The QUAD"));
+        hou.addSubcategory(new CategoryNode("University Village Apartments"));
         // Add main categories to root
         root.addSubcategory(buildings);
         root.addSubcategory(healthSafety);
         root.addSubcategory(ParkingTransit);
         root.addSubcategory(Services);
+        root.addSubcategory(StuCen);
+        root.addSubcategory(hou);
 
         return root;
     }
@@ -951,9 +1036,6 @@ public class BuildingInfoUI {
         return null; // If not found (shouldn't happen in a well-formed tree)
     }
 
-    public boolean isLoggedIn() {
-        return isLoggedIn;
-    }
 
     static class CategoryNode {
         String name;
