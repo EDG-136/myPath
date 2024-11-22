@@ -26,6 +26,15 @@ public class BuildingInfoUI {
     private CategoryNode root;
     private CategoryNode currentNode; // The currently displayed category
     private HashMap<String, Integer> icons = new HashMap<>();
+    private boolean showAddScheduleWindow = false;
+    private boolean wheelchairToggle = false;
+    private String searchBarInput = "";
+    private String classInput = "";
+    private String classroomInput = "";
+    private String startDayInput = "";
+    private String endDayInput = "";
+    private boolean[] daysOfWeek = new boolean[5]; // Monday to Friday
+    private List<String> logMessages = new ArrayList<>();
 
     public BuildingInfoUI(Window window)
     {
@@ -34,12 +43,21 @@ public class BuildingInfoUI {
     }
     public void init() {
         NavigationUI();
-        icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/free-building-icon-1062-thumb.png"));
-        icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/Health.png"));
-        icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
+        icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/Buildings.png"));
+        icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/medic.png"));
+        icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/bus-station.png"));
         icons.put("Services", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
-        icons.put("Student Centers", ImageLoader.loadTexture("src/main/resources/Icons/Student Centers.png"));
-        icons.put("Student Housing", ImageLoader.loadTexture("src/main/resources/Icons/Houseing.png"));
+        icons.put("Student Centers", ImageLoader.loadTexture("src/main/resources/Icons/table.png"));
+        icons.put("Student Housing", ImageLoader.loadTexture("src/main/resources/Icons/home.png"));
+        icons.put("Dining & Cafes", ImageLoader.loadTexture("src/main/resources/Icons/cutlery.png"));
+        icons.put("Study And Online Class Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        icons.put("Plazas & Gardens", ImageLoader.loadTexture("src/main/resources/Icons/Tree.png"));
+        icons.put("Academic Halls", ImageLoader.loadTexture("src/main/resources/Icons/png_moism.png"));
+        icons.put("Service Buildings", ImageLoader.loadTexture("src/main/resources/Icons/png_d3tenf.png"));
+        icons.put("Emergency Phones", ImageLoader.loadTexture("src/main/resources/Icons/png_2334g.png"));
+        icons.put("AED", ImageLoader.loadTexture("src/main/resources/Icons/png_qb2tw.png"));
+        icons.put("Lactation Rooms", ImageLoader.loadTexture("src/main/resources/Icons/png_v08dwj.png"));
+        icons.put("30 Minute Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
 
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +
@@ -779,7 +797,6 @@ public class BuildingInfoUI {
     }
     private CategoryNode buildCategoryTree() {
         CategoryNode root = new CategoryNode("Main Categories");
-
         //Buildings category
         CategoryNode buildings = new CategoryNode("Buildings");
         CategoryNode academicHalls = new CategoryNode("Academic Halls");
@@ -894,6 +911,69 @@ public class BuildingInfoUI {
         hou.addSubcategory(new CategoryNode("North Commons"));
         hou.addSubcategory(new CategoryNode("The QUAD"));
         hou.addSubcategory(new CategoryNode("University Village Apartments"));
+        // Dining and Cafés
+        CategoryNode food = new CategoryNode("Dining & Cafes");
+        food.addSubcategory(new CategoryNode("Campus Coffee"));
+        food.addSubcategory(new CategoryNode("Campus Way Cafe"));
+        food.addSubcategory(new CategoryNode("Crash's Coffee"));
+        food.addSubcategory(new CategoryNode("Get Fresh"));
+        food.addSubcategory(new CategoryNode("Hilltop Bistro Grille"));
+        food.addSubcategory(new CategoryNode("Panda Express"));
+        food.addSubcategory(new CategoryNode("QDOBA"));
+        food.addSubcategory(new CategoryNode("Starbucks"));
+        food.addSubcategory(new CategoryNode("USU Market"));
+        //Study And Online Class Spaces
+        CategoryNode Stu = new CategoryNode("Study And Online Class Spaces");
+        CategoryNode Open = new CategoryNode("Open Access Computer Lab");
+        CategoryNode in = new CategoryNode("Indoor Study Spaces");
+        CategoryNode out = new CategoryNode("Outdoor Study Spaces");
+        //add open to Stu
+        Open.addSubcategory(new CategoryNode("Kellogg 2000"));
+        Stu.addSubcategory(Open);
+        // Kellog Rooms
+        Stu.addSubcategory(new CategoryNode("Kellogg Library Group Study Rooms"));
+        //indoor Study Spaces
+        in.addSubcategory(new CategoryNode("Crash's Coffee"));
+        in.addSubcategory(new CategoryNode("ELB 588 Global Education Center"));
+        in.addSubcategory(new CategoryNode("Gender Equity Center"));
+        in.addSubcategory(new CategoryNode("Kellogg 2000"));
+        in.addSubcategory(new CategoryNode("Latin@/x Center"));
+        in.addSubcategory(new CategoryNode("LGBTQA Pride Center"));
+        Stu.addSubcategory(in);
+        //Outdoor Study Spaces
+        out.addSubcategory(new CategoryNode("Forum Plaza"));
+        out.addSubcategory(new CategoryNode("Founders Plaza"));
+        out.addSubcategory(new CategoryNode("Gonzalez Grove"));
+        out.addSubcategory(new CategoryNode("Kellogg Main Plaza"));
+        out.addSubcategory(new CategoryNode("Palm Court"));
+        out.addSubcategory(new CategoryNode("Parking Structure"));
+        out.addSubcategory(new CategoryNode("SBSB Courtyard"));
+        out.addSubcategory(new CategoryNode("Tukwut Courtyard"));
+        out.addSubcategory(new CategoryNode("USU Ampitheater"));
+        Stu.addSubcategory(out);
+        //ElB Again
+        Stu.addSubcategory(new CategoryNode("ELB 588 Global Education Center"));
+        //Plazas And Gardens
+        CategoryNode PlaGar = new CategoryNode("Plazas & Gardens");
+        CategoryNode Gar = new CategoryNode("Gardens");
+        CategoryNode Pla = new CategoryNode("Plazas");
+        //Gardens
+        Gar.addSubcategory(new CategoryNode("Ethnobotany Garden"));
+        Gar.addSubcategory(new CategoryNode("Pollinator Garden"));
+        Gar.addSubcategory(new CategoryNode("Sustainable Food Project Garden"));
+        PlaGar.addSubcategory(Gar);
+        //Plazas
+        Pla.addSubcategory(new CategoryNode("Chavez Plaza"));
+        Pla.addSubcategory(new CategoryNode("Forum Plaza"));
+        Pla.addSubcategory(new CategoryNode("Founders Plaza"));
+        Pla.addSubcategory(new CategoryNode("Gonzales Grove"));
+        Pla.addSubcategory(new CategoryNode("Gonzalez Grove"));
+        Pla.addSubcategory(new CategoryNode("Kellogg Plaza"));
+        Pla.addSubcategory(new CategoryNode("Palm Court"));
+        Pla.addSubcategory(new CategoryNode("Tukwut Courtyard"));
+        Pla.addSubcategory(new CategoryNode("USU Ampitheater"));
+        Pla.addSubcategory(new CategoryNode("Viasat Engineering Pavilion"));
+        PlaGar.addSubcategory(Pla);
         // Add main categories to root
         root.addSubcategory(buildings);
         root.addSubcategory(healthSafety);
@@ -901,6 +981,9 @@ public class BuildingInfoUI {
         root.addSubcategory(Services);
         root.addSubcategory(StuCen);
         root.addSubcategory(hou);
+        root.addSubcategory(food);
+        root.addSubcategory(Stu);
+        root.addSubcategory(PlaGar);
 
         return root;
     }

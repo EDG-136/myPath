@@ -4,21 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Fixed Icons Path">
+    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Student Centers Student Housing&#10;Fixed Login">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Buildings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/bus-station.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/cutlery.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/medic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/open-book.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_2334g.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_9aqz5k.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_d3tenf.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_moism.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_qb2tw.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_v08dwj.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/table.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/tree.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Food.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Food.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Health.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Health.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Houseing.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Houseing.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Parking.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Parking.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Pla.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Pla.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Services.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Services.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Student Centers.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Student Centers.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Study.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Study.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/free-building-icon-1062-thumb.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/free-building-icon-1062-thumb.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Food.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Health.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Houseing.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Parking.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Pla.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Student Centers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Study.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/free-building-icon-1062-thumb.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" afterDir="false" />
     </list>
@@ -58,23 +68,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LoginPage.executor": "Run",
-    "Application.Main.executor": "Run",
-    "Application.com.tecksupport.Main.executor": "Run",
-    "Application.mainSidebar.executor": "Run",
-    "JUnit.ClassInfoQueryTest.executor": "Debug",
-    "JUnit.PathfinderTests.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/curth/IdeaProjects/GUI/src/mainSidebar.java",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.1256584"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LoginPage.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.com.tecksupport.Main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.mainSidebar.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.ClassInfoQueryTest.executor&quot;: &quot;Debug&quot;,
+    &quot;JUnit.PathfinderTests.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/curth/IdeaProjects/GUI/src/mainSidebar.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.1256584&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\curth\Documents\GitHub\myPath\src\main\resources\Icons" />
@@ -157,13 +167,22 @@
       <option name="project" value="LOCAL" />
       <updated>1732233585674</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added Student Centers Student Housing&#10;Fixed Login">
+      <option name="closed" value="true" />
+      <created>1732236583679</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732236583679</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey" />
     <MESSAGE value="Added Icons &#10;Added Parking/Transit &#10;Added Services&#10;Fixed links &#10;Added Class to load Icons" />
     <MESSAGE value="Fixed Icons Path" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Icons Path" />
+    <MESSAGE value="Added Student Centers Student Housing&#10;Fixed Login" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Student Centers Student Housing&#10;Fixed Login" />
   </component>
 </project>
