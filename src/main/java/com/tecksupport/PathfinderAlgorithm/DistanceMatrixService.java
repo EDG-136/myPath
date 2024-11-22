@@ -1,4 +1,4 @@
-package com.tecksupport.Pathfinder;
+package com.tecksupport.PathfinderAlgorithm;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

@@ -4,38 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-<<<<<<< HEAD
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Add the new buttons for the path finder">
+      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Main.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-=======
-    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Student Centers Student Housing&#10;Fixed Login">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Buildings.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/bus-station.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/cutlery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/home.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/medic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/open-book.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_2334g.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_9aqz5k.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_d3tenf.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_moism.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_qb2tw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_v08dwj.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/table.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/tree.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/BuildingCoordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/BuildingCoordinates.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/DistanceMatrixService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/DistanceMatrixService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/OSMNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/OSMNode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/OSMParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/OSMParser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/OSMWay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/OSMWay.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/Pathfinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/Pathfinder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Food.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Health.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Houseing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Parking.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Pla.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Student Centers.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Study.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/free-building-icon-1062-thumb.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" afterDir="false" />
->>>>>>> 5214b7ca7aea4c3dd18a43c8003271c34f1baeff
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,18 +34,18 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Endless09"
-  }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/EDG-136/myPath.git",
-    "accountId": "c2e08512-7872-4c7a-a611-dbb4f38c668c"
-  }
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+      &quot;lastFilter&quot;: {
+        &quot;state&quot;: &quot;OPEN&quot;,
+        &quot;assignee&quot;: &quot;Endless09&quot;
+      }
+    }</component>
+  <component name="GithubPullRequestsUISettings">{
+      &quot;selectedUrlAndAccountId&quot;: {
+        &quot;url&quot;: &quot;https://github.com/EDG-136/myPath.git&quot;,
+        &quot;accountId&quot;: &quot;c2e08512-7872-4c7a-a611-dbb4f38c668c&quot;
+      }
+    }</component>
   <component name="ProjectColorInfo">{ &quot;customColor&quot;: &quot;&quot;, &quot;associatedIndex&quot;: 3 }</component>
   <component name="ProjectId" id="2oUyWKNYNmvaVp80AlnzjxJxHxr" />
   <component name="ProjectLevelVcsManager">
@@ -75,33 +56,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-<<<<<<< HEAD
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Main.executor": "Run",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "Pathfinder",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/gorek/For-resume/MYPATH/src/main/java/com/tecksupport/glfw/ui"
-=======
   <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LoginPage.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.com.tecksupport.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.mainSidebar.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ClassInfoQueryTest.executor&quot;: &quot;Debug&quot;,
-    &quot;JUnit.PathfinderTests.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/curth/IdeaProjects/GUI/src/mainSidebar.java&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.1256584&quot;
->>>>>>> 5214b7ca7aea4c3dd18a43c8003271c34f1baeff
-  }
-}</component>
+      &quot;keyToString&quot;: {
+        &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+        &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+        &quot;git-widget-placeholder&quot;: &quot;Pathfinder&quot;,
+        &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+        &quot;last_opened_file_path&quot;: &quot;C:/Users/gorek/For-resume/MYPATH/src/main/java/com/tecksupport/glfw/ui&quot;
+      }
+    }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\gorek\For-resume\MYPATH\src\main\java\com\tecksupport\glfw\ui" />
@@ -137,14 +100,6 @@
       <option name="project" value="LOCAL" />
       <updated>1732241549389</updated>
     </task>
-    <task id="LOCAL-00003" summary="Add the new buttons for the path finder">
-      <option name="closed" value="true" />
-      <created>1732241608282</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1732241608282</updated>
-    </task>
     <task active="true" id="Default" summary="Default task">
       <changelist id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Add the new buttons for the path finder" />
       <created>1732312406444</created>
@@ -152,29 +107,13 @@
       <option name="presentableId" value="Default" />
       <updated>1732312406444</updated>
     </task>
-    <task id="LOCAL-00004" summary="Added Student Centers Student Housing&#10;Fixed Login">
-      <option name="closed" value="true" />
-      <created>1732236583679</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1732236583679</updated>
-    </task>
     <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
-<<<<<<< HEAD
     <MESSAGE value="add buttons for pathfinder" />
     <MESSAGE value="Resolve merge conflicts with main" />
     <MESSAGE value="Add the new buttons for the path finder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add the new buttons for the path finder" />
-=======
-    <MESSAGE value="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey" />
-    <MESSAGE value="Added Icons &#10;Added Parking/Transit &#10;Added Services&#10;Fixed links &#10;Added Class to load Icons" />
-    <MESSAGE value="Fixed Icons Path" />
-    <MESSAGE value="Added Student Centers Student Housing&#10;Fixed Login" />
     <option name="LAST_COMMIT_MESSAGE" value="Added Student Centers Student Housing&#10;Fixed Login" />
->>>>>>> 5214b7ca7aea4c3dd18a43c8003271c34f1baeff
   </component>
 </project>

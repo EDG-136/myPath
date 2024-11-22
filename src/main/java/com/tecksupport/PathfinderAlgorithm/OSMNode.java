@@ -1,4 +1,4 @@
-package com.tecksupport.Pathfinder;
+package com.tecksupport.PathfinderAlgorithm;
 
 public class OSMNode {
     private long id;

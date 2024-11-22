@@ -1,4 +1,4 @@
-package com.tecksupport.Pathfinder;
+package com.tecksupport.PathfinderAlgorithm;
 
 public class Node {
     private int x, y;

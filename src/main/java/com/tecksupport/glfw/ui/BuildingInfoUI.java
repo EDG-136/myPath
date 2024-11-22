@@ -43,7 +43,7 @@ public class BuildingInfoUI {
     }
     public void init() {
         NavigationUI();
-<<<<<<< HEAD
+
 
         //icons.put("Buildings", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\free-building-icon-1062-thumb.png"));
         //icons.put("Health & Safety", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Health.png"));
@@ -53,11 +53,11 @@ public class BuildingInfoUI {
         icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/free-building-icon-1062-thumb.png"));
         icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/Health.png"));
         icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
-=======
+
         icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/Buildings.png"));
         icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/medic.png"));
         icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/bus-station.png"));
->>>>>>> 5214b7ca7aea4c3dd18a43c8003271c34f1baeff
+
         icons.put("Services", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
         icons.put("Student Centers", ImageLoader.loadTexture("src/main/resources/Icons/table.png"));
         icons.put("Student Housing", ImageLoader.loadTexture("src/main/resources/Icons/home.png"));
@@ -810,12 +810,11 @@ public class BuildingInfoUI {
     }
     private CategoryNode buildCategoryTree() {
         CategoryNode root = new CategoryNode("Main Categories");
-<<<<<<< HEAD
 
 
 
-=======
->>>>>>> 5214b7ca7aea4c3dd18a43c8003271c34f1baeff
+
+
         //Buildings category
         CategoryNode buildings = new CategoryNode("Buildings");
         CategoryNode academicHalls = new CategoryNode("Academic Halls");
@@ -930,7 +929,7 @@ public class BuildingInfoUI {
         hou.addSubcategory(new CategoryNode("North Commons"));
         hou.addSubcategory(new CategoryNode("The QUAD"));
         hou.addSubcategory(new CategoryNode("University Village Apartments"));
-<<<<<<< HEAD
+
 
         // Pathfinder
         CategoryNode path = new CategoryNode("Pathfinder");
@@ -938,7 +937,7 @@ public class BuildingInfoUI {
         path.addSubcategory(new CategoryNode("Toggle Wheelchair Accessibility"));
         path.addSubcategory(new CategoryNode("Show Path"));
 
-=======
+
         // Dining and Cafés
         CategoryNode food = new CategoryNode("Dining & Cafes");
         food.addSubcategory(new CategoryNode("Campus Coffee"));
@@ -1002,7 +1001,7 @@ public class BuildingInfoUI {
         Pla.addSubcategory(new CategoryNode("USU Ampitheater"));
         Pla.addSubcategory(new CategoryNode("Viasat Engineering Pavilion"));
         PlaGar.addSubcategory(Pla);
->>>>>>> 5214b7ca7aea4c3dd18a43c8003271c34f1baeff
+
         // Add main categories to root
         root.addSubcategory(buildings);
         root.addSubcategory(healthSafety);
@@ -1010,13 +1009,13 @@ public class BuildingInfoUI {
         root.addSubcategory(Services);
         root.addSubcategory(StuCen);
         root.addSubcategory(hou);
-<<<<<<< HEAD
+
         root.addSubcategory(path);
-=======
+
         root.addSubcategory(food);
         root.addSubcategory(Stu);
         root.addSubcategory(PlaGar);
->>>>>>> 5214b7ca7aea4c3dd18a43c8003271c34f1baeff
+
 
         return root;
     }

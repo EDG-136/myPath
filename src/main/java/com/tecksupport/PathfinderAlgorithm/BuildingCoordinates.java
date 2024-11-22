@@ -1,4 +1,4 @@
-package com.tecksupport.Pathfinder;
+package com.tecksupport.PathfinderAlgorithm;
 
 import java.util.HashMap;
 import java.util.Map;
