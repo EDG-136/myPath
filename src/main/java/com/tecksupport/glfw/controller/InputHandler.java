@@ -4,7 +4,6 @@ package com.tecksupport.glfw.controller;
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
-import com.tecksupport.glfw.ui.PathFinderUI;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
@@ -13,19 +12,7 @@ import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.system.Callback;
 
-import java.nio.DoubleBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import imgui.type.ImString;
-
-
-import javax.swing.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -46,7 +33,7 @@ public class InputHandler {
     private double oldYaw;
     private double oldPitch;
     private BuildingInfoUI buildingInfoUI;
-    private PathFinderUI pathFinderUI; // Add this
+
     private AuthUI authUI;
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
@@ -86,7 +73,7 @@ public class InputHandler {
 
         authUI = new AuthUI(window);
         buildingInfoUI = new BuildingInfoUI(window);
-        pathFinderUI = new PathFinderUI();
+
     }
 
     public void run() {
@@ -104,7 +91,7 @@ public class InputHandler {
                 renderer.render(entity, shader);
                 shader.unbind();
                 buildingInfoUI.renderUI();
-                pathFinderUI.renderUI();
+
             }
 
             endFrameImGui();

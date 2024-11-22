@@ -34,12 +34,12 @@ public class BuildingInfoUI {
     }
     public void init() {
         NavigationUI();
-<<<<<<< HEAD
+
         //icons.put("Buildings", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\free-building-icon-1062-thumb.png"));
         //icons.put("Health & Safety", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Health.png"));
         //icons.put("Parking & Transit", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Parking.png"));
         //icons.put("Services", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Services.png"));
-=======
+
         icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/free-building-icon-1062-thumb.png"));
         icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/Health.png"));
         icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
@@ -47,7 +47,7 @@ public class BuildingInfoUI {
         icons.put("Student Centers", ImageLoader.loadTexture("src/main/resources/Icons/Student Centers.png"));
         icons.put("Student Housing", ImageLoader.loadTexture("src/main/resources/Icons/Houseing.png"));
 
->>>>>>> 8339959af55102ede056ca15d0b40ef9a34b93d1
+
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +
                 "Acronym: ACD, Building No. 14\n" +
@@ -787,6 +787,8 @@ public class BuildingInfoUI {
     private CategoryNode buildCategoryTree() {
         CategoryNode root = new CategoryNode("Main Categories");
 
+
+
         //Buildings category
         CategoryNode buildings = new CategoryNode("Buildings");
         CategoryNode academicHalls = new CategoryNode("Academic Halls");
@@ -901,6 +903,13 @@ public class BuildingInfoUI {
         hou.addSubcategory(new CategoryNode("North Commons"));
         hou.addSubcategory(new CategoryNode("The QUAD"));
         hou.addSubcategory(new CategoryNode("University Village Apartments"));
+
+        // Pathfinder
+        CategoryNode path = new CategoryNode("Pathfinder");
+        path.addSubcategory(new CategoryNode("Add Classes to Schedule"));
+        path.addSubcategory(new CategoryNode("Toggle Wheelchair Accessibility"));
+        path.addSubcategory(new CategoryNode("Show Path"));
+
         // Add main categories to root
         root.addSubcategory(buildings);
         root.addSubcategory(healthSafety);
@@ -908,6 +917,7 @@ public class BuildingInfoUI {
         root.addSubcategory(Services);
         root.addSubcategory(StuCen);
         root.addSubcategory(hou);
+        root.addSubcategory(path);
 
         return root;
     }
@@ -923,6 +933,7 @@ public class BuildingInfoUI {
         // Restore the original background color
         ImGui.popStyleColor();
     }
+
     // Render subcategories as buttons
     private void renderSubcategories(CategoryNode node) {
         ImGui.text("Subcategories for " + node.name + ":");
@@ -1058,5 +1069,7 @@ public class BuildingInfoUI {
             subcategories.add(subcategory);
         }
     }
+
+
 
 }
