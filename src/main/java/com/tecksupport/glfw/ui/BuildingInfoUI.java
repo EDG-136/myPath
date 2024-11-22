@@ -47,10 +47,10 @@ public class BuildingInfoUI {
     }
     public void init() {
         NavigationUI();
-        icons.put("Buildings", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\free-building-icon-1062-thumb.png"));
-        icons.put("Health & Safety", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Health.png"));
-        icons.put("Parking & Transit", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Parking.png"));
-        icons.put("Services", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Services.png"));
+        //icons.put("Buildings", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\free-building-icon-1062-thumb.png"));
+        //icons.put("Health & Safety", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Health.png"));
+        //icons.put("Parking & Transit", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Parking.png"));
+        //icons.put("Services", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Services.png"));
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +
                 "Acronym: ACD, Building No. 14\n" +
