@@ -4,25 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/BuildingMessageInitializer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="add buttons for pathfinder">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/PathFinderUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/mainSidebar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/mainSidebar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/BuildingMessageInitializer.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/mainSidebar$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/mainSidebar$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/mainSidebar.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/mainSidebar.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/BuildingCoordinates.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/DistanceMatrixService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/OSMNode.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/OSMParser.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/OSMWay.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/Pathfinder.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/map.osm" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/map.osm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/map.osm" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,11 +76,12 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\gorek\For-resume\MYPATH\src\main\resources\OSM stuff" />
       <recent name="$PROJECT_DIR$/src/main/java/com/tecksupport" />
       <recent name="C:\Users\gorek\For-resume\pathfinder_algorithum\CampusGraph\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.mainSidebar">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="GUI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.tecksupport.GUI.LoginPage" />
       <module name="MYPATH" />
@@ -179,12 +169,29 @@
       <option name="project" value="LOCAL" />
       <updated>1732228674140</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="add buttons for pathfinder">
+      <option name="closed" value="true" />
+      <created>1732235539412</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732235539412</updated>
+    </task>
+    <task id="LOCAL-00004" summary="add buttons for pathfinder">
+      <option name="closed" value="true" />
+      <created>1732235549076</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732235549076</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Login Page and Started on Main sidebar got htrough building and health &amp; saftey" />
+    <MESSAGE value="add buttons for pathfinder" />
+    <option name="LAST_COMMIT_MESSAGE" value="add buttons for pathfinder" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
