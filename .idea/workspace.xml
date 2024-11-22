@@ -5,22 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Fixed Icons Path">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Food.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Food.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Health.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Health.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Houseing.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Houseing.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Parking.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Parking.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Pla.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Pla.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Services.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Services.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Student Centers.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Student Centers.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/Study.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/Study.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/textures/free-building-icon-1062-thumb.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/Icons/free-building-icon-1062-thumb.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Renderer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

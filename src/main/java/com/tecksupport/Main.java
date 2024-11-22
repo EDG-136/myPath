@@ -2,7 +2,7 @@ package com.tecksupport;
 
 import com.tecksupport.glfw.controller.InputHandler;
 
-public class Main {
+public class  Main {
 
   public static void main(String[] args){
 

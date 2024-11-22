@@ -16,10 +16,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.system.Callback;
 
 import java.nio.DoubleBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import imgui.type.ImString;
 
@@ -35,9 +32,11 @@ public class InputHandler {
     private Mesh mesh;
     private Camera camera;
     private RawModel rawModel;
+    private RawModel fishModel;
     private Renderer renderer;
     private Loader loader;
     private TexturedModel texturedModel;
+    private TexturedModel fishTextured;
     private RawModel square;
     private Entity entity;
     private ModelData modelData;
@@ -48,6 +47,10 @@ public class InputHandler {
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
+    private Random random = new Random();
+
+    private List<Entity> allEntities = new ArrayList<Entity>();
+
     public void init() {
         window = new Window(800, 600, "myPath");
         window.init();
@@ -56,19 +59,25 @@ public class InputHandler {
                 "src/main/java/com/tecksupport/glfw/shader/vertexShader.txt",
                 "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt"
         );
-        renderer = new Renderer(shader, window);
-
-//        rawModel = loader.loadToVAO(vertices, textureCoords, indices);
-
         rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
 
         texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 
-        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
+        entity = new Entity(texturedModel, new Vector3f(0, 0, 0), 0, 0, 0, 20);
 
         camera = new Camera();
+        renderer = new Renderer(shader, window, camera);
+        fishModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Fish"));
+        fishTextured = new TexturedModel(fishModel, new ModelTexture(loader.loadTexture("fish_texture")));
+        allEntities.add(entity);
+
+        for(int i =0; i < 1000; i++){
+            float x = random.nextFloat() * 1000;
+            float y = random.nextFloat()* 1000;
+            float z = random.nextFloat()* 1000;
+            allEntities.add(new Entity(fishTextured, new Vector3f(x,y,z - 25f), random.nextFloat() * 180f, random.nextFloat() * 180f, 0f, 1f));
+        }
 //        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
-//
 //        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
 //        shader.setUniform("camera", camMat);
 
@@ -89,18 +98,17 @@ public class InputHandler {
         while (!window.shouldClose()) {
             startFrameImGui();
 
-            if (!authUI.isLoggedIn()) {
-                authUI.renderLoginPage();
-            } else {
+//            if (!authUI.isLoggedIn()) {
+//                authUI.renderLoginPage();
+//            } else {
                 // Only render the main application if the user is logged in
                 processInput();
-                renderer.prepare();
-                shader.bind();
-                shader.loadViewMatrix(camera);
-                renderer.render(entity, shader);
-                shader.unbind();
+                for(Entity instance : allEntities){
+                    renderer.processEntity(instance);
+                }
+                renderer.render();
                 buildingInfoUI.renderUI();
-            }
+//            }
 
             endFrameImGui();
             window.update();
