@@ -1,6 +1,8 @@
 package com.tecksupport.glfw.controller;
 
 
+import com.tecksupport.database.CourseQuery;
+import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
@@ -30,6 +32,10 @@ import static org.lwjgl.glfw.GLFW.*;
 
 
 public class InputHandler {
+    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
+    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private final CourseQuery courseQuery;
+    private final UserAuthQuery userAuthQuery;
     private Window window;
     private Shader shader;
     private Mesh mesh;
@@ -45,8 +51,12 @@ public class InputHandler {
     private double oldPitch;
     private BuildingInfoUI buildingInfoUI;
     private AuthUI authUI;
-    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
-    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+
+    public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery)
+    {
+        this.courseQuery = courseQuery;
+        this.userAuthQuery = userAuthQuery;
+    }
 
     public void init() {
         window = new Window(800, 600, "myPath");
@@ -58,13 +68,12 @@ public class InputHandler {
         );
         renderer = new Renderer(shader, window);
 
-//        rawModel = loader.loadToVAO(vertices, textureCoords, indices);
 
-        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+//        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
 
-        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
+//        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 
-        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
+//        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
 
         camera = new Camera();
 //        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
@@ -81,7 +90,7 @@ public class InputHandler {
         imGuiGl3.init(window.getGlslVersion());
         System.out.println("Initialized ImGui");
 
-        authUI = new AuthUI(window);
+        authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
     }
 
@@ -90,11 +99,12 @@ public class InputHandler {
             startFrameImGui();
 
             if (!authUI.isLoggedIn()) {
+                renderer.prepare(0f,0f,0f,0f);
                 authUI.renderLoginPage();
             } else {
                 // Only render the main application if the user is logged in
                 processInput();
-                renderer.prepare();
+                renderer.prepare(0.6f, 0.8f, 1f, 1f);
                 shader.bind();
                 shader.loadViewMatrix(camera);
                 renderer.render(entity, shader);

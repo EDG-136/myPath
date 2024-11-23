@@ -5,32 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Student Centers Student Housing&#10;Fixed Login">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Buildings.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/bus-station.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/cutlery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/home.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/medic.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/open-book.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_2334g.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_9aqz5k.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_d3tenf.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_moism.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_qb2tw.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_v08dwj.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/table.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/tree.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/hs_err_pid27931.log" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/CourseQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/UserAuthQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/data/Course.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/CourseQuery.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserAuthQuery.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/data/Course.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/ImageLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Food.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Health.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Houseing.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Parking.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Pla.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Student Centers.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/Study.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/free-building-icon-1062-thumb.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/LoginPage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/GUI/mainSidebar.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/ClassInfoQueryTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/ClassInfoQueryTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/CourseInfo.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/MySQLDatabase.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/MySQLDatabase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/Schedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/data/Schedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/UserAuthentication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Renderer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Renderer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/LoginPage$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/LoginPage$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/LoginPage.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/mainSidebar$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/GUI/mainSidebar.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/ClassInfoQueryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/ClassInfoQueryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/CourseInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/MySQLDatabase.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/MySQLDatabase.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/Schedule.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/data/Schedule.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserAuthentication.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Renderer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Renderer.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +106,7 @@
       <recent name="C:\Users\gorek\For-resume\pathfinder_algorithum\CampusGraph\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="GUI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.tecksupport.GUI.LoginPage" />
       <module name="MyPath" />
