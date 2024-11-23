@@ -9,6 +9,7 @@ import imgui.ImVec4;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiInputTextFlags;
 import imgui.flag.ImGuiWindowFlags;
+import imgui.type.ImBoolean;
 import imgui.type.ImString;
 
 import java.util.regex.Matcher;
@@ -33,6 +34,7 @@ public class AuthUI {
     private final ImString passwordBuffer = new ImString("", 128);
     private final ImString firstNameBuffer = new ImString("", 128); // Using ImGui ImString
     private final ImString lastNameBuffer = new ImString("", 128);
+    private final ImBoolean showPasswordBuffer = new ImBoolean();
     private String displayMessage;
     private ImVec4 displayMessageColor = new ImVec4();
     private boolean isLoggedIn = false; // To track login status
@@ -67,6 +69,8 @@ public class AuthUI {
 
         displayInputFields();
 
+        ImGui.newLine();
+
         handleLoginIn();
         ImGui.sameLine();
         handleSignUp();
@@ -81,6 +85,13 @@ public class AuthUI {
 
     private void displayInputFields() {
         float itemWidth = 200;
+
+        int passwordFlag;
+        if (!showPasswordBuffer.get())
+            passwordFlag = ImGuiInputTextFlags.Password;
+        else
+            passwordFlag = ImGuiInputTextFlags.None;
+
         if (isSignUp)
         {
             // Reset Display Message
@@ -98,7 +109,7 @@ public class AuthUI {
             ImGui.pushItemWidth(itemWidth);
 
             ImGui.text("First Name:");
-            ImGui.sameLine(itemWidth + 15);
+            ImGui.sameLine(itemWidth, 15);
             ImGui.text("Last Name:");
 
             ImGui.inputText("##FirstName", firstNameBuffer, ImGuiInputTextFlags.None);
@@ -106,12 +117,18 @@ public class AuthUI {
             ImGui.inputText("##LastName", lastNameBuffer, ImGuiInputTextFlags.None);
 
             ImGui.text("Username:");
-            ImGui.sameLine(itemWidth + 15);
+            ImGui.sameLine(itemWidth, 15);
             ImGui.text("Password:");
 
             ImGui.inputText("##Username", usernameBuffer, ImGuiInputTextFlags.None);
             ImGui.sameLine();
-            ImGui.inputText("##Password", passwordBuffer, ImGuiInputTextFlags.Password);
+            ImGui.inputText("##Password", passwordBuffer, passwordFlag);
+
+            ImGui.spacing();
+            ImGui.newLine();
+            ImGui.sameLine(itemWidth,20);
+            ImGui.checkbox("Show Password", showPasswordBuffer);
+            ImGui.sameLine();
 
             ImGui.popItemWidth();
         } else {
@@ -125,7 +142,10 @@ public class AuthUI {
 
             ImGui.text("Password:");
 
-            ImGui.inputText("##Password", passwordBuffer, ImGuiInputTextFlags.Password);
+            ImGui.inputText("##Password", passwordBuffer, passwordFlag);
+
+            ImGui.spacing();
+            ImGui.checkbox("Show Password", showPasswordBuffer);
 
             ImGui.popItemWidth();
         }
