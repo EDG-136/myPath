@@ -44,15 +44,15 @@ public class BuildingInfoUI {
     public void init() {
         NavigationUI();
 
-
+/*
         //icons.put("Buildings", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\free-building-icon-1062-thumb.png"));
         //icons.put("Health & Safety", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Health.png"));
         //icons.put("Parking & Transit", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Parking.png"));
         //icons.put("Services", ImageLoader.loadTexture("C:\\Users\\curth\\IdeaProjects\\GUI\\Icons\\Services.png"));
 
-        icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/free-building-icon-1062-thumb.png"));
-        icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/Health.png"));
-        icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
+        //icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/Buildings.png"));
+        //icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/Health.png"));
+        //icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
 
         icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/Buildings.png"));
         icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/medic.png"));
@@ -70,7 +70,7 @@ public class BuildingInfoUI {
         icons.put("AED", ImageLoader.loadTexture("src/main/resources/Icons/png_qb2tw.png"));
         icons.put("Lactation Rooms", ImageLoader.loadTexture("src/main/resources/Icons/png_v08dwj.png"));
         icons.put("30 Minute Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
-
+*/
 
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +

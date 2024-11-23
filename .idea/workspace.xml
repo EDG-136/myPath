@@ -4,19 +4,52 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Add the new buttons for the path finder">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/Main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/Main.xml" afterDir="false" />
+    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="ignore this">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/renderer/GridRenderer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/shader/gridFragmentShader.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/shader/gridVertexShader.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/Buildings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/bus-station.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/cutlery.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/home.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/medic.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/open-book.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/png_2334g.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/png_9aqz5k.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/png_d3tenf.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/png_moism.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/png_qb2tw.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/png_v08dwj.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/table.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/Icons/tree.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/renderer/GridRenderer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/BuildingCoordinates.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/BuildingCoordinates.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/DistanceMatrixService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/DistanceMatrixService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/OSMNode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/OSMNode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/OSMParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/OSMParser.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/OSMWay.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/OSMWay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Pathfinder algorithm/Pathfinder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/PathfinderAlgorithm/Pathfinder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/model/Shader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/model/Shader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/ImageLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/ImageLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Icons/Food.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Icons/Health.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Icons/Houseing.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Icons/Parking.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Icons/Pla.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Icons/Student Centers.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Icons/Study.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Icons/free-building-icon-1062-thumb.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Pathfinder/BuildingCoordinates.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/BuildingCoordinates.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Pathfinder/DistanceMatrixService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/DistanceMatrixService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Pathfinder/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/Node.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Pathfinder/OSMNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/OSMNode.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Pathfinder/OSMParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/OSMParser.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Pathfinder/OSMWay.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/OSMWay.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Pathfinder/Pathfinder.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/PathfinderAlgorithm/Pathfinder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/model/Shader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/model/Shader.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/ImageLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/ImageLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Camera.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Camera.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,13 +140,22 @@
       <option name="presentableId" value="Default" />
       <updated>1732312406444</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="ignore this">
+      <option name="closed" value="true" />
+      <created>1732318710842</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732318710842</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add buttons for pathfinder" />
     <MESSAGE value="Resolve merge conflicts with main" />
     <MESSAGE value="Add the new buttons for the path finder" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Student Centers Student Housing&#10;Fixed Login" />
+    <MESSAGE value="ignore this" />
+    <option name="LAST_COMMIT_MESSAGE" value="ignore this" />
   </component>
 </project>

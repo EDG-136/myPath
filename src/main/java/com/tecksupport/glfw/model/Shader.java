@@ -110,7 +110,7 @@ public class Shader {
 
     }
 
-    int getUniformLocation(String uniformName) {
+    public int getUniformLocation(String uniformName) {
         return glGetUniformLocation(programId, uniformName);
     }
 

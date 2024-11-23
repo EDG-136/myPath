@@ -1,22 +1,21 @@
 package com.tecksupport.glfw.controller;
 
-
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
+import com.tecksupport.glfw.renderer.GridRenderer;
+import com.tecksupport.glfw.utils.Maths;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
 import imgui.ImGui;
-import imgui.flag.*;
+import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
+import org.joml.Matrix4f;
 import org.joml.Vector3f;
 
-
 import static org.lwjgl.glfw.GLFW.*;
-
-
 
 public class InputHandler {
     private Window window;
@@ -33,8 +32,11 @@ public class InputHandler {
     private double oldYaw;
     private double oldPitch;
     private BuildingInfoUI buildingInfoUI;
-
     private AuthUI authUI;
+
+    // New GridRenderer instance for rendering the grid
+    private GridRenderer gridRenderer;
+
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
@@ -48,19 +50,14 @@ public class InputHandler {
         );
         renderer = new Renderer(shader, window);
 
-//        rawModel = loader.loadToVAO(vertices, textureCoords, indices);
-
         rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
-
         texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
-
         entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
 
         camera = new Camera();
-//        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
-//
-//        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
-//        shader.setUniform("camera", camMat);
+
+        // Initialize GridRenderer
+        gridRenderer = new GridRenderer();
 
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
@@ -73,7 +70,6 @@ public class InputHandler {
 
         authUI = new AuthUI(window);
         buildingInfoUI = new BuildingInfoUI(window);
-
     }
 
     public void run() {
@@ -86,12 +82,27 @@ public class InputHandler {
                 // Only render the main application if the user is logged in
                 processInput();
                 renderer.prepare();
+
+                // Calculate the map's transformation matrix
+                Matrix4f mapPositionMatrix = Maths.createTransformationMatrix(
+                        entity.getPosition(),
+                        entity.getRotX(),
+                        entity.getRotY(),
+                        entity.getRotZ(),
+                        entity.getScale()
+                );
+
+                // Render the grid
+                gridRenderer.render(camera.getProjectionMatrix(), camera.getViewMatrix(), mapPositionMatrix);
+
+                // Render the entity (map)
                 shader.bind();
                 shader.loadViewMatrix(camera);
                 renderer.render(entity, shader);
                 shader.unbind();
-                buildingInfoUI.renderUI();
 
+                // Render building UI
+                buildingInfoUI.renderUI();
             }
 
             endFrameImGui();
@@ -125,9 +136,7 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_E) == GLFW_PRESS) {
             camera.yawRight();
         }
-        // Handle more inputs here
     }
-
 
     void mouseButtonCallback(long window, int button, int action, int mods) {
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
@@ -156,13 +165,13 @@ public class InputHandler {
     public void cleanup() {
         shader.cleanup();
         loader.cleanUp();
-        // renderer.cleanup();
-        // mesh.cleanup();
+        gridRenderer.cleanup(); // Cleanup grid renderer resources
         imGuiGl3.shutdown();
         imGuiGlfw.shutdown();
         ImGui.destroyContext();
         window.cleanup();
     }
+
     void startFrameImGui() {
         imGuiGl3.newFrame();
         imGuiGlfw.newFrame();
