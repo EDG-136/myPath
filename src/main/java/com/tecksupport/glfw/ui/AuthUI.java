@@ -191,6 +191,7 @@ public class AuthUI {
             return;
 
         if (isSignUp) {
+            setDisplayMessage(NONE);
             isSignUp = false;
             return;
         }

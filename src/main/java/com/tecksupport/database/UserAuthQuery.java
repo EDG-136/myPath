@@ -72,13 +72,11 @@ public class UserAuthQuery {
 
     public boolean isPasswordCorrect(String username, String password) {
         try {
-            String query = "SELECT StudentID,HashedPassword " +
+            String query = "SELECT UserName,HashedPassword " +
                     "FROM Students " +
-                    "WHERE StudentID = ? " +
-                    "AND HashedPassword = ?;";
+                    "WHERE UserName = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, username);
-            statement.setString(2, password);
             statement.execute();
 
             ResultSet result = statement.getResultSet();
