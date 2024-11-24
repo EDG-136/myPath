@@ -69,17 +69,16 @@ public class InputHandler {
         renderer = new Renderer(shader, window);
 
 
-//        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
 
-//        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
+       texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 
-//        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
+       entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
 
         camera = new Camera();
-//        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
-//
-//        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
-//        shader.setUniform("camera", camMat);
+       // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
+        //Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
+        // shader.setUniform("camera", camMat);
 
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
