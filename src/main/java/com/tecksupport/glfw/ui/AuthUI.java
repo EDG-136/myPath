@@ -24,9 +24,6 @@ public class AuthUI {
     private final static ImVec4 GREEN = new ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
     private final static ImVec4 WHITE = new ImVec4();
 
-    private float width;
-    private float height;
-    private String title = "Login Page";
     private final UserAuthQuery userAuthQuery;
     private final Window window;
     private final ImString studentIDBuffer = new ImString("", 128); // Using ImGui ImString
@@ -35,10 +32,13 @@ public class AuthUI {
     private final ImString firstNameBuffer = new ImString("", 128); // Using ImGui ImString
     private final ImString lastNameBuffer = new ImString("", 128);
     private final ImBoolean showPasswordBuffer = new ImBoolean();
+    private String title = "Login Page";
     private String displayMessage;
     private ImVec4 displayMessageColor = new ImVec4();
     private boolean isLoggedIn = false; // To track login status
     private boolean isSignUp;
+    private float width;
+    private float height;
 
     public AuthUI(Window window, UserAuthQuery userAuthQuery) {
         this.window = window;

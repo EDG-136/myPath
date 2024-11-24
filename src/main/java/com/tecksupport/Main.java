@@ -1,6 +1,7 @@
 package com.tecksupport;
 
 import com.tecksupport.database.CourseQuery;
+import com.tecksupport.database.FacultyQuery;
 import com.tecksupport.database.MySQLDatabase;
 import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.controller.InputHandler;
@@ -13,8 +14,9 @@ public class Main {
     database.connect();
     CourseQuery courseQuery = new CourseQuery(database.getConnection());
     UserAuthQuery userAuthQuery = new UserAuthQuery(database.getConnection());
+    FacultyQuery facultyQuery = new FacultyQuery(database.getConnection());
 
-    InputHandler instance = new InputHandler(courseQuery, userAuthQuery);
+    InputHandler instance = new InputHandler(courseQuery, userAuthQuery, facultyQuery);
 
     instance.init();
     instance.run();

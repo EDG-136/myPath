@@ -2,10 +2,12 @@ package com.tecksupport.glfw.controller;
 
 
 import com.tecksupport.database.CourseQuery;
+import com.tecksupport.database.FacultyQuery;
 import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
+import com.tecksupport.glfw.ui.FacultyInfoUI;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
@@ -32,10 +34,13 @@ import static org.lwjgl.glfw.GLFW.*;
 
 
 public class InputHandler {
+    private static final int ORIGINAL_WIDTH = 800;
+    private static final int ORIGINAL_HEIGHT = 600;
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
     private final CourseQuery courseQuery;
     private final UserAuthQuery userAuthQuery;
+    private final FacultyQuery facultyQuery;
     private Window window;
     private Shader shader;
     private Mesh mesh;
@@ -51,15 +56,17 @@ public class InputHandler {
     private double oldPitch;
     private BuildingInfoUI buildingInfoUI;
     private AuthUI authUI;
+    private FacultyInfoUI facultyInfoUI;
 
-    public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery)
+    public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery)
     {
         this.courseQuery = courseQuery;
         this.userAuthQuery = userAuthQuery;
+        this.facultyQuery = facultyQuery;
     }
 
     public void init() {
-        window = new Window(800, 600, "myPath");
+        window = new Window(ORIGINAL_WIDTH, ORIGINAL_HEIGHT, "myPath");
         window.init();
         loader = new Loader();
         shader = new Shader(
@@ -91,6 +98,7 @@ public class InputHandler {
 
         authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
+        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
     }
 
     public void run() {
@@ -109,6 +117,7 @@ public class InputHandler {
                 renderer.render(entity, shader);
                 shader.unbind();
                 buildingInfoUI.renderUI();
+                facultyInfoUI.render();
             }
 
             endFrameImGui();
@@ -180,6 +189,7 @@ public class InputHandler {
         ImGui.destroyContext();
         window.cleanup();
     }
+
     void startFrameImGui() {
         imGuiGl3.newFrame();
         imGuiGlfw.newFrame();
