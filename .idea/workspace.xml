@@ -4,29 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added All main Buttons &#10;Started Putting icons down for every button Ran out of time">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/11161748591679902089-128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/18380435631638026262-128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/19173807891555590645-128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/19791031361605579770-128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/2372953351649239804-128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/5534386971637679806-128.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_0nrxu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_1vm64.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_446no.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_4dpmk.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_c431g.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_irt46.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_iugmy.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_j581h.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_tdy3hh.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_u6i3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_v59uj.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/png_xhqs3.png" afterDir="false" />
+    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Student Centers Student Housing&#10;Fixed Login">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +71,7 @@
       <recent name="C:\Users\gorek\For-resume\pathfinder_algorithum\CampusGraph\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="GUI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.tecksupport.GUI.LoginPage" />
       <module name="MyPath" />
@@ -171,15 +153,7 @@
       <option name="project" value="LOCAL" />
       <updated>1732236583679</updated>
     </task>
-    <task id="LOCAL-00005" summary="Added All main Buttons &#10;Started Putting icons down for every button Ran out of time">
-      <option name="closed" value="true" />
-      <created>1732309702075</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1732309702075</updated>
-    </task>
-    <option name="localTasksCounter" value="6" />
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -187,7 +161,6 @@
     <MESSAGE value="Added Icons &#10;Added Parking/Transit &#10;Added Services&#10;Fixed links &#10;Added Class to load Icons" />
     <MESSAGE value="Fixed Icons Path" />
     <MESSAGE value="Added Student Centers Student Housing&#10;Fixed Login" />
-    <MESSAGE value="Added All main Buttons &#10;Started Putting icons down for every button Ran out of time" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added All main Buttons &#10;Started Putting icons down for every button Ran out of time" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Student Centers Student Housing&#10;Fixed Login" />
   </component>
 </project>

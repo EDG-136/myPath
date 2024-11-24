@@ -28,10 +28,10 @@ public class Renderer {
     }
 
 
-    public void prepare() {
+    public void prepare(float red, float green, float blue, float alpha) {
         glEnable(GL_DEPTH_TEST);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glClearColor(0.6f, 0.8f, 0.9f, 1);
+        glClearColor(red, green, blue, alpha);
     }
 
 

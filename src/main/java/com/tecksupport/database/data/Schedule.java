@@ -1,7 +1,8 @@
-package com.tecksupport.database;
+package com.tecksupport.database.data;
 
 public class Schedule {
     private final int courseID;
+    private final String roomName;
     private final String facultyID;
     private final String startTime;
     private final String endTime;
@@ -9,8 +10,9 @@ public class Schedule {
     private final String startDate;
     private final String endDate;
 
-    public Schedule(int courseID, String facultyID, String startTime, String endTime, String daysInWeek, String startDate, String endDate) {
+    public Schedule(int courseID, String roomName, String facultyID, String startTime, String endTime, String daysInWeek, String startDate, String endDate) {
         this.courseID = courseID;
+        this.roomName = roomName;
         this.facultyID = facultyID;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -21,6 +23,10 @@ public class Schedule {
 
     public int getCourseID() {
         return courseID;
+    }
+
+    public String getRoomName() {
+        return roomName;
     }
 
     public String getFacultyID() {
