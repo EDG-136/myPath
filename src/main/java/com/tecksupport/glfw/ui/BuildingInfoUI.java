@@ -58,7 +58,34 @@ public class BuildingInfoUI {
         icons.put("AED", ImageLoader.loadTexture("src/main/resources/Icons/png_qb2tw.png"));
         icons.put("Lactation Rooms", ImageLoader.loadTexture("src/main/resources/Icons/png_v08dwj.png"));
         icons.put("30 Minute Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
-
+        icons.put("Alternative Transportation", ImageLoader.loadTexture("src/main/resources/Icons/png_1vm64.png"));
+        icons.put("Bike Lockers", ImageLoader.loadTexture("src/main/resources/Icons/png_xhqs3.png"));
+        icons.put("Carpool Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
+        icons.put("Bike Racks", ImageLoader.loadTexture("src/main/resources/Icons/png_xhqs3.png"));
+        icons.put("Electric Vehicle Charging Station", ImageLoader.loadTexture("src/main/resources/Icons/png_c431g.png"));
+        icons.put("Zip Car Sharing Program", ImageLoader.loadTexture("src/main/resources/Icons/png_tdy3hh.png"));
+        icons.put("Disabled Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_0nrxu.png"));
+        icons.put("Faculty/Staff Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
+        icons.put("General Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
+        icons.put("Streets", ImageLoader.loadTexture("src/main/resources/Icons/png_iugmy.png"));
+        icons.put("Metered Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
+        icons.put("Permit Purchase Stations", ImageLoader.loadTexture("src/main/resources/Icons/19791031361605579770-128.png"));
+        icons.put("NCTD Bus Stops", ImageLoader.loadTexture("src/main/resources/Icons/png_446no.png"));
+        icons.put("Sprinter Station", ImageLoader.loadTexture("src/main/resources/Icons/png_u6i3.png"));
+        icons.put("Cougar Central", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
+        icons.put("IT Help Desk", ImageLoader.loadTexture("src/main/resources/Icons/png_irt46.png"));
+        icons.put("Learning Centers", ImageLoader.loadTexture("src/main/resources/Icons/png_v59uj.png"));
+        icons.put("Alumni Association", ImageLoader.loadTexture("src/main/resources/Icons/19173807891555590645-128.png"));
+        icons.put("Athletics", ImageLoader.loadTexture("src/main/resources/Icons/2372953351649239804-128.png"));
+        icons.put("Office of Global Education", ImageLoader.loadTexture("src/main/resources/Icons/png_4dpmk.png"));
+        icons.put("Career Center", ImageLoader.loadTexture("src/main/resources/Icons/18380435631638026262-128.png"));
+        icons.put("Academic Advising", ImageLoader.loadTexture("src/main/resources/Icons/11161748591679902089-128.png"));
+        icons.put("Open Access Computer Lab", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        icons.put("Kellogg Library Group Study Rooms", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        icons.put("Indoor Study Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        icons.put("Outdoor Study Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        icons.put("Gardens", ImageLoader.loadTexture("src/main/resources/Icons/5534386971637679806-128.png"));
+        icons.put("Plazas", ImageLoader.loadTexture("src/main/resources/Icons/png_j581h.png"));
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +
                 "Acronym: ACD, Building No. 14\n" +
@@ -788,6 +815,273 @@ public class BuildingInfoUI {
                         " approach toward our military-connected students, and offer a wide array of services" +
                         " and resources for them."
 
+        );
+        buildingMessages.put("Campus Coffee",
+                "Campus Coffee\n" +
+                        "Located on the southeast side of campus on Founders Plaza, Campus Coffee has served CSUSM" +
+                        " as the only standalone business on campus since 2004.  Specializing in local, sustainable " +
+                        "and independent purveyors who provide the freshest, highest-quality, fair trade coffee, " +
+                        "dairy, pastries, sandwiches and salads. Campus Coffee offers kosher, gluten free, vegan and organic products. " +
+                        " Their commitment to the CSUSM community is evident in their efforts to support various clubs on campus" +
+                        " and within the local community.\n" +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("Campus Way Cafe",
+                "Campus Way Cafe\n" +
+                        "Campus way Cafe is an all you care to eat community dining space where students can enjoy a nutritious" +
+                        " and delicious meal with friends as part of their campus experience. Everyone will enjoy a great dining " +
+                        "program that includes vegan and vegetarian options. A fresh salad station and of course a grill, pizza station," +
+                        " pasta station, and to-go options!" +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("Crash's Coffee",
+                "Crash's Coffee\n" +
+                        "Crash’s Cafe offers Starbucks Coffee beverages, drinks and tea. We also serve exceptional CSUSM baked goods," +
+                        " gourmet salads and sandwiches. Enjoy one of our signature coffee blends, delicious coconut or chai teas," +
+                        " lattes, espressos out on the patio or fireside at the University Student Union." +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("Get Fresh",
+                "Get Fresh\n" +
+                        "Get Fresh offers a build-your-own selection of fresh and internationally inspired salad choices topped " +
+                        "off with proteins. Now offering salads, rice bowls, wraps and smoothies with seasonal, local produce." +
+                        " You’re going to love it at every change of the season!" +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("Hilltop Bistro Grille",
+                "Hilltop Bistro Grille\n" +
+                        "Our premium grill offers a variety of choices from healthy to indulgent, familiar to intriguing. Hilltop" +
+                        " Bistro Grille has many burger options, ranging from beef to chicken, turkey and vegetarian burgers, along" +
+                        " with fish. The full array of sides includes traditional fries, seasoned potato wedges, slaws" +
+                        " and side salads. " +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("Panda Express",
+                "Panda Express\n" +
+                        "Enjoy Asian-inspired dishes that are wok-tossed with fresh veggies and our gourmet sauces," +
+                        " elevating fast-casual Chinese food." +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("QDOBA",
+                "QDOBA\n" +
+                        "Qdoba Mexican Eats offers customizable flavorful food. Plus, add queso and guacamole" +
+                        " for free on any entrée! " +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("Starbucks",
+                "Starbucks\n" +
+                        "Starbucks roasts high-quality whole-bean coffees and sells them along with fresh, rich-brewed," +
+                        " Italian-style espresso beverages, a variety of pastries and confections. Starbucks also offers" +
+                        " a line of premium Teavana teas." +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("USU Market",
+                "USU Market\n" +
+                        "USU Market offers all your favorite beverages, grab & go meals, sandwiches, salads," +
+                        " ice cream, sushi, personal care and grocery items." +
+                        "\n" +
+                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+
+        );
+        buildingMessages.put("Open Access Computer Lab",
+                "Open Access Computer Lab Locations\n" +
+                        "Kellogg 2000\n" +
+                        "Hours of operation:\n" +
+                        "\n" +
+                        "<a href=https://biblio.csusm.edu/library-hours-events/>Open during Library open hours.</a>\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        " \n" +
+                        "\n" +
+                        "Check lab and printer availability in the CSUSM mobile app."
+        );
+        buildingMessages.put("Kellogg Library Group Study Rooms",
+                "Kellogg Library Group Study Rooms\n" +
+                        "Please visit the <a href=https://biblio.csusm.edu/content/group-study-rooms-0/> University Library Group Study Rooms</a> " +
+                        "for more information\n" +
+                        "Locations\n" +
+                        "Kellogg Room 2106\n" +
+                        "Kellogg Room 2107\n" +
+                        "Kellogg Room 2110\n" +
+                        "Kellogg Room 2112\n" +
+                        "Kellogg Room 2113\n" +
+                        "Kellogg Room 2116\n" +
+                        "Kellogg Room 4001\n" +
+                        "Kellogg Room 4002\n" +
+                        "Kellogg Room 4004\n" +
+                        "Kellogg Room 4102\n" +
+                        "Kellogg Room 4103\n" +
+                        "Kellogg Room 4104\n" +
+                        "Kellogg Room 4105\n" +
+                        "Kellogg Room 4106\n" +
+                        "Kellogg Room 4107\n" +
+                        "Kellogg Room 4310\n" +
+                        "Kellogg Room 4311\n" +
+                        "Kellogg Room 4312\n" +
+                        "Kellogg Room 4313\n" +
+                        "Kellogg Room 4314\n" +
+                        "Kellogg Room 4315\n" +
+                        "Kellogg Room 4410\n" +
+                        "Kellogg Room 4411\n" +
+                        "Kellogg Room 4412\n" +
+                        "Kellogg Room 4413\n" +
+                        "Kellogg Room 4414\n" +
+                        "Kellogg Room 5108\n" +
+                        "Kellogg Room 5109\n" +
+                        "Kellogg Room 5302\n" +
+                        "Kellogg Room 5303\n" +
+                        "Kellogg Room 5304\n" +
+                        "Kellogg Room 5305\n" +
+                        "Kellogg Room 5306\n" +
+                        "Kellogg Room 5307\n" +
+                        "Kellogg Room 5311\n" +
+                        "Kellogg Room 5312\n" +
+                        "Kellogg Room 5313\n" +
+                        "Kellogg Room 5314\n" +
+                        "Kellogg Room 5315\n" +
+                        "Kellogg Room 5316\n" +
+                        "Kellogg Room 5411"
+        );
+        buildingMessages.put("ACD 201 Classroom",
+                "ACD 201 Classroom\n" +
+                        "Limited outlets available.\n" +
+                        "\n" +
+                        "Headphones are required for audio usage.\n" +
+                        "\n" +
+                        "Please be respectful of other students in this space."
+        );
+        buildingMessages.put("ACD 301 Classroom",
+                "ACD 301 Classroom\n" +
+                        "Limited outlets available.\n" +
+                        "\n" +
+                        "Headphones are required for audio usage.\n" +
+                        "\n" +
+                        "Please be respectful of other students in this space."
+        );
+
+        buildingMessages.put("ELB 588 Global Education Center",
+                "ELB 588 Global Education Center\n" +
+                        "Outlets and tables/chairs available.\n" +
+                        "\n" +
+                        "HOURS: M-F 8:00 AM - 5:00 PM"
+        );
+        buildingMessages.put("Extended Learning Building 250",
+                "Extended Learning Building 250\n" +
+                        "Please visit <a href=https://appointments.csusm.edu/> Appointments</a>" +
+                        " to reserve a spot"
+        );
+        buildingMessages.put("Kellogg 2000",
+                "Kellogg 2000\n" +
+                        "Hours of operation:\n" +
+                        "\n" +
+                        "<a href=https://biblio.csusm.edu/library-hours-events/>Open during Library open hours.</a>\n" +
+                        "\n" +
+                        "\n" +
+                        "\n" +
+                        " \n" +
+                        "\n" +
+                        "Check lab and printer availability in the CSUSM mobile app."
+        );
+        buildingMessages.put("Kellogg Reading Room",
+                "Kellogg Reading Room\n" +
+                        "Reading Room is in the Kellogg Library \n" +
+                        "Headphones are required for audio usage.\n" +
+                        "Please be respectful of other students in this space."
+        );
+        buildingMessages.put("MARK 107 Tiered Classroom",
+                "MARK 107 Tiered Classroom\n" +
+                        "Limited outlets available.\n" +
+                        "\n" +
+                        "Headphones are required for audio usage.\n" +
+                        "\n" +
+                        "Please be respectful of other students using this space."
+        );
+        buildingMessages.put("MARK 201 Classroom",
+                "MARK 201 Classroom\n" +
+                        "Limited outlets available.\n" +
+                        "\n" +
+                        "Headphones are required for audio usage.\n" +
+                        "\n" +
+                        "Please be respectful of other students using this space."
+        );
+        buildingMessages.put("MARK 309 PC Lab",
+                "MARK 309 PC Lab\n" +
+                        "33 PC Computers are available for usage. Limited outlets are also available.\n" +
+                        "Limited outlets available.\n" +
+                        "\n" +
+                        "Headphones are required for audio usage.\n" +
+                        "\n" +
+                        "Please be respectful of other students using this space."
+        );
+        buildingMessages.put("SBSB Lobby",
+                "SBSB Lobby"
+        );
+        buildingMessages.put("UNIV 273 MAC Lab",
+                "UNIV 273 MAC Lab\n" +
+                        "35 MAC Computers are available for usage. Limited outlets are also available.\n" +
+                        "\n" +
+                        " \n" +
+                        "\n" +
+                        "Headphones are required for audio usage.\n" +
+                        "\n" +
+                        " \n" +
+                        "\n" +
+                        "Please be respectful of other students using this space."
+        );
+        buildingMessages.put("Outdoor Study Spaces",
+                "Outdoor Study Spaces Locations\n" +
+                        "Dome Terrace\n" +
+                        "Forum Plaza\n" +
+                        "Founders Plaza\n" +
+                        "Gonzalez Grove\n" +
+                        "Kellogg Main Plaza\n" +
+                        "Markstein Plaza\n" +
+                        "Palm Court\n" +
+                        "Parking Structure\n" +
+                        "SBSB Courtyard\n" +
+                        "Starbuck's Patio\n" +
+                        "Tukwut Courtyard\n" +
+                        "USU Ampitheater\n" +
+                        "USU, 4th Floor Roof Top Patio\n" +
+                        "USU, First Floor Patio\n" +
+                        "USU, Outdoor 4th Floor Patio"
+        );
+        buildingMessages.put("Gardens",
+                "Gardens\n" +
+                        "Ethnobotany Garden\n" +
+                        "Pollinator Garden\n" +
+                        "Sustainable Food Project Garden"
+        );
+        buildingMessages.put("Plazas",
+                "Plazas\n" +
+                        "Chavez Plaza\n" +
+                        "Forum Plaza\n" +
+                        "Founders Plaza\n" +
+                        "Gonzales Grove\n" +
+                        "Gonzalez Grove\n" +
+                        "Kellogg Plaza\n" +
+                        "Markstein Plaza\n" +
+                        "Palm Court\n" +
+                        "Tukwut Courtyard\n" +
+                        "USU Ampitheater\n" +
+                        "Viasat Engineering Pavilion\n"
         );
     }
     // Initialize the navigation tree
