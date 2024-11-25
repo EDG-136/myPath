@@ -5,19 +5,87 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Student Centers Student Housing&#10;Fixed Login">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/FacultyQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/data/Faculty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/FacultyInfoUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/AED.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Academic Advising.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Academic Halls.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Alternative Transportation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Alumni Association.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Athletics.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Bike Racks.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Career Center.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Dining &amp; Cafes.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Disabled Parking.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Electric Vehicle Charging Station.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Emergency Phones.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Gardens.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/IT Help Desk.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Lactation Rooms.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Learning Centers.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/NCTD Bus Stops.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Office of global Education.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Parking.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Permit Purchace Stations.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Plazas.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Service Buildings.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Sprinter Station.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Streets.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Icons/Zip Car Sharing Program.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/North Coms 1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/North Coms 2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/North Coms 3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/North Coms 4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/North Coms 5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/North Coms 6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/North Coms 7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/North Coms 8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/Quad 1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/Quad 2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/Quad 3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/Quad 4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/Quad 5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/Quad 6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA 1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA 11.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-10.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/Images/UVA-9.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/AuthUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserAuthQuery.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/UserAuthQuery.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/BuildingInfoUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/11161748591679902089-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/18380435631638026262-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/19173807891555590645-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/19791031361605579770-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/2372953351649239804-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/5534386971637679806-128.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/cutlery.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_0nrxu.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_1vm64.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_2334g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_446no.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_4dpmk.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_9aqz5k.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_c431g.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_d3tenf.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_irt46.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_iugmy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_j581h.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_moism.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_qb2tw.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_tdy3hh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_u6i3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_v08dwj.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_v59uj.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/Icons/png_xhqs3.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/AuthUI.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,13 +142,14 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\curth\Documents\GitHub\myPath\src\main\resources\Images" />
       <recent name="C:\Users\curth\Documents\GitHub\myPath\src\main\resources\Icons" />
       <recent name="C:\Users\curth\Documents\GitHub\myPath\src\main\resources\textures" />
       <recent name="$PROJECT_DIR$/src/main/java/com/tecksupport" />
       <recent name="C:\Users\gorek\For-resume\pathfinder_algorithum\CampusGraph\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration name="GUI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.tecksupport.GUI.LoginPage" />
       <module name="MyPath" />

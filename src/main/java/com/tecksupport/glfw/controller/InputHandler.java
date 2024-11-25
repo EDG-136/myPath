@@ -98,7 +98,7 @@ public class InputHandler {
 
         authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
-        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
+        //facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
     }
 
     public void run() {
@@ -117,7 +117,7 @@ public class InputHandler {
                 renderer.render(entity, shader);
                 shader.unbind();
                 buildingInfoUI.renderUI();
-                facultyInfoUI.render();
+                //facultyInfoUI.render();
             }
 
             endFrameImGui();

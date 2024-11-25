@@ -21,11 +21,12 @@ import java.util.regex.Pattern;
 
 public class BuildingInfoUI {
     private final Window window;
-    private Map<String, String> buildingMessages = new HashMap<>();
+    private Map<String,String> buildingMessages = new HashMap<>();
     // The root of the navigation tree
     private CategoryNode root;
     private CategoryNode currentNode; // The currently displayed category
     private HashMap<String, Integer> icons = new HashMap<>();
+    private HashMap<String, Integer> Images = new HashMap<>();
     private boolean showAddScheduleWindow = false;
     private boolean wheelchairToggle = false;
     private String searchBarInput = "";
@@ -49,43 +50,43 @@ public class BuildingInfoUI {
         icons.put("Services", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
         icons.put("Student Centers", ImageLoader.loadTexture("src/main/resources/Icons/table.png"));
         icons.put("Student Housing", ImageLoader.loadTexture("src/main/resources/Icons/home.png"));
-        icons.put("Dining & Cafes", ImageLoader.loadTexture("src/main/resources/Icons/cutlery.png"));
+        icons.put("Dining & Cafes", ImageLoader.loadTexture("src/main/resources/Icons/Dining & Cafes.png"));
         icons.put("Study And Online Class Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
         icons.put("Plazas & Gardens", ImageLoader.loadTexture("src/main/resources/Icons/Tree.png"));
-        icons.put("Academic Halls", ImageLoader.loadTexture("src/main/resources/Icons/png_moism.png"));
-        icons.put("Service Buildings", ImageLoader.loadTexture("src/main/resources/Icons/png_d3tenf.png"));
-        icons.put("Emergency Phones", ImageLoader.loadTexture("src/main/resources/Icons/png_2334g.png"));
-        icons.put("AED", ImageLoader.loadTexture("src/main/resources/Icons/png_qb2tw.png"));
-        icons.put("Lactation Rooms", ImageLoader.loadTexture("src/main/resources/Icons/png_v08dwj.png"));
-        icons.put("30 Minute Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
-        icons.put("Alternative Transportation", ImageLoader.loadTexture("src/main/resources/Icons/png_1vm64.png"));
-        icons.put("Bike Lockers", ImageLoader.loadTexture("src/main/resources/Icons/png_xhqs3.png"));
-        icons.put("Carpool Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
-        icons.put("Bike Racks", ImageLoader.loadTexture("src/main/resources/Icons/png_xhqs3.png"));
-        icons.put("Electric Vehicle Charging Station", ImageLoader.loadTexture("src/main/resources/Icons/png_c431g.png"));
-        icons.put("Zip Car Sharing Program", ImageLoader.loadTexture("src/main/resources/Icons/png_tdy3hh.png"));
-        icons.put("Disabled Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_0nrxu.png"));
-        icons.put("Faculty/Staff Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
-        icons.put("General Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
-        icons.put("Streets", ImageLoader.loadTexture("src/main/resources/Icons/png_iugmy.png"));
-        icons.put("Metered Parking", ImageLoader.loadTexture("src/main/resources/Icons/png_9aqz5k.png"));
-        icons.put("Permit Purchase Stations", ImageLoader.loadTexture("src/main/resources/Icons/19791031361605579770-128.png"));
-        icons.put("NCTD Bus Stops", ImageLoader.loadTexture("src/main/resources/Icons/png_446no.png"));
-        icons.put("Sprinter Station", ImageLoader.loadTexture("src/main/resources/Icons/png_u6i3.png"));
+        icons.put("Academic Halls", ImageLoader.loadTexture("src/main/resources/Icons/Academic Halls.png"));
+        icons.put("Service Buildings", ImageLoader.loadTexture("src/main/resources/Icons/Service Buildings.png"));
+        icons.put("Emergency Phones", ImageLoader.loadTexture("src/main/resources/Icons/Emergency Phones.png"));
+        icons.put("AED", ImageLoader.loadTexture("src/main/resources/Icons/AED.png"));
+        icons.put("Lactation Rooms", ImageLoader.loadTexture("src/main/resources/Icons/Lactation Rooms.png"));
+        icons.put("30 Minute Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
+        icons.put("Alternative Transportation", ImageLoader.loadTexture("src/main/resources/Icons/Alternative Transportation.png"));
+        icons.put("Bike Lockers", ImageLoader.loadTexture("src/main/resources/Icons/Bike Racks.png"));
+        icons.put("Carpool Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
+        icons.put("Bike Racks", ImageLoader.loadTexture("src/main/resources/Icons/Bike Racks.png"));
+        icons.put("Electric Vehicle Charging Station", ImageLoader.loadTexture("src/main/resources/Icons/Electric Vehicle Charging Station.png"));
+        icons.put("Zip Car Sharing Program", ImageLoader.loadTexture("src/main/resources/Icons/Zip Car Sharing Program.png"));
+        icons.put("Disabled Parking", ImageLoader.loadTexture("src/main/resources/Icons/Disabled Parking.png"));
+        icons.put("Faculty/Staff Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
+        icons.put("General Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
+        icons.put("Streets", ImageLoader.loadTexture("src/main/resources/Icons/Streets.png"));
+        icons.put("Metered Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
+        icons.put("Permit Purchase Stations", ImageLoader.loadTexture("src/main/resources/Icons/Permit Purchace Stations.png"));
+        icons.put("NCTD Bus Stops", ImageLoader.loadTexture("src/main/resources/Icons/NCTD Bus Stops.png"));
+        icons.put("Sprinter Station", ImageLoader.loadTexture("src/main/resources/Icons/Sprinter Station.png"));
         icons.put("Cougar Central", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
-        icons.put("IT Help Desk", ImageLoader.loadTexture("src/main/resources/Icons/png_irt46.png"));
-        icons.put("Learning Centers", ImageLoader.loadTexture("src/main/resources/Icons/png_v59uj.png"));
-        icons.put("Alumni Association", ImageLoader.loadTexture("src/main/resources/Icons/19173807891555590645-128.png"));
-        icons.put("Athletics", ImageLoader.loadTexture("src/main/resources/Icons/2372953351649239804-128.png"));
-        icons.put("Office of Global Education", ImageLoader.loadTexture("src/main/resources/Icons/png_4dpmk.png"));
-        icons.put("Career Center", ImageLoader.loadTexture("src/main/resources/Icons/18380435631638026262-128.png"));
-        icons.put("Academic Advising", ImageLoader.loadTexture("src/main/resources/Icons/11161748591679902089-128.png"));
+        icons.put("IT Help Desk", ImageLoader.loadTexture("src/main/resources/Icons/IT Help Desk.png"));
+        icons.put("Learning Centers", ImageLoader.loadTexture("src/main/resources/Icons/Learning Centers.png"));
+        icons.put("Alumni Association", ImageLoader.loadTexture("src/main/resources/Icons/Alumni Association.png"));
+        icons.put("Athletics", ImageLoader.loadTexture("src/main/resources/Icons/Athletics.png"));
+        icons.put("Office of Global Education", ImageLoader.loadTexture("src/main/resources/Icons/Office of global Education.png"));
+        icons.put("Career Center", ImageLoader.loadTexture("src/main/resources/Icons/Career Center.png"));
+        icons.put("Academic Advising", ImageLoader.loadTexture("src/main/resources/Icons/Academic Advising.png"));
         icons.put("Open Access Computer Lab", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
         icons.put("Kellogg Library Group Study Rooms", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
         icons.put("Indoor Study Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
         icons.put("Outdoor Study Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
-        icons.put("Gardens", ImageLoader.loadTexture("src/main/resources/Icons/5534386971637679806-128.png"));
-        icons.put("Plazas", ImageLoader.loadTexture("src/main/resources/Icons/png_j581h.png"));
+        icons.put("Gardens", ImageLoader.loadTexture("src/main/resources/Icons/Gardens.png"));
+        icons.put("Plazas", ImageLoader.loadTexture("src/main/resources/Icons/Plazas.png"));
         // Existing building messages
         buildingMessages.put("Academic Hall", "Academic Hall\n" +
                 "Acronym: ACD, Building No. 14\n" +
@@ -825,7 +826,7 @@ public class BuildingInfoUI {
                         " Their commitment to the CSUSM community is evident in their efforts to support various clubs on campus" +
                         " and within the local community.\n" +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("Campus Way Cafe",
@@ -835,7 +836,7 @@ public class BuildingInfoUI {
                         "program that includes vegan and vegetarian options. A fresh salad station and of course a grill, pizza station," +
                         " pasta station, and to-go options!" +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("Crash's Coffee",
@@ -844,7 +845,7 @@ public class BuildingInfoUI {
                         " gourmet salads and sandwiches. Enjoy one of our signature coffee blends, delicious coconut or chai teas," +
                         " lattes, espressos out on the patio or fireside at the University Student Union." +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("Get Fresh",
@@ -853,7 +854,7 @@ public class BuildingInfoUI {
                         "off with proteins. Now offering salads, rice bowls, wraps and smoothies with seasonal, local produce." +
                         " You’re going to love it at every change of the season!" +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("Hilltop Bistro Grille",
@@ -863,7 +864,7 @@ public class BuildingInfoUI {
                         " with fish. The full array of sides includes traditional fries, seasoned potato wedges, slaws" +
                         " and side salads. " +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("Panda Express",
@@ -871,7 +872,7 @@ public class BuildingInfoUI {
                         "Enjoy Asian-inspired dishes that are wok-tossed with fresh veggies and our gourmet sauces," +
                         " elevating fast-casual Chinese food." +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("QDOBA",
@@ -879,7 +880,7 @@ public class BuildingInfoUI {
                         "Qdoba Mexican Eats offers customizable flavorful food. Plus, add queso and guacamole" +
                         " for free on any entrée! " +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("Starbucks",
@@ -888,7 +889,7 @@ public class BuildingInfoUI {
                         " Italian-style espresso beverages, a variety of pastries and confections. Starbucks also offers" +
                         " a line of premium Teavana teas." +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("USU Market",
@@ -896,7 +897,7 @@ public class BuildingInfoUI {
                         "USU Market offers all your favorite beverages, grab & go meals, sandwiches, salads," +
                         " ice cream, sushi, personal care and grocery items." +
                         "\n" +
-                        "<a href=https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/>Hours of Operation</a>"
+                        "<a href='https://search.csusm.edu/?t=4&q=corp%20dining%20dininghours#gsc.tab=0&gsc.q=corp%20dining%20dininghours&gsc.page=1/'>Hours of Operation</a>"
 
         );
         buildingMessages.put("Open Access Computer Lab",
@@ -904,7 +905,7 @@ public class BuildingInfoUI {
                         "Kellogg 2000\n" +
                         "Hours of operation:\n" +
                         "\n" +
-                        "<a href=https://biblio.csusm.edu/library-hours-events/>Open during Library open hours.</a>\n" +
+                        "<a href='https://biblio.csusm.edu/library-hours-events/'>Open during Library open hours.</a>\n" +
                         "\n" +
                         "\n" +
                         "\n" +
@@ -914,7 +915,7 @@ public class BuildingInfoUI {
         );
         buildingMessages.put("Kellogg Library Group Study Rooms",
                 "Kellogg Library Group Study Rooms\n" +
-                        "Please visit the <a href=https://biblio.csusm.edu/content/group-study-rooms-0/> University Library Group Study Rooms</a> " +
+                        "Please visit the <a href='https://biblio.csusm.edu/content/group-study-rooms-0/'> University Library Group Study Rooms</a> " +
                         "for more information\n" +
                         "Locations\n" +
                         "Kellogg Room 2106\n" +
@@ -984,14 +985,14 @@ public class BuildingInfoUI {
         );
         buildingMessages.put("Extended Learning Building 250",
                 "Extended Learning Building 250\n" +
-                        "Please visit <a href=https://appointments.csusm.edu/> Appointments</a>" +
+                        "Please visit <a href='https://appointments.csusm.edu/'> Appointments</a>" +
                         " to reserve a spot"
         );
         buildingMessages.put("Kellogg 2000",
                 "Kellogg 2000\n" +
                         "Hours of operation:\n" +
                         "\n" +
-                        "<a href=https://biblio.csusm.edu/library-hours-events/>Open during Library open hours.</a>\n" +
+                        "<a href='https://biblio.csusm.edu/library-hours-events/'>Open during Library open hours.</a>\n" +
                         "\n" +
                         "\n" +
                         "\n" +
@@ -1311,7 +1312,7 @@ public class BuildingInfoUI {
                 if (ImGui.beginTable("button_table", 2, ImGuiTableFlags.SizingFixedFit)) {
                     // Set up the columns and their widths
                     ImGui.tableSetupColumn("Icon", ImGuiTableColumnFlags.WidthFixed, 30.0f); // Set width for icon column
-                    ImGui.tableSetupColumn("Text", ImGuiTableColumnFlags.WidthFixed, 200.0f); // Set width for text column
+                    ImGui.tableSetupColumn("Text", ImGuiTableColumnFlags.WidthFixed, 500.0f); // Set width for text column
 
                     // Render the small icon with specified size
                     ImGui.tableNextColumn();
