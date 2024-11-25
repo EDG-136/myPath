@@ -4,32 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Student Centers Student Housing&#10;Fixed Login">
-      <change afterPath="$PROJECT_DIR$/hs_err_pid50470.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hs_err_pid50487.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hs_err_pid50500.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hs_err_pid50535.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hs_err_pid50554.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hs_err_pid50574.log" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/ui/CourseSelectionUI.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/CourseSelectionUI.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/CourseQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/database/CourseQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Icons/cutlery.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Icons/png_2334g.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Icons/png_9aqz5k.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Icons/png_d3tenf.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Icons/png_moism.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Icons/png_qb2tw.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Icons/png_v08dwj.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/database/CourseQuery.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/database/CourseQuery.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI$CategoryNode.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/ui/BuildingInfoUI.class" afterDir="false" />
-    </list>
+    <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Added Student Centers Student Housing&#10;Fixed Login" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,15 +89,14 @@
     <configuration name="PathfinderTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CampusGraph" />
       <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="PathfinderTests" />
       <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
       <item itemvalue="Application.GUI" />
+      <item itemvalue="Application.Main" />
       <item itemvalue="Application.com.tecksupport.Main" />
       <item itemvalue="JUnit.PathfinderTests" />
     </list>
