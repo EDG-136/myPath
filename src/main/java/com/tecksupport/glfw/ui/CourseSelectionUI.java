@@ -30,7 +30,7 @@ public class CourseSelectionUI {
         this.courseQuery = courseQuery;
         this.courseList = courseQuery.getAllCourses();
         width = window.getWindowWidth() / 2.5f;
-        height = window.getWindowHeight();
+        height = window.getWindowHeight() / 1.5f;
     }
 
     public void render() {
@@ -51,7 +51,9 @@ public class CourseSelectionUI {
         dockId = ImGui.getID("DockSpace");
         ImGui.dockSpace(dockId, width, height, dockSpaceFlag);
 
+        ImGui.setNextWindowDockID(dockId);
         handlePlanWindow();
+        ImGui.setNextWindowDockID(dockId);
         handleSearchWindow();
 
         ImGui.end();

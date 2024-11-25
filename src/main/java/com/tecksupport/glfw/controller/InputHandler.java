@@ -98,7 +98,9 @@ public class InputHandler {
         imGuiGl3.init(window.getGlslVersion());
         System.out.println("Initialized ImGui");
 
+
         ImGuiIO io = ImGui.getIO();
+        io.setIniFilename(null);
         io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
 
         authUI = new AuthUI(window, userAuthQuery);
