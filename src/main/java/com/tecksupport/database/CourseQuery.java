@@ -4,10 +4,7 @@ import com.tecksupport.database.data.Course;
 import com.tecksupport.database.data.Schedule;
 import org.jetbrains.annotations.NotNull;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -19,6 +16,24 @@ public class CourseQuery {
 
     public CourseQuery(Connection connection) {
         this.connection = connection;
+    }
+
+    public List<Course> getAllCourses() {
+        if (connection == null)
+            return null;
+        try {
+            String query = "SELECT * FROM Courses;";
+
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            statement.execute();
+
+            return getCourseListFromStatement(statement);
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "SQL All course query error!", e);
+            return null;
+        }
     }
 
     public Course getCourseInfo(int courseID) {
@@ -42,6 +57,27 @@ public class CourseQuery {
             logger.log(Level.SEVERE, "MySQL Get Class Info Error!", e);
         }
         return null;
+    }
+
+    private List<Course> getCourseListFromStatement(Statement statement) {
+        List<Course> courseList = new ArrayList<>();
+        try {
+            ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                int courseID = resultSet.getInt("CourseID");
+                String courseName = resultSet.getString("CourseName");
+                String courseSubject = resultSet.getString("CourseSubject");
+                String courseCatalog = resultSet.getString("CourseCatalog");
+                String courseSection = resultSet.getString("CourseSection");
+
+                Course course = new Course(courseID, courseName, courseSubject, courseCatalog, courseSection);
+                courseList.add(course);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "SQL Course list collect error", e);
+        }
+
+        return courseList;
     }
 
     public List<Schedule> getScheduleOfCourse(int courseID) {

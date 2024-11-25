@@ -7,11 +7,13 @@ import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
+import com.tecksupport.glfw.ui.CourseSelectionUI;
 import com.tecksupport.glfw.ui.FacultyInfoUI;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
 import imgui.ImGui;
+import imgui.ImGuiIO;
 import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
@@ -57,6 +59,7 @@ public class InputHandler {
     private BuildingInfoUI buildingInfoUI;
     private AuthUI authUI;
     private FacultyInfoUI facultyInfoUI;
+    private CourseSelectionUI courseSelectionUI;
 
     public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery)
     {
@@ -75,15 +78,14 @@ public class InputHandler {
         );
         renderer = new Renderer(shader, window);
 
-
         rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
 
-       texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
+        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 
-       entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
+        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
 
         camera = new Camera();
-       // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
+        // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
         //Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
         // shader.setUniform("camera", camMat);
 
@@ -96,9 +98,13 @@ public class InputHandler {
         imGuiGl3.init(window.getGlslVersion());
         System.out.println("Initialized ImGui");
 
+        ImGuiIO io = ImGui.getIO();
+        io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
+
         authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
-        //facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
+        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
+        courseSelectionUI = new CourseSelectionUI(window, courseQuery);
     }
 
     public void run() {
@@ -117,7 +123,8 @@ public class InputHandler {
                 renderer.render(entity, shader);
                 shader.unbind();
                 buildingInfoUI.renderUI();
-                //facultyInfoUI.render();
+                facultyInfoUI.render();
+                courseSelectionUI.render();
             }
 
             endFrameImGui();
