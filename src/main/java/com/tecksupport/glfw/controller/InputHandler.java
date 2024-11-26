@@ -109,8 +109,8 @@ public class InputHandler {
 
         authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
-//        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
-//        courseSelectionUI = new CourseSelectionUI(window, courseQuery);
+        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
+        //courseSelectionUI = new CourseSelectionUI(window, courseQuery);
     }
 
     public void run() {
@@ -120,7 +120,7 @@ public class InputHandler {
             if (!authUI.isLoggedIn()) {
                 renderer.prepare(0f,0f,0f,0f);
                 authUI.renderLoginPage();
-//                courseSelectionUI.render();
+                buildingInfoUI.renderUI();
             } else {
                 // Only render the main application if the user is logged in
                 processInput();
@@ -129,8 +129,9 @@ public class InputHandler {
                 shader.loadViewMatrix(camera);
                 renderer.render(entity, shader);
                 shader.unbind();
-                buildingInfoUI.renderUI();
-//                facultyInfoUI.render();
+
+                facultyInfoUI.render();
+                //courseSelectionUI.render();
             }
             endFrameImGui();
             window.update();
