@@ -79,11 +79,11 @@ public class InputHandler {
         );
         renderer = new Renderer(shader, window);
 
-        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
-
-        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
-
-        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
+//        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+//
+//        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
+//
+//        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
 
         camera = new Camera();
         // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
@@ -119,6 +119,9 @@ public class InputHandler {
             if (!authUI.isLoggedIn()) {
                 renderer.prepare(0f,0f,0f,0f);
                 authUI.renderLoginPage();
+                buildingInfoUI.renderUI();
+                facultyInfoUI.render();
+                courseSelectionUI.render();
             } else {
                 // Only render the main application if the user is logged in
                 processInput();

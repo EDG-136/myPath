@@ -106,7 +106,6 @@ public class Window {
 
     public void update() {
         glfwSwapBuffers(windowHandle); // Swap the color buffer (double buffering)
-        System.out.println("Swapped");
         glfwPollEvents();
     }
 
