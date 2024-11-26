@@ -81,7 +81,7 @@ public class Window {
 
         GL.createCapabilities();
 
-        glfwSetWindowSizeCallback(windowHandle, this::onSizeCallBack);
+        glfwSetFramebufferSizeCallback(windowHandle, this::onSizeCallBack);
     }
 
     private void decideGlGlslVersions() {
