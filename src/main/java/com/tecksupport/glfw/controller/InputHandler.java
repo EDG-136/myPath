@@ -21,6 +21,7 @@ import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.system.Callback;
 
+import java.awt.*;
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -94,14 +95,16 @@ public class InputHandler {
 
         System.out.println("Initializing ImGui");
         ImGui.createContext();
-        imGuiGlfw.init(window.getWindowID(), true);
-        imGuiGl3.init(window.getGlslVersion());
-        System.out.println("Initialized ImGui");
 
-
+        System.out.println("Setup config flags");
         ImGuiIO io = ImGui.getIO();
         io.setIniFilename(null);
         io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
+        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
+
+        imGuiGlfw.init(window.getWindowID(), true);
+        imGuiGl3.init(window.getGlslVersion());
+        System.out.println("Initialized ImGui");
 
         authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
@@ -128,7 +131,6 @@ public class InputHandler {
                 facultyInfoUI.render();
                 courseSelectionUI.render();
             }
-
             endFrameImGui();
             window.update();
         }
