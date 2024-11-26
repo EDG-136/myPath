@@ -125,9 +125,9 @@ public class InputHandler {
 
             if (!authUI.isLoggedIn()) {
                 renderer.prepare(0f,0f,0f,0f);
-                authUI.renderLoginPage();
-                courseSelectionUI.render();
-                facultyInfoUI.render();
+//                authUI.renderLoginPage();
+//                courseSelectionUI.render();
+//                facultyInfoUI.render();
             } else {
                 // Only render the main application if the user is logged in
                 processInput();

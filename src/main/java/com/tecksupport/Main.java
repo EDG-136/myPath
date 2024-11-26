@@ -7,7 +7,7 @@ import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.controller.InputHandler;
 
 public class Main {
-  public static MySQLDatabase database = new MySQLDatabase("localhost/TeckSupportDB", "client", "CS370TeckSupport");
+  public static MySQLDatabase database = new MySQLDatabase("localhost/TeckSupportDB", "client", "TeckSupport");
   public static void main(String[] args){
     System.out.println("Program Starting");
 
