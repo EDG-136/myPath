@@ -29,39 +29,21 @@ public class CourseSelectionUI {
         this.window = window;
         this.courseQuery = courseQuery;
         this.courseList = courseQuery.getAllCourses();
-        width = window.getWindowWidth() / 2.5f;
-        height = window.getWindowHeight() / 1.5f;
+        width = window.getScreenWidth() / 3f;
+        height = window.getScreenHeight() / 2.5f;
     }
 
     public void render() {
-        int dockWindowFlag = ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoTitleBar
-                | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize
-                | ImGuiWindowFlags.NoBackground | ImGuiWindowFlags.NoBringToFrontOnFocus;
-        int dockSpaceFlag = ImGuiDockNodeFlags.PassthruCentralNode
-                | ImGuiDockNodeFlags.AutoHideTabBar
-                | ImGuiDockNodeFlags.NoDockingInCentralNode
-                | ImGuiDockNodeFlags.NoResize
-                | ImGuiDockNodeFlags.NoSplit;
-
-        ImGui.setNextWindowPos(window.getWindowWidth() - width + 20, -7, ImGuiCond.FirstUseEver);
-        ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
-
-        ImGui.begin("DockSpace", dockWindowFlag);
-
-        dockId = ImGui.getID("DockSpace");
-        ImGui.dockSpace(dockId, width, height, dockSpaceFlag);
-
-        ImGui.setNextWindowDockID(dockId);
         handlePlanWindow();
-        ImGui.setNextWindowDockID(dockId);
+
         handleSearchWindow();
 
-        ImGui.end();
     }
 
     private void handlePlanWindow() {
-        int planWindowFlag = ImGuiWindowFlags.HorizontalScrollbar | ImGuiWindowFlags.NoCollapse
-                | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize;
+        ImGui.setNextWindowPos(window.getScreenWidth() - width - 20, 10, ImGuiCond.Once);
+        ImGui.setNextWindowSize(width, height, ImGuiCond.Once);
+        int planWindowFlag = ImGuiWindowFlags.NoCollapse;
         String title = "Plan Schedule";
         if (!ImGui.begin(title, planWindowFlag)) {
             ImGui.end();
@@ -73,8 +55,9 @@ public class CourseSelectionUI {
     }
 
     public void handleSearchWindow() {
-        int searchWindowFlag = ImGuiWindowFlags.HorizontalScrollbar | ImGuiWindowFlags.NoCollapse
-                | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize;
+        ImGui.setNextWindowPos(window.getScreenWidth() - width - 30, window.getScreenHeight() / 2 , ImGuiCond.Once);
+        ImGui.setNextWindowSize(width, height, ImGuiCond.Once);
+        int searchWindowFlag = ImGuiWindowFlags.NoCollapse;
         String title = "Search For Class";
 
         if (!ImGui.begin(title, searchWindowFlag))
