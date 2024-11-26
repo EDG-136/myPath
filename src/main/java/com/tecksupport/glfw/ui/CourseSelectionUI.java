@@ -32,8 +32,8 @@ public class CourseSelectionUI {
         this.window = window;
         this.courseQuery = courseQuery;
         this.courseList = courseQuery.getAllCourses();
-        width = window.getWindowWidth() / 2.5f;
-        height = window.getWindowHeight() / 1.5f;
+        width = window.getScreenWidth() / 3f;
+        height = window.getScreenHeight() / 2.5f;
     }
 
     public void render() {
@@ -61,7 +61,6 @@ public class CourseSelectionUI {
         ImGui.setNextWindowDockID(1, ImGuiCond.FirstUseEver);
         handleSearchWindow();
 
-        ImGui.end();
     }
 
     private void handlePlanWindow() {

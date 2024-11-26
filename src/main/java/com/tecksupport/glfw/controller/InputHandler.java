@@ -21,6 +21,7 @@ import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.system.Callback;
 
+import java.awt.*;
 import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -131,7 +132,6 @@ public class InputHandler {
                 buildingInfoUI.renderUI();
 //                facultyInfoUI.render();
             }
-
             endFrameImGui();
             window.update();
         }

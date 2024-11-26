@@ -12,6 +12,7 @@ import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImBoolean;
 import imgui.type.ImString;
 
+import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -59,9 +60,12 @@ public class AuthUI {
             height = window.getWindowHeight() / 2.0f;
         }
 
-        ImGui.setNextWindowPos((window.getWindowWidth() - width) / 2.0f, (window.getWindowHeight() - height) / 2.0f, ImGuiCond.Always);
-        ImGui.setNextWindowSize(width, height, ImGuiCond.Always);
+        ImGui.setNextWindowPos((window.getScreenWidth() - width) / 2.0f, (window.getScreenHeight() - height) / 2.0f, ImGuiCond.Once);
+        ImGui.setNextWindowSize(width, height, ImGuiCond.Once);
+        displayCombo();
+    }
 
+    private void displayCombo() {
         ImGui.begin(title, getWindowFlag());
 
         ImGui.text("Please log in to access the application.");
