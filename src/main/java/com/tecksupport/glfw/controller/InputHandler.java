@@ -33,6 +33,7 @@ import imgui.type.ImString;
 import javax.swing.*;
 
 import static org.lwjgl.glfw.GLFW.*;
+import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
 
 
 public class InputHandler {
@@ -83,7 +84,6 @@ public class InputHandler {
         texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 
         entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
-
         camera = new Camera();
         // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
         //Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
@@ -92,21 +92,24 @@ public class InputHandler {
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
 
+
         System.out.println("Initializing ImGui");
         ImGui.createContext();
+
+        ImGuiIO io = ImGui.getIO();
+        io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
+        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
+
         imGuiGlfw.init(window.getWindowID(), true);
         imGuiGl3.init(window.getGlslVersion());
         System.out.println("Initialized ImGui");
 
-
-        ImGuiIO io = ImGui.getIO();
         io.setIniFilename(null);
-        io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
 
         authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
-        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
-        courseSelectionUI = new CourseSelectionUI(window, courseQuery);
+//        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
+//        courseSelectionUI = new CourseSelectionUI(window, courseQuery);
     }
 
     public void run() {
@@ -116,6 +119,7 @@ public class InputHandler {
             if (!authUI.isLoggedIn()) {
                 renderer.prepare(0f,0f,0f,0f);
                 authUI.renderLoginPage();
+//                courseSelectionUI.render();
             } else {
                 // Only render the main application if the user is logged in
                 processInput();
@@ -125,8 +129,7 @@ public class InputHandler {
                 renderer.render(entity, shader);
                 shader.unbind();
                 buildingInfoUI.renderUI();
-                facultyInfoUI.render();
-                courseSelectionUI.render();
+//                facultyInfoUI.render();
             }
 
             endFrameImGui();

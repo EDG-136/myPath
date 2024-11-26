@@ -6,9 +6,12 @@ import com.tecksupport.glfw.view.Window;
 import imgui.*;
 import imgui.flag.*;
 import imgui.internal.ImGuiDockNode;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.HashSet;
 import java.util.List;
+
+import static org.lwjgl.opengl.GL11.glViewport;
 
 public class CourseSelectionUI {
     private final static int WINDOW_FLAG = ImGuiWindowFlags.None;
@@ -34,9 +37,10 @@ public class CourseSelectionUI {
     }
 
     public void render() {
-        int dockWindowFlag = ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoTitleBar
-                | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize
-                | ImGuiWindowFlags.NoBackground | ImGuiWindowFlags.NoBringToFrontOnFocus;
+        int dockWindowFlag = ImGuiWindowFlags.None;
+//                ImGuiWindowFlags.NoDocking | ImGuiWindowFlags.NoTitleBar
+//                | ImGuiWindowFlags.NoCollapse | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize
+//                | ImGuiWindowFlags.NoBackground | ImGuiWindowFlags.NoBringToFrontOnFocus;
         int dockSpaceFlag = ImGuiDockNodeFlags.PassthruCentralNode
                 | ImGuiDockNodeFlags.AutoHideTabBar
                 | ImGuiDockNodeFlags.NoDockingInCentralNode
@@ -47,21 +51,22 @@ public class CourseSelectionUI {
         ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
 
         ImGui.begin("DockSpace", dockWindowFlag);
+        ImGuiViewport viewport = ImGui.getMainViewport();
 
         dockId = ImGui.getID("DockSpace");
         ImGui.dockSpace(dockId, width, height, dockSpaceFlag);
 
-        ImGui.setNextWindowDockID(dockId);
+        ImGui.setNextWindowDockID(1, ImGuiCond.FirstUseEver);
         handlePlanWindow();
-        ImGui.setNextWindowDockID(dockId);
+        ImGui.setNextWindowDockID(1, ImGuiCond.FirstUseEver);
         handleSearchWindow();
 
         ImGui.end();
     }
 
     private void handlePlanWindow() {
-        int planWindowFlag = ImGuiWindowFlags.HorizontalScrollbar | ImGuiWindowFlags.NoCollapse
-                | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize;
+        int planWindowFlag = ImGuiWindowFlags.HorizontalScrollbar | ImGuiWindowFlags.NoCollapse;
+//                | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize;
         String title = "Plan Schedule";
         if (!ImGui.begin(title, planWindowFlag)) {
             ImGui.end();
@@ -73,8 +78,8 @@ public class CourseSelectionUI {
     }
 
     public void handleSearchWindow() {
-        int searchWindowFlag = ImGuiWindowFlags.HorizontalScrollbar | ImGuiWindowFlags.NoCollapse
-                | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize;
+        int searchWindowFlag = ImGuiWindowFlags.HorizontalScrollbar | ImGuiWindowFlags.NoCollapse;
+//                | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize;
         String title = "Search For Class";
 
         if (!ImGui.begin(title, searchWindowFlag))
