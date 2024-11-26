@@ -19,6 +19,7 @@ import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.joml.Vector3f;
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL40;
 import org.lwjgl.system.Callback;
 
 import java.nio.DoubleBuffer;
@@ -34,6 +35,7 @@ import javax.swing.*;
 
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL13C.GL_TEXTURE0;
+import static org.lwjgl.opengl.GL40.*;
 
 
 public class InputHandler {
@@ -50,6 +52,8 @@ public class InputHandler {
     private Camera camera;
     private RawModel rawModel;
     private Renderer renderer;
+    private FrameBuffer frameBuffer;
+    private Shader frameBufferShader;
     private Loader loader;
     private TexturedModel texturedModel;
     private RawModel square;
@@ -77,17 +81,20 @@ public class InputHandler {
                 "src/main/java/com/tecksupport/glfw/shader/vertexShader.txt",
                 "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt"
         );
+
         renderer = new Renderer(shader, window);
+//
+//        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+//
+//        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
 
-        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
-
-        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
-
-        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
+        entity = new Entity(texturedModel, new Vector3f(0, 0, 0), 0, 0, 0, 200);
         camera = new Camera();
-        // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
-        //Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
-        // shader.setUniform("camera", camMat);
+        camera.setPosition(0, 500, 0);
+        camera.setRotation(0, 90, 0);
+//         camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
+//        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
+//         shader.setUniform("camera", camMat);
 
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
@@ -108,8 +115,8 @@ public class InputHandler {
 
         authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
-//        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
-//        courseSelectionUI = new CourseSelectionUI(window, courseQuery);
+        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
+        courseSelectionUI = new CourseSelectionUI(window, courseQuery);
     }
 
     public void run() {
@@ -119,7 +126,8 @@ public class InputHandler {
             if (!authUI.isLoggedIn()) {
                 renderer.prepare(0f,0f,0f,0f);
                 authUI.renderLoginPage();
-//                courseSelectionUI.render();
+                courseSelectionUI.render();
+                facultyInfoUI.render();
             } else {
                 // Only render the main application if the user is logged in
                 processInput();
@@ -127,9 +135,8 @@ public class InputHandler {
                 shader.bind();
                 shader.loadViewMatrix(camera);
                 renderer.render(entity, shader);
-                shader.unbind();
+
                 buildingInfoUI.renderUI();
-//                facultyInfoUI.render();
             }
 
             endFrameImGui();
@@ -185,7 +192,7 @@ public class InputHandler {
         double yaw = xPos - oldYaw;
         double pitch = yPos - oldPitch;
 
-        camera.addRotation((float) pitch, (float) yaw, 0);
+        camera.addRotation((float) yaw, (float) pitch, 0);
 
         oldYaw = xPos;
         oldPitch = yPos;

@@ -5,6 +5,7 @@ import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.view.Window;
 import imgui.ImFont;
 import imgui.ImGui;
+import imgui.ImGuiViewport;
 import imgui.ImVec4;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiInputTextFlags;
@@ -12,6 +13,9 @@ import imgui.flag.ImGuiWindowFlags;
 import imgui.type.ImBoolean;
 import imgui.type.ImString;
 
+import javax.swing.*;
+import javax.tools.Tool;
+import java.awt.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,6 +36,7 @@ public class AuthUI {
     private final ImString firstNameBuffer = new ImString("", 128); // Using ImGui ImString
     private final ImString lastNameBuffer = new ImString("", 128);
     private final ImBoolean showPasswordBuffer = new ImBoolean();
+    private final Dimension screenDimension = Toolkit.getDefaultToolkit().getScreenSize();
     private String title = "Login Page";
     private String displayMessage;
     private ImVec4 displayMessageColor = new ImVec4();
@@ -59,9 +64,12 @@ public class AuthUI {
             height = window.getWindowHeight() / 2.0f;
         }
 
-        ImGui.setNextWindowPos((window.getWindowWidth() - width) / 2.0f, (window.getWindowHeight() - height) / 2.0f, ImGuiCond.Always);
+        ImGui.setNextWindowPos((screenDimension.width - width) / 2.0f, (screenDimension.height - height) / 2.0f);
         ImGui.setNextWindowSize(width, height, ImGuiCond.Always);
+        displayCombo();
+    }
 
+    private void displayCombo() {
         ImGui.begin(title, getWindowFlag());
 
         ImGui.text("Please log in to access the application.");

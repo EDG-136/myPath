@@ -30,8 +30,8 @@ public class Renderer {
 
     public void prepare(float red, float green, float blue, float alpha) {
         glEnable(GL_DEPTH_TEST);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glClearColor(red, green, blue, alpha);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
 
@@ -42,7 +42,7 @@ public class Renderer {
         glEnableVertexAttribArray(0);
         glEnableVertexAttribArray(1);
         Matrix4f transformationMatrix = Maths.createTransformationMatrix(entity.getPosition(),
-                entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale()*20);
+                entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale());
         shader.loadTransformationMatrix(transformationMatrix);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, model.getTexture().getID());
