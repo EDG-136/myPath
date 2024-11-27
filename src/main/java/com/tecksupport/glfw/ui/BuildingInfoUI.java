@@ -38,6 +38,7 @@ public class BuildingInfoUI {
         NavigationUI();
         icons.put("Buildings", ImageLoader.loadTexture("src/main/resources/Icons/Buildings.png"));
         //Academic Halls
+        icons.put("Academic Halls", ImageLoader.loadTexture("src/main/resources/Icons/Academic Halls.png"));
         Images.put("Academic Hall", ImageLoader.loadTexture("src/main/resources/Images/Academic Hall.png"));
         Images.put("Arts Building", ImageLoader.loadTexture("src/main/resources/Images/Arts Building.png"));
         Images.put("Extended Learning Building", ImageLoader.loadTexture("src/main/resources/Images/Extended Learning Building.png"));
@@ -49,6 +50,7 @@ public class BuildingInfoUI {
         Images.put("University Hall", ImageLoader.loadTexture("src/main/resources/Images/University Hall.png"));
 
         //Service Builings
+        icons.put("Service Buildings", ImageLoader.loadTexture("src/main/resources/Icons/Service Buildings.png"));
         Images.put("Administrative Building", ImageLoader.loadTexture("src/main/resources/Images/Administrative Building.png"));
         Images.put("Center for Children & Families", ImageLoader.loadTexture("src/main/resources/Images/Center for Children & Families.png"));
         Images.put("Epstein Family Veterans Center", ImageLoader.loadTexture("src/main/resources/Images/Epstein Family Veterans Center.png"));
@@ -62,27 +64,26 @@ public class BuildingInfoUI {
         USUImages.add(ImageLoader.loadTexture("src/main/resources/Images/University Student Union 1.png"));
         USUImages.add(ImageLoader.loadTexture("src/main/resources/Images/University Student Union 2.png"));
         Images.put("University Student Union", USUImages);
-
+        // Health
         icons.put("Health & Safety", ImageLoader.loadTexture("src/main/resources/Icons/medic.png"));
-        icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/bus-station.png"));
-        icons.put("Services", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
-        icons.put("Student Centers", ImageLoader.loadTexture("src/main/resources/Icons/table.png"));
-        icons.put("Student Housing", ImageLoader.loadTexture("src/main/resources/Icons/home.png"));
-        icons.put("Dining & Cafes", ImageLoader.loadTexture("src/main/resources/Icons/Dining & Cafes.png"));
-        icons.put("Study And Online Class Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
-        icons.put("Plazas & Gardens", ImageLoader.loadTexture("src/main/resources/Icons/Tree.png"));
-        icons.put("Academic Halls", ImageLoader.loadTexture("src/main/resources/Icons/Academic Halls.png"));
-        icons.put("Service Buildings", ImageLoader.loadTexture("src/main/resources/Icons/Service Buildings.png"));
         icons.put("Emergency Phones", ImageLoader.loadTexture("src/main/resources/Icons/Emergency Phones.png"));
         icons.put("AED", ImageLoader.loadTexture("src/main/resources/Icons/AED.png"));
         icons.put("Lactation Rooms", ImageLoader.loadTexture("src/main/resources/Icons/Lactation Rooms.png"));
+        //Parking
+        icons.put("Parking & Transit", ImageLoader.loadTexture("src/main/resources/Icons/bus-station.png"));
         icons.put("30 Minute Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
         icons.put("Alternative Transportation", ImageLoader.loadTexture("src/main/resources/Icons/Alternative Transportation.png"));
+        //Zip Car Shareing Program
+        icons.put("Zip Car Sharing Program", ImageLoader.loadTexture("src/main/resources/Icons/Zip Car Sharing Program.png"));
+        List<Integer> ZipImages = new ArrayList<>();
+        ZipImages.add(ImageLoader.loadTexture("src/main/resources/Images/Zip Car Sharing Program 1.png"));
+        ZipImages.add(ImageLoader.loadTexture("src/main/resources/Images/Zip Car Sharing Program 2.png"));
+        ZipImages.add(ImageLoader.loadTexture("src/main/resources/Images/Zip Car Sharing Program 3.png"));
+        Images.put("Zip Car Sharing Program", ZipImages);
         icons.put("Bike Lockers", ImageLoader.loadTexture("src/main/resources/Icons/Bike Racks.png"));
         icons.put("Carpool Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
         icons.put("Bike Racks", ImageLoader.loadTexture("src/main/resources/Icons/Bike Racks.png"));
         icons.put("Electric Vehicle Charging Station", ImageLoader.loadTexture("src/main/resources/Icons/Electric Vehicle Charging Station.png"));
-        icons.put("Zip Car Sharing Program", ImageLoader.loadTexture("src/main/resources/Icons/Zip Car Sharing Program.png"));
         icons.put("Disabled Parking", ImageLoader.loadTexture("src/main/resources/Icons/Disabled Parking.png"));
         icons.put("Faculty/Staff Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
         icons.put("General Parking", ImageLoader.loadTexture("src/main/resources/Icons/Parking.png"));
@@ -91,20 +92,70 @@ public class BuildingInfoUI {
         icons.put("Permit Purchase Stations", ImageLoader.loadTexture("src/main/resources/Icons/Permit Purchace Stations.png"));
         icons.put("NCTD Bus Stops", ImageLoader.loadTexture("src/main/resources/Icons/NCTD Bus Stops.png"));
         icons.put("Sprinter Station", ImageLoader.loadTexture("src/main/resources/Icons/Sprinter Station.png"));
+        //Services
+        icons.put("Services", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
         icons.put("Cougar Central", ImageLoader.loadTexture("src/main/resources/Icons/Services.png"));
+        //IT Help Desk
         icons.put("IT Help Desk", ImageLoader.loadTexture("src/main/resources/Icons/IT Help Desk.png"));
+        Images.put("IT Help Desk", ImageLoader.loadTexture("src/main/resources/Images/IT Help.png"));
+        // Academic Success Center
         icons.put("Learning Centers", ImageLoader.loadTexture("src/main/resources/Icons/Learning Centers.png"));
+        Images.put("Academic Success Center", ImageLoader.loadTexture("src/main/resources/Images/Academic Success Center.png"));
+        // Alumni Office
         icons.put("Alumni Association", ImageLoader.loadTexture("src/main/resources/Icons/Alumni Association.png"));
+        Images.put("Alumni Association Office", ImageLoader.loadTexture("src/main/resources/Images/Alumni Association Office.png"));
+        //Athletics
         icons.put("Athletics", ImageLoader.loadTexture("src/main/resources/Icons/Athletics.png"));
+        //Baseball
+        List<Integer> BaseballImages = new ArrayList<>();
+        BaseballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Baseball Field 1.png"));
+        BaseballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Baseball Field 2.png"));
+        BaseballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Baseball Field 3.png"));
+        BaseballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Baseball Field 4.png"));
+        BaseballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Baseball Field 5.png"));
+        BaseballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Baseball Field 6.png"));
+        Images.put("Baseball Field", BaseballImages);
+        //Clarke Field House
+        List<Integer> ClarkeImages = new ArrayList<>();
+        ClarkeImages.add(ImageLoader.loadTexture("src/main/resources/Images/Clarke Field House 1.png"));
+        ClarkeImages.add(ImageLoader.loadTexture("src/main/resources/Images/Clarke Field House 2.png"));
+        ClarkeImages.add(ImageLoader.loadTexture("src/main/resources/Images/Clarke Field House 3.png"));
+        ClarkeImages.add(ImageLoader.loadTexture("src/main/resources/Images/Clarke Field House 4.png"));
+        ClarkeImages.add(ImageLoader.loadTexture("src/main/resources/Images/Clarke Field House 5.png"));
+        ClarkeImages.add(ImageLoader.loadTexture("src/main/resources/Images/Clarke Field House 6.png"));
+        Images.put("Clarke Field House", ClarkeImages);
+        //Mangrum Track & Field
+        List<Integer> mangImages = new ArrayList<>();
+        mangImages.add(ImageLoader.loadTexture("src/main/resources/Images/Mangrum Track & Field 1.png"));
+        mangImages.add(ImageLoader.loadTexture("src/main/resources/Images/Mangrum Track & Field 2.png"));
+        mangImages.add(ImageLoader.loadTexture("src/main/resources/Images/Mangrum Track & Field 3.png"));
+        mangImages.add(ImageLoader.loadTexture("src/main/resources/Images/Mangrum Track & Field 4.png"));
+        mangImages.add(ImageLoader.loadTexture("src/main/resources/Images/Mangrum Track & Field 5.png"));
+        mangImages.add(ImageLoader.loadTexture("src/main/resources/Images/Mangrum Track & Field 6.png"));
+        Images.put("Mangrum Track & Field", mangImages);
+        //Multi-Purpose Field
+        List<Integer> MutiImages = new ArrayList<>();
+        MutiImages.add(ImageLoader.loadTexture("src/main/resources/Images/Multi-Purpose Field 1.png"));
+        MutiImages.add(ImageLoader.loadTexture("src/main/resources/Images/Multi-Purpose Field 2.png"));
+        Images.put("Multi-Purpose Field", MutiImages);
+        //Softball Field
+        List<Integer> softballImages = new ArrayList<>();
+        softballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Softball Field 1.png"));
+        softballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Softball Field 2.png"));
+        softballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Softball Field 3.png"));
+        softballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Softball Field 4.png"));
+        softballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Softball Field 5.png"));
+        softballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Softball Field 6.png"));
+        softballImages.add(ImageLoader.loadTexture("src/main/resources/Images/Softball Field 7.png"));
+        Images.put("Softball Field", softballImages);
         icons.put("Office of Global Education", ImageLoader.loadTexture("src/main/resources/Icons/Office of global Education.png"));
         icons.put("Career Center", ImageLoader.loadTexture("src/main/resources/Icons/Career Center.png"));
         icons.put("Academic Advising", ImageLoader.loadTexture("src/main/resources/Icons/Academic Advising.png"));
-        icons.put("Open Access Computer Lab", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
-        icons.put("Kellogg Library Group Study Rooms", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
-        icons.put("Indoor Study Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
-        icons.put("Outdoor Study Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
-        icons.put("Gardens", ImageLoader.loadTexture("src/main/resources/Icons/Gardens.png"));
-        icons.put("Plazas", ImageLoader.loadTexture("src/main/resources/Icons/Plazas.png"));
+        //Student Centers
+        icons.put("Student Centers", ImageLoader.loadTexture("src/main/resources/Icons/table.png"));
+        //Student Housing
+        icons.put("Student Housing", ImageLoader.loadTexture("src/main/resources/Icons/home.png"));
+        // North Commons
         List<Integer> northCommonsImages = new ArrayList<>();
         northCommonsImages.add(ImageLoader.loadTexture("src/main/resources/Images/North Coms 1.png"));
         northCommonsImages.add(ImageLoader.loadTexture("src/main/resources/Images/North Coms 2.png"));
@@ -114,9 +165,115 @@ public class BuildingInfoUI {
         northCommonsImages.add(ImageLoader.loadTexture("src/main/resources/Images/North Coms 6.png"));
         northCommonsImages.add(ImageLoader.loadTexture("src/main/resources/Images/North Coms 7.png"));
         northCommonsImages.add(ImageLoader.loadTexture("src/main/resources/Images/North Coms 8.png"));
-
-        // Store the list of images for "North Commons"
         Images.put("North Commons", northCommonsImages);
+        //The QUAD
+        List<Integer> QuadImages = new ArrayList<>();
+        QuadImages.add(ImageLoader.loadTexture("src/main/resources/Images/Quad 1.png"));
+        QuadImages.add(ImageLoader.loadTexture("src/main/resources/Images/Quad 2.png"));
+        QuadImages.add(ImageLoader.loadTexture("src/main/resources/Images/Quad 3.png"));
+        QuadImages.add(ImageLoader.loadTexture("src/main/resources/Images/Quad 4.png"));
+        QuadImages.add(ImageLoader.loadTexture("src/main/resources/Images/Quad 5.png"));
+        QuadImages.add(ImageLoader.loadTexture("src/main/resources/Images/Quad 6.png"));
+        Images.put("The QUAD", QuadImages);
+        //The QUAD
+        List<Integer> UavImages = new ArrayList<>();
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA 1.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-2.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-3.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-4.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-5.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-6.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-7.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-8.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-9.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA-10.png"));
+        UavImages.add(ImageLoader.loadTexture("src/main/resources/Images/UVA 11.png"));
+        Images.put("University Village Apartments", UavImages);
+        //Food
+        icons.put("Dining & Cafes", ImageLoader.loadTexture("src/main/resources/Icons/Dining & Cafes.png"));
+        //Study
+        icons.put("Study And Online Class Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+
+        icons.put("Open Access Computer Lab", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        icons.put("Kellogg Library Group Study Rooms", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        icons.put("Indoor Study Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        //Outdoor
+        icons.put("Outdoor Study Spaces", ImageLoader.loadTexture("src/main/resources/Icons/open-book.png"));
+        //Forum Plaza
+        List<Integer> ForumImages = new ArrayList<>();
+        ForumImages.add(ImageLoader.loadTexture("src/main/resources/Images/Forum Plaza 1.png"));
+        ForumImages.add(ImageLoader.loadTexture("src/main/resources/Images/Forum Plaza 2.png"));
+        ForumImages.add(ImageLoader.loadTexture("src/main/resources/Images/Forum Plaza 3.png"));
+        ForumImages.add(ImageLoader.loadTexture("src/main/resources/Images/Forum Plaza 4.png"));
+        ForumImages.add(ImageLoader.loadTexture("src/main/resources/Images/Forum Plaza 5.png"));
+        ForumImages.add(ImageLoader.loadTexture("src/main/resources/Images/Forum Plaza 6.png"));
+        ForumImages.add(ImageLoader.loadTexture("src/main/resources/Images/Forum Plaza 7.png"));
+        Images.put("Forum Plaza", ForumImages);
+        //Founders Plaza
+        List<Integer> FounderImages = new ArrayList<>();
+        FounderImages.add(ImageLoader.loadTexture("src/main/resources/Images/Founders Plaza 1.png"));
+        FounderImages.add(ImageLoader.loadTexture("src/main/resources/Images/Founders Plaza 2.png"));
+        FounderImages.add(ImageLoader.loadTexture("src/main/resources/Images/Founders Plaza 3.png"));
+        FounderImages.add(ImageLoader.loadTexture("src/main/resources/Images/Founders Plaza 4.png"));
+        Images.put("Founders Plaza", FounderImages);
+        //Gonzalez Grove
+        List<Integer> GonzImages = new ArrayList<>();
+        GonzImages.add(ImageLoader.loadTexture("src/main/resources/Images/Gonzalez Grove 1.png"));
+        GonzImages.add(ImageLoader.loadTexture("src/main/resources/Images/Gonzalez Grove 2.png"));
+        GonzImages.add(ImageLoader.loadTexture("src/main/resources/Images/Gonzalez Grove 3.png"));
+        GonzImages.add(ImageLoader.loadTexture("src/main/resources/Images/Gonzalez Grove 4.png"));
+        GonzImages.add(ImageLoader.loadTexture("src/main/resources/Images/Gonzalez Grove 5.png"));
+        GonzImages.add(ImageLoader.loadTexture("src/main/resources/Images/Gonzalez Grove 6.png"));
+        GonzImages.add(ImageLoader.loadTexture("src/main/resources/Images/Gonzalez Grove 7.png"));
+        Images.put("Gonzalez Grove", GonzImages);
+        //Palm Court
+        List<Integer> PalmImages = new ArrayList<>();
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 1.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 2.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 3.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 4.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 5.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 6.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 7.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 8.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 9.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 10.png"));
+        PalmImages.add(ImageLoader.loadTexture("src/main/resources/Images/Palm Court 11.png"));
+        Images.put("Palm Court", PalmImages);
+        //Tukwut Courtyard
+        List<Integer> TukwutImages = new ArrayList<>();
+        TukwutImages.add(ImageLoader.loadTexture("src/main/resources/Images/Tukwut Courtyard 1.png"));
+        TukwutImages.add(ImageLoader.loadTexture("src/main/resources/Images/Tukwut Courtyard 2.png"));
+        TukwutImages.add(ImageLoader.loadTexture("src/main/resources/Images/Tukwut Courtyard 3.png"));
+        Images.put("Tukwut Courtyard", TukwutImages);
+        //USU Ampitheater
+        List<Integer> USUAmpImages = new ArrayList<>();
+        USUAmpImages.add(ImageLoader.loadTexture("src/main/resources/Images/USU Ampitheater 1.png"));
+        USUAmpImages.add(ImageLoader.loadTexture("src/main/resources/Images/USU Ampitheater 2.png"));
+        Images.put("USU Ampitheater", USUAmpImages);
+        icons.put("Plazas & Gardens", ImageLoader.loadTexture("src/main/resources/Icons/Tree.png"));
+        icons.put("Gardens", ImageLoader.loadTexture("src/main/resources/Icons/Gardens.png"));
+        //Sustainable Food Project Garden
+        Images.put("Sustainable Food Project Garden", ImageLoader.loadTexture("src/main/resources/Images/Sustainable Food Project Garden.png"));
+        icons.put("Plazas", ImageLoader.loadTexture("src/main/resources/Icons/Plazas.png"));
+        //Kellogg Plaza
+        List<Integer> KelloImages = new ArrayList<>();
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 1.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 2.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 3.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 4.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 5.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 6.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 7.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 8.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 9.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 10.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 11.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 12.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 13.png"));
+        KelloImages.add(ImageLoader.loadTexture("src/main/resources/Images/Kellogg Plaza 14.png"));
+        Images.put("Kellogg Plaza", KelloImages);
+
         // Existing building messages
         buildingMessages.put("Academic Hall",
                 "Acronym: ACD, Building No. 14\n" +
@@ -551,7 +708,8 @@ public class BuildingInfoUI {
                         "\n" +
                         " \n" +
                         "\n" +
-                        "<a href='https://www.csusm.edu/finaid/index.html'>Learn more about the Financial Aid Office.</a>\n"
+                        "<a href='https://www.csusm.edu/finaid/index.html'>Learn more</a>\n" +
+                                "\n"
         );
         buildingMessages.put("Office of the Registrar",
                         "<a href='https://www.csusm.edu/enroll/index.html'>Enroll</a>\n" +
@@ -645,41 +803,15 @@ public class BuildingInfoUI {
                         "Participate in student mentoring and recruitment\n" +
                         "Legislative advocacy"
         );
-        buildingMessages.put("Baseball Field",
-                        "Clarke Field House\n" +
-                        "Mangrum Track & Field\n" +
-                        "Multi-Purpose Field\n" +
-                        "Practice Field\n" +
-                        "Softball Field\n" +
-                        "Sports Center\n"
-        );
-        buildingMessages.put("Clarke Field House",
-                        "Mangrum Track & Field\n" +
-                        "Multi-Purpose Field\n" +
-                        "Practice Field\n" +
-                        "Softball Field\n" +
-                        "Sports Center\n"
-        );
-        buildingMessages.put("Mangrum Track & Field",
-                        "Multi-Purpose Field\n" +
-                        "Practice Field\n" +
-                        "Softball Field\n" +
-                        "Sports Center\n"
-        );
-        buildingMessages.put("Multi-Purpose Field",
-                        "Practice Field\n" +
-                        "Softball Field\n" +
-                        "Sports Center\n"
-        );
-        buildingMessages.put("Practice Field",
-                        "Softball Field\n" +
-                        "Sports Center\n"
-        );
-        buildingMessages.put("Softball Field",
-                        "Sports Center\n"
-        );
+        buildingMessages.put("Baseball Field", "");
+        buildingMessages.put("Clarke Field House","");
+        buildingMessages.put("Mangrum Track & Field","");
+        buildingMessages.put("Multi-Purpose Field","");
+        buildingMessages.put("Softball Field","");
         buildingMessages.put("Office of Global Education",
                         "<a href='http://www.csusm.edu/global/intstudents/index.html'>International Students Services</a>\n" +
+                                "\n" +
+                                "\n" +
                         "<a href='https://www.csusm.edu/global/intstudents/contact_international_advising.html'>Contact Us</a>"
         );
         buildingMessages.put("Career Center",
@@ -721,8 +853,12 @@ public class BuildingInfoUI {
         buildingMessages.put("ASI Cougar Pantry (Commons 104)",
                         "Commons 104\n" +
                         "\n" +
-                        "<a href='https://www.csusm.edu/asi/pantry/index.html/'>Cougar Pantry</a>|" +
-                        "<a href='https://www.csusm.edu/asi/pantry/index.html/'>Associated Students, Inc</a>"
+                        "<a href='https://www.csusm.edu/asi/pantry/index.html/'>Cougar Pantry</a>|\n" +
+                                "\n" +
+                                "\n" +
+                        "<a href='https://www.csusm.edu/asi/pantry/index.html/'>Associated Students, Inc</a>\n" +
+                                "\n" +
+                                "\n"
         );
         buildingMessages.put("Black Student Center",
                         "University Student Union 4200\n" +
@@ -807,6 +943,8 @@ public class BuildingInfoUI {
 
         );
         buildingMessages.put("North Commons", "");
+        buildingMessages.put("The QUAD", "");
+        buildingMessages.put("University Village Apartments", "");
         buildingMessages.put("Campus Coffee",
                         "Located on the southeast side of campus on Founders Plaza, Campus Coffee has served CSUSM" +
                         " as the only standalone business on campus since 2004.  Specializing in local, sustainable " +
@@ -896,7 +1034,7 @@ public class BuildingInfoUI {
         );
         buildingMessages.put("Kellogg Library Group Study Rooms",
                 "Kellogg Library Group Study Rooms\n" +
-                        "Please visit the <a href='https://biblio.csusm.edu/content/group-study-rooms-0/'> University Library Group Study Rooms</a> " +
+                        "Please visit the <a href='https://biblio.csusm.edu/content/group-study-rooms-0/'> Rooms</a> " +
                         "for more information\n" +
                         "Locations\n" +
                         "Kellogg Room 2106\n" +
@@ -941,33 +1079,12 @@ public class BuildingInfoUI {
                         "Kellogg Room 5316\n" +
                         "Kellogg Room 5411"
         );
-        buildingMessages.put("ACD 201 Classroom",
-                "ACD 201 Classroom\n" +
-                        "Limited outlets available.\n" +
-                        "\n" +
-                        "Headphones are required for audio usage.\n" +
-                        "\n" +
-                        "Please be respectful of other students in this space."
-        );
-        buildingMessages.put("ACD 301 Classroom",
-                "ACD 301 Classroom\n" +
-                        "Limited outlets available.\n" +
-                        "\n" +
-                        "Headphones are required for audio usage.\n" +
-                        "\n" +
-                        "Please be respectful of other students in this space."
-        );
 
         buildingMessages.put("ELB 588 Global Education Center",
                 "ELB 588 Global Education Center\n" +
                         "Outlets and tables/chairs available.\n" +
                         "\n" +
                         "HOURS: M-F 8:00 AM - 5:00 PM"
-        );
-        buildingMessages.put("Extended Learning Building 250",
-                "Extended Learning Building 250\n" +
-                        "Please visit <a href='https://appointments.csusm.edu/'> Appointments</a>" +
-                        " to reserve a spot"
         );
         buildingMessages.put("Kellogg 2000",
                 "Kellogg 2000\n" +
@@ -987,84 +1104,39 @@ public class BuildingInfoUI {
                         "Headphones are required for audio usage.\n" +
                         "Please be respectful of other students in this space."
         );
-        buildingMessages.put("MARK 107 Tiered Classroom",
-                "MARK 107 Tiered Classroom\n" +
-                        "Limited outlets available.\n" +
-                        "\n" +
-                        "Headphones are required for audio usage.\n" +
-                        "\n" +
-                        "Please be respectful of other students using this space."
-        );
-        buildingMessages.put("MARK 201 Classroom",
-                "MARK 201 Classroom\n" +
-                        "Limited outlets available.\n" +
-                        "\n" +
-                        "Headphones are required for audio usage.\n" +
-                        "\n" +
-                        "Please be respectful of other students using this space."
-        );
-        buildingMessages.put("MARK 309 PC Lab",
-                "MARK 309 PC Lab\n" +
-                        "33 PC Computers are available for usage. Limited outlets are also available.\n" +
-                        "Limited outlets available.\n" +
-                        "\n" +
-                        "Headphones are required for audio usage.\n" +
-                        "\n" +
-                        "Please be respectful of other students using this space."
-        );
-        buildingMessages.put("SBSB Lobby",
-                "SBSB Lobby"
-        );
-        buildingMessages.put("UNIV 273 MAC Lab",
-                "UNIV 273 MAC Lab\n" +
-                        "35 MAC Computers are available for usage. Limited outlets are also available.\n" +
-                        "\n" +
-                        " \n" +
-                        "\n" +
-                        "Headphones are required for audio usage.\n" +
-                        "\n" +
-                        " \n" +
-                        "\n" +
-                        "Please be respectful of other students using this space."
-        );
-        buildingMessages.put("Outdoor Study Spaces",
-                "Outdoor Study Spaces Locations\n" +
-                        "Dome Terrace\n" +
-                        "Forum Plaza\n" +
-                        "Founders Plaza\n" +
-                        "Gonzalez Grove\n" +
-                        "Kellogg Main Plaza\n" +
-                        "Markstein Plaza\n" +
-                        "Palm Court\n" +
-                        "Parking Structure\n" +
-                        "SBSB Courtyard\n" +
-                        "Starbuck's Patio\n" +
-                        "Tukwut Courtyard\n" +
-                        "USU Ampitheater\n" +
-                        "USU, 4th Floor Roof Top Patio\n" +
-                        "USU, First Floor Patio\n" +
-                        "USU, Outdoor 4th Floor Patio"
-        );
-        buildingMessages.put("Gardens",
-                "Gardens\n" +
-                        "Ethnobotany Garden\n" +
-                        "Pollinator Garden\n" +
-                        "Sustainable Food Project Garden"
-        );
-        buildingMessages.put("Plazas",
-                "Plazas\n" +
-                        "Chavez Plaza\n" +
-                        "Forum Plaza\n" +
-                        "Founders Plaza\n" +
-                        "Gonzales Grove\n" +
-                        "Gonzalez Grove\n" +
-                        "Kellogg Plaza\n" +
-                        "Markstein Plaza\n" +
-                        "Palm Court\n" +
-                        "Tukwut Courtyard\n" +
-                        "USU Ampitheater\n" +
-                        "Viasat Engineering Pavilion\n"
-        );
+        buildingMessages.put("Forum Plaza","");
+        buildingMessages.put("Founders Plaza","");
+        buildingMessages.put("Gonzalez Grove","");
+
+        buildingMessages.put("Palm Court","");
+        buildingMessages.put("Parking Structure",
+                "Studying in the Parking Structure must be done inside a vehicle. \n" +
+                "\n" +
+                "The Parking Structure has dedicated Wifi inside.");
+        buildingMessages.put("Tukwut Courtyard","");
+        buildingMessages.put("USU Ampitheater","");
+
+        buildingMessages.put("Ethnobotany Garden",
+                        "The garden serves as a living laboratory for students and community members who are working to understand" +
+                                " botanical research activities. The garden offers students a unique opportunity to learn through hands" +
+                                "-on learning and to develop a garden that features many medicinal and utilitarian plants." +
+                                " Interested in getting involved, contact the Anthropology Department.");
+        buildingMessages.put("Pollinator Garden",
+                "The pollinator garden is overseen by the Environmental Stewards Association, student organization." +
+                        "  In addition, research occurs in this garden about pollinators and the variety of species that live " +
+                        "in our ecosystem.");
+        buildingMessages.put("Sustainable Food Project Garden",
+                "The garden allows students to understand produce justice, organic practices and growing" +
+                        " practices along with theoretical classroom work.");
+        buildingMessages.put("Chavez Plaza","");
+        buildingMessages.put("Gonzales Grove",
+                "<a href='https://www.csusm.edu/arboretum/plants/index.html?q=Gonzales%20Grove&c=6'>Webpage</a> \n" +
+                "<a href='https://www.csusm.edu/arboretum/locations/gonzales-grove.pdf'>PDF</a>");
+        buildingMessages.put("Kellogg Plaza", "");
+        buildingMessages.put("Viasat Engineering Pavilion Plaza",
+                "<a href='https://www.csusm.edu/arboretum/plants/index.html?q=Viasat%20Engineering%20Pavillion&c=6'>Webpage</a> \n" +
+                "<a href='https://www.csusm.edu/arboretum/locations/viasat-engineering-pavilion.pdf'>PDF</a>");
+
     }
     // Initialize the navigation tree
     public void NavigationUI() {
@@ -1159,7 +1231,6 @@ public class BuildingInfoUI {
         Athletics.addSubcategory(new CategoryNode("Clarke Field House"));
         Athletics.addSubcategory(new CategoryNode("Mangrum Track & Field"));
         Athletics.addSubcategory(new CategoryNode("Multi-Purpose Field"));
-        Athletics.addSubcategory(new CategoryNode("Practice Field"));
         Athletics.addSubcategory(new CategoryNode("Softball Field"));
         Athletics.addSubcategory(new CategoryNode("Sports Center"));
         // Office of global education
@@ -1220,10 +1291,8 @@ public class BuildingInfoUI {
         out.addSubcategory(new CategoryNode("Forum Plaza"));
         out.addSubcategory(new CategoryNode("Founders Plaza"));
         out.addSubcategory(new CategoryNode("Gonzalez Grove"));
-        out.addSubcategory(new CategoryNode("Kellogg Main Plaza"));
         out.addSubcategory(new CategoryNode("Palm Court"));
         out.addSubcategory(new CategoryNode("Parking Structure"));
-        out.addSubcategory(new CategoryNode("SBSB Courtyard"));
         out.addSubcategory(new CategoryNode("Tukwut Courtyard"));
         out.addSubcategory(new CategoryNode("USU Ampitheater"));
         Stu.addSubcategory(out);
@@ -1248,7 +1317,7 @@ public class BuildingInfoUI {
         Pla.addSubcategory(new CategoryNode("Palm Court"));
         Pla.addSubcategory(new CategoryNode("Tukwut Courtyard"));
         Pla.addSubcategory(new CategoryNode("USU Ampitheater"));
-        Pla.addSubcategory(new CategoryNode("Viasat Engineering Pavilion"));
+        Pla.addSubcategory(new CategoryNode("Viasat Engineering Pavilion Plaza"));
         PlaGar.addSubcategory(Pla);
         // Add main categories to root
         root.addSubcategory(buildings);

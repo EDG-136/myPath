@@ -120,7 +120,6 @@ public class InputHandler {
             if (!authUI.isLoggedIn()) {
                 renderer.prepare(0f,0f,0f,0f);
                 authUI.renderLoginPage();
-                buildingInfoUI.renderUI();
             } else {
                 // Only render the main application if the user is logged in
                 processInput();
@@ -129,7 +128,7 @@ public class InputHandler {
                 shader.loadViewMatrix(camera);
                 renderer.render(entity, shader);
                 shader.unbind();
-
+                buildingInfoUI.renderUI();
                 facultyInfoUI.render();
                 //courseSelectionUI.render();
             }
