@@ -1,12 +1,14 @@
 package com.tecksupport.database;
 
-import com.tecksupport.database.data.Course;
-import com.tecksupport.database.data.Schedule;
+import com.tecksupport.schedulePlanner.CourseSection;
+import com.tecksupport.schedulePlanner.Schedule;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,7 +20,7 @@ public class CourseQuery {
         this.connection = connection;
     }
 
-    public List<Course> getAllCourses() {
+    public List<CourseSection> getAllCourses() {
         if (connection == null)
             return null;
         try {
@@ -36,7 +38,7 @@ public class CourseQuery {
         }
     }
 
-    public Course getCourseInfo(int courseID) {
+    public CourseSection getCourseInfo(int courseID) {
         try {
             String query = "SELECT * FROM Courses " +
                     "WHERE CourseID = ?;";
@@ -51,7 +53,7 @@ public class CourseQuery {
                 String courseCatalog = resultSet.getString("CourseCatalog");
                 String courseSection = resultSet.getString("CourseSection");
 
-                return new Course(courseID, courseName, courseSubject, courseCatalog, courseSection);
+                return new CourseSection(courseID, courseName, courseSubject, courseCatalog, courseSection);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "MySQL Get Class Info Error!", e);
@@ -59,8 +61,8 @@ public class CourseQuery {
         return null;
     }
 
-    private List<Course> getCourseListFromStatement(Statement statement) {
-        List<Course> courseList = new ArrayList<>();
+    private List<CourseSection> getCourseListFromStatement(Statement statement) {
+        List<CourseSection> courseSectionList = new ArrayList<>();
         try {
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
@@ -70,14 +72,28 @@ public class CourseQuery {
                 String courseCatalog = resultSet.getString("CourseCatalog");
                 String courseSection = resultSet.getString("CourseSection");
 
-                Course course = new Course(courseID, courseName, courseSubject, courseCatalog, courseSection);
-                courseList.add(course);
+                CourseSection course = new CourseSection(courseID, courseName, courseSubject, courseCatalog, courseSection);
+                courseSectionList.add(course);
             }
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQL Course list collect error", e);
         }
 
-        return courseList;
+        return courseSectionList;
+    }
+
+    public List<Schedule> getAllSchedules() {
+        try {
+            String query = "SELECT CourseID, LocationName, FacultyID, StartTime, EndTime, Days, StartDate, EndDate " +
+                    "FROM Schedules;";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.execute();
+
+            return getScheduleList(statement);
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "MySQL Get ALl Schedules Error!", e);
+        }
+        return null;
     }
 
     public List<Schedule> getScheduleOfCourse(int courseID) {
@@ -134,5 +150,4 @@ public class CourseQuery {
         }
         return schedules;
     }
-
 }

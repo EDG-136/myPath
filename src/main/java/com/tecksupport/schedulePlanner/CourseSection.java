@@ -1,14 +1,14 @@
-package com.tecksupport.database.data;
+package com.tecksupport.schedulePlanner;
 
 
-public class Course {
+public class CourseSection {
     private final int ID;
     private final String name;
     private final String subject;
     private final String catalog;
     private final String section;
 
-    public Course(int ID, String name, String subject, String catalog, String section) {
+    public CourseSection(int ID, String name, String subject, String catalog, String section) {
         this.ID = ID;
         this.name = name.trim();
         this.subject = subject.trim();
@@ -36,4 +36,16 @@ public class Course {
         return section;
     }
 
+    @Override
+    public int hashCode() {
+        return getID();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof CourseSection courseSection))
+            return false;
+
+        return getID() == courseSection.getID();
+    }
 }

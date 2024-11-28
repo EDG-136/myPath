@@ -1,15 +1,13 @@
 package com.tecksupport.glfw.ui;
 
 import com.tecksupport.database.FacultyQuery;
-import com.tecksupport.database.data.Faculty;
+import com.tecksupport.schedulePlanner.Faculty;
 import com.tecksupport.glfw.view.Window;
 import imgui.*;
 import imgui.flag.ImGuiCond;
-import imgui.flag.ImGuiConfigFlags;
 import imgui.flag.ImGuiTreeNodeFlags;
 import imgui.flag.ImGuiWindowFlags;
 
-import java.awt.*;
 import java.util.List;
 
 public class FacultyInfoUI {

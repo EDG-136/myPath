@@ -1,4 +1,4 @@
-package com.tecksupport.database.data;
+package com.tecksupport.schedulePlanner;
 
 public class Faculty {
     private final String acronym;

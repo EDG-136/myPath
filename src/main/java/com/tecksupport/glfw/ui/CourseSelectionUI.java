@@ -1,17 +1,13 @@
 package com.tecksupport.glfw.ui;
 
 import com.tecksupport.database.CourseQuery;
-import com.tecksupport.database.data.Course;
+import com.tecksupport.schedulePlanner.CourseSection;
 import com.tecksupport.glfw.view.Window;
 import imgui.*;
 import imgui.flag.*;
-import imgui.internal.ImGuiDockNode;
-import org.lwjgl.glfw.GLFW;
 
 import java.util.HashSet;
 import java.util.List;
-
-import static org.lwjgl.opengl.GL11.glViewport;
 
 public class CourseSelectionUI {
     private final static int WINDOW_FLAG = ImGuiWindowFlags.None;
@@ -23,7 +19,7 @@ public class CourseSelectionUI {
     private float height;
     private ImFont font;
     private float fontSize;
-    private List<Course> courseList;
+    private List<CourseSection> courseSectionList;
     private int dockId;
 
 
@@ -31,7 +27,7 @@ public class CourseSelectionUI {
     public CourseSelectionUI(Window window, CourseQuery courseQuery) {
         this.window = window;
         this.courseQuery = courseQuery;
-        this.courseList = courseQuery.getAllCourses();
+        this.courseSectionList = courseQuery.getAllCourses();
         width = window.getScreenWidth() / 3f;
         height = window.getScreenHeight() / 2.5f;
     }
@@ -99,24 +95,24 @@ public class CourseSelectionUI {
 
         filter.draw("##CourseFilter");
 
-        for (Course course : courseList) {
-            if (!isCoursePassedFilter(course))
+        for (CourseSection courseSection : courseSectionList) {
+            if (!isCoursePassedFilter(courseSection))
                 continue;
 
             ImGui.setCursorPosX(fontSize * 1.5f);
 
             // Setup selectable section
-            String text = course.getID() + "\n" + course.getSubject() + " " + course.getCatalog() + "-" + course.getSection() + "\n" + course.getName();
-            boolean isSelected = selectedCourses.contains(course.getID());
+            String text = courseSection.getID() + "\n" + courseSection.getSubject() + " " + courseSection.getCatalog() + "-" + courseSection.getSection() + "\n" + courseSection.getName();
+            boolean isSelected = selectedCourses.contains(courseSection.getID());
             int selectableFlags = ImGuiSelectableFlags.None;
             ImVec2 size = new ImVec2(width, fontSize * 4.0f);
 
             // Check if selected
             if (ImGui.selectable(text, isSelected, selectableFlags, size)) {
                 if (isSelected)
-                    selectedCourses.remove(course.getID());
+                    selectedCourses.remove(courseSection.getID());
                 else
-                    selectedCourses.add(course.getID());
+                    selectedCourses.add(courseSection.getID());
             }
 
             // Setup tooltip
@@ -134,15 +130,15 @@ public class CourseSelectionUI {
         ImGui.end();
     }
 
-    private boolean isCoursePassedFilter(Course course) {
-        return filter.passFilter(String.valueOf(course.getID()))
-                || filter.passFilter(course.getName())
-                || filter.passFilter(course.getSubject())
-                || filter.passFilter(course.getCatalog())
-                || filter.passFilter(course.getSection());
+    private boolean isCoursePassedFilter(CourseSection courseSection) {
+        return filter.passFilter(String.valueOf(courseSection.getID()))
+                || filter.passFilter(courseSection.getName())
+                || filter.passFilter(courseSection.getSubject())
+                || filter.passFilter(courseSection.getCatalog())
+                || filter.passFilter(courseSection.getSection());
     }
 
     private void handleRefresh() {
-        courseList = courseQuery.getAllCourses();
+        courseSectionList = courseQuery.getAllCourses();
     }
 }

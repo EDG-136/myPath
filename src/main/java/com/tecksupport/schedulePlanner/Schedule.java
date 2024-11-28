@@ -1,24 +1,27 @@
-package com.tecksupport.database.data;
+package com.tecksupport.schedulePlanner;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Schedule {
     private final int courseID;
     private final String roomName;
     private final String facultyID;
-    private final String startTime;
-    private final String endTime;
+    private final LocalTime startTime;
+    private final LocalTime endTime;
     private final String daysInWeek;
-    private final String startDate;
-    private final String endDate;
+    private final LocalDate startDate;
+    private final LocalDate endDate;
 
     public Schedule(int courseID, String roomName, String facultyID, String startTime, String endTime, String daysInWeek, String startDate, String endDate) {
         this.courseID = courseID;
         this.roomName = roomName;
         this.facultyID = facultyID;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.startTime = LocalTime.parse(startTime);
+        this.endTime = LocalTime.parse(endTime);
         this.daysInWeek = daysInWeek;
-        this.startDate = startDate;
-        this.endDate = endDate;
+        this.startDate = LocalDate.parse(startDate);
+        this.endDate = LocalDate.parse(endDate);
     }
 
     public int getCourseID() {
@@ -33,11 +36,11 @@ public class Schedule {
         return facultyID;
     }
 
-    public String getStartTime() {
+    public LocalTime getStartTime() {
         return startTime;
     }
 
-    public String getEndTime() {
+    public LocalTime getEndTime() {
         return endTime;
     }
 
@@ -45,11 +48,11 @@ public class Schedule {
         return daysInWeek;
     }
 
-    public String getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public String getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 }
