@@ -24,6 +24,12 @@ import imgui.type.ImString;
 import javax.swing.*;
 
 import static org.lwjgl.glfw.GLFW.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 
 
 public class InputHandler {
@@ -71,16 +77,6 @@ public class InputHandler {
         fishTextured = new TexturedModel(fishModel, new ModelTexture(loader.loadTexture("fish_texture")));
         allEntities.add(entity);
 
-        for(int i =0; i < 1000; i++){
-            float x = random.nextFloat() * 1000;
-            float y = random.nextFloat()* 1000;
-            float z = random.nextFloat()* 1000;
-            allEntities.add(new Entity(fishTextured, new Vector3f(x,y,z - 25f), random.nextFloat() * 180f, random.nextFloat() * 180f, 0f, 1f));
-        }
-//        camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
-//        Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
-//        shader.setUniform("camera", camMat);
-
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
 
@@ -113,6 +109,7 @@ public class InputHandler {
             endFrameImGui();
             window.update();
         }
+        export();
         cleanup();
     }
 
@@ -141,7 +138,16 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_E) == GLFW_PRESS) {
             camera.yawRight();
         }
-        // Handle more inputs here
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_N)== GLFW_PRESS){
+            Vector3f pos = camera.getPosition();
+            allEntities.add(new Entity(fishTextured, new Vector3f(pos.x(), pos.y(), pos.z()), 0,  0, 0f, 0.5f));
+        }
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_M)== GLFW_PRESS){
+
+            allEntities.removeLast();
+        }
+
+
     }
 
 
@@ -167,6 +173,21 @@ public class InputHandler {
 
         oldYaw = xPos;
         oldPitch = yPos;
+    }
+    private void export(){
+        String filename = "nodes.txt";
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
+            for(Entity e: allEntities){
+                Vector3f position = e.getPosition();
+                String line = position.x + "," + position.y+ "," + position.z;
+                writer.write(line);
+                writer.newLine();
+            }
+
+        }catch(IOException e){
+            System.err.println("ERROR: "+ e.getMessage());
+        }
     }
 
     public void cleanup() {

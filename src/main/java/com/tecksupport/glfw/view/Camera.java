@@ -1,18 +1,11 @@
 package com.tecksupport.glfw.view;
 
-import com.tecksupport.glfw.model.Shader;
 import org.joml.Math;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.system.MemoryStack;
-import java.nio.FloatBuffer;
-import java.util.Vector;
 
-import static org.lwjgl.opengl.GL20.*;
 
 public class Camera {
-    private static final float MOVE_SPEED = 1.2f;
+    private static final float MOVE_SPEED = 0.4f;
     private static final float ROTATE_SENSITIVE = 0.1f;
     private Vector3f position = new Vector3f(0,0,0);
     private float pitch;
@@ -27,6 +20,8 @@ public class Camera {
         this.pitch += pitch * ROTATE_SENSITIVE;
         this.roll += roll * ROTATE_SENSITIVE;
     }
+
+
 
     public Vector3f getPosition() {
         return position;
