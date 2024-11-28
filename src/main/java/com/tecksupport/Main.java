@@ -22,7 +22,7 @@ public class Main {
 //    fileReader.createTables();
 
 //    testSQL(courseQuery);
-//
+
     InputHandler instance = new InputHandler(courseQuery, userAuthQuery, facultyQuery);
 
     instance.init();

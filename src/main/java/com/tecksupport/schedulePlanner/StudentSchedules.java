@@ -24,8 +24,9 @@ public class StudentSchedules {
     }
 
     public StudentSchedules(StudentSchedules studentSchedules) {
-        for (List<Schedule> scheduleList : studentSchedules.schedulesInWeek) {
-            this.schedulesInWeek.add(List.copyOf(scheduleList));
+        for (int i = 0; i < DAYS_IN_A_WEEK; i++) {
+            List<Schedule> schedules = new LinkedList<>(studentSchedules.schedulesInWeek.get(i));
+            this.schedulesInWeek.add(schedules);
         }
     }
 
@@ -73,7 +74,7 @@ public class StudentSchedules {
         return false;
     }
 
-    private boolean isScheduleOverlap(Schedule newSchedule, List<Schedule> scheduleList) {
+    private static boolean isScheduleOverlap(Schedule newSchedule, List<Schedule> scheduleList) {
         // The code should explain itself
         for (Schedule currentSchedule : scheduleList) {
 
@@ -91,13 +92,13 @@ public class StudentSchedules {
         }
         return false;
     }
-    private boolean isTimeBetween(LocalTime time, Schedule schedule) {
+    private static boolean isTimeBetween(LocalTime time, Schedule schedule) {
         // Confusing isn't it?
         // just read code without "get" and it would make sense (perchance)
         return time.isAfter(schedule.getStartTime()) && time.isBefore(schedule.getEndTime());
     }
 
-    private int getDayInWeek(char letter) {
+    private static int getDayInWeek(char letter) {
         // IDK why the school chose these letters
         // Email to them if you care
         return switch (letter) {

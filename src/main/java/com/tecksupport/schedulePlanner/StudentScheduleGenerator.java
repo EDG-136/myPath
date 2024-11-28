@@ -25,7 +25,6 @@ public class StudentScheduleGenerator {
 
         // Creating a branch for every course section in current general course
         for (CourseSection courseSection : courseSections) {
-
             // Create a copy of student schedules
             StudentSchedules branchSchedule = new StudentSchedules(studentSchedules);
             List<Schedule> schedulesToAdd = generalCourse.getSchedules(courseSection);

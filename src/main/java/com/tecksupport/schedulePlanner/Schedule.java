@@ -55,4 +55,19 @@ public class Schedule {
     public LocalDate getEndDate() {
         return endDate;
     }
+
+    @Override
+    public boolean equals(Object object) {
+        if (!(object instanceof Schedule schedule))
+            return false;
+
+        return this.courseID == schedule.courseID
+                && this.roomName.equals(schedule.roomName)
+                && this.facultyID.equals(schedule.facultyID)
+                && this.startTime.equals(schedule.startTime)
+                && this.endTime.equals(schedule.endTime)
+                && this.daysInWeek.equals(schedule.daysInWeek)
+                && this.startDate.equals(schedule.startDate)
+                && this.endDate.equals(schedule.endDate);
+    }
 }
