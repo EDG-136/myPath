@@ -10,19 +10,21 @@ public class StudentScheduleGenerator {
 
     public List<StudentSchedules> generateSchedule() {
         List<StudentSchedules> studentSchedulesList = new ArrayList<>();
-        generateScheduleIntoList(studentSchedulesList, new StudentSchedules(), selectedGeneralCourses.iterator());
+        generateScheduleIntoList(studentSchedulesList, new StudentSchedules(), 0);
         return studentSchedulesList;
     }
 
-    public void generateScheduleIntoList(List<StudentSchedules> schedulesList, StudentSchedules studentSchedules, Iterator<GeneralCourse> currentCourse) {
-        if (!currentCourse.hasNext()) {
+    public void generateScheduleIntoList(List<StudentSchedules> schedulesList, StudentSchedules studentSchedules, int i) {
+        if (i >= selectedGeneralCourses.size()) {
             schedulesList.add(studentSchedules);
             return;
         }
 
-        GeneralCourse generalCourse = currentCourse.next();
-        List<CourseSection> courseSectionList = generalCourse.getCourseSectionList();
-
+        GeneralCourse currentCourse = selectedGeneralCourses.get(i);
+        List<CourseSection> courseSectionList = currentCourse.getCourseSectionList();
+        System.out.println("Pass: " + i);
+        System.out.println("Adding " + currentCourse.getSubject() + " " + currentCourse.getCatalog());
+        i++;
         // Creating a branch for every course section in current general course
         for (CourseSection courseSection : courseSectionList) {
             // Create a copy of student schedules
@@ -31,8 +33,9 @@ public class StudentScheduleGenerator {
             // Stop branching if failed to add (overlap detected)
             if (!branchSchedule.addCourseSection(courseSection))
                 continue;
+            System.out.println("Branching " + courseSection.getID());
 
-            generateScheduleIntoList(schedulesList, branchSchedule, currentCourse);
+            generateScheduleIntoList(schedulesList, branchSchedule, i);
         }
     }
 

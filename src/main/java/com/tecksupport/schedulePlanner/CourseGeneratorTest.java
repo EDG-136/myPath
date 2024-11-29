@@ -31,18 +31,27 @@ public class CourseGeneratorTest {
         Schedule schedule1 = new Schedule(12345, "SCI2 302", "SCI2", "08:00:00", "09:20:00", "TR", "2024-08-30", "2024-12-10");
         Schedule schedule2 = new Schedule(12345, "SCI2 302", "SCI2", "09:30:00", "10:15:00", "TR", "2024-08-30", "2024-12-10");
 
-        Schedule schedule3 = new Schedule(23452, "ACD 209", "ACD", "08:00:00", "10:15:00", "TR", "2024-08-30", "2024-12-10");
-        Schedule schedule4 = new Schedule(23452, "SCI2 302", "SCI2", "09:00:00", "10:15:00", "MWF", "2024-08-30", "2024-12-10");
+        Schedule schedule3 = new Schedule(23452, "ACD 209", "ACD", "10:30:00", "11:45:00", "TR", "2024-08-30", "2024-12-10");
+        Schedule schedule4 = new Schedule(23452, "SCI2 302", "SCI2", "12:00:00", "01:15:00", "TR", "2024-08-30", "2024-12-10");
 
-        Schedule schedule5 = new Schedule(20932, "SCI2 302", "SCI2", "08:00:00", "01:30:00", "F", "2024-08-30", "2024-12-10");
+        Schedule schedule5 = new Schedule(29324, "SCI2 302", "SCI2", "08:00:00", "13:30:00", "TR", "2024-08-30", "2024-12-10");
 
-        Schedule schedule6 = new Schedule(43298, "SCI2 302", "SCI2", "08:00:00", "09:30:00", "MWF", "2024-08-30", "2024-12-10");
+        Schedule schedule6 = new Schedule(28323, "SCI2 302", "SCI2", "08:00:00", "09:30:00", "TR", "2024-08-30", "2024-12-10");
 
-//        cs370.addSchedule(cs370Section1, List.of(schedule1, schedule2));
-//        cs370.addSchedule(cs370Section2, List.of(schedule3, schedule4));
-//
-//        cs436.addSchedule(cs436Section1, List.of(schedule5));
-//        cs436.addSchedule(cs436Section2, List.of(schedule6));
+        cs370Section1.addSchedule(schedule1);
+        cs370Section1.addSchedule(schedule2);
+
+        cs370Section2.addSchedule(schedule3);
+        cs370Section2.addSchedule(schedule4);
+
+        cs436Section1.addSchedule(schedule5);
+        cs436Section2.addSchedule(schedule6);
+
+        cs370.addSection(cs370Section1);
+        cs370.addSection(cs370Section2);
+
+        cs436.addSection(cs436Section1);
+        cs436.addSection(cs436Section2);
 
         generator.addGeneralCourse(cs370);
         generator.addGeneralCourse(cs436);
@@ -51,26 +60,9 @@ public class CourseGeneratorTest {
 
         for (StudentSchedules studentSchedules : studentSchedulesList) {
             System.out.println(String.format("%10s", "-").replace(' ', '-'));
-            for (int i = 0; i < 7; i++) {
-                System.out.println(getDayInWeek(i) + ": ");
-                for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
-                    System.out.println(courseSection.getID());
-                }
+            for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
+                System.out.println(courseSection.getID());
             }
         }
     }
-
-    private String getDayInWeek(int dayInNum) {
-        return switch (dayInNum) {
-            case 0 -> "MONDAY";
-            case 1 -> "TUESDAY";
-            case 2 -> "WEDNESDAY";
-            case 3 -> "THURSDAY";
-            case 4 -> "FRIDAY";
-            case 5 -> "SATURDAY";
-            case 6 -> "SUNDAY";
-            default -> null;
-        };
-    }
-
 }

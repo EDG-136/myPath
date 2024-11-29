@@ -4,6 +4,8 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class StudentSchedules {
     private static final int MONDAY = 0;
@@ -15,7 +17,7 @@ public class StudentSchedules {
     private static final int SUNDAY = 6;
     private final List<CourseSection> courseSectionList = new ArrayList<>();
 
-    // Had to keep this for the first empty schedule
+    // Had   to keep this for the first empty schedule
     public StudentSchedules() {
 
     }
@@ -38,6 +40,13 @@ public class StudentSchedules {
 
     private static boolean isScheduleOverlap(Schedule schedule, List<Schedule> scheduleList) {
         for (Schedule currentSchedule : scheduleList) {
+            Pattern regex = Pattern.compile("[" + schedule.getDaysInWeek() + "]");
+            Matcher matcher = regex.matcher(currentSchedule.getDaysInWeek());
+            System.out.println(schedule.getCourseID() +  " to " + currentSchedule.getCourseID());
+            if (!matcher.find())
+                continue;
+            System.out.println(schedule.getCourseID() +  " Matched " + currentSchedule.getCourseID());
+
             if (isScheduleOverlap(schedule, currentSchedule))
                 return true;
         }
