@@ -1,21 +1,36 @@
 package com.tecksupport.glfw.controller;
 
+
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
-import com.tecksupport.glfw.renderer.GridRenderer;
-import com.tecksupport.glfw.utils.Maths;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
 import imgui.ImGui;
-import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.lwjgl.BufferUtils;
+import org.lwjgl.system.Callback;
+
+import java.nio.DoubleBuffer;
+import java.util.*;
+
+import imgui.type.ImString;
+
+
+import javax.swing.*;
 
 import static org.lwjgl.glfw.GLFW.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+
 
 public class InputHandler {
     private Window window;
@@ -23,9 +38,11 @@ public class InputHandler {
     private Mesh mesh;
     private Camera camera;
     private RawModel rawModel;
+    private RawModel fishModel;
     private Renderer renderer;
     private Loader loader;
     private TexturedModel texturedModel;
+    private TexturedModel fishTextured;
     private RawModel square;
     private Entity entity;
     private ModelData modelData;
@@ -33,12 +50,12 @@ public class InputHandler {
     private double oldPitch;
     private BuildingInfoUI buildingInfoUI;
     private AuthUI authUI;
-
-    // New GridRenderer instance for rendering the grid
-    private GridRenderer gridRenderer;
-
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+
+    private Random random = new Random();
+
+    private List<Entity> allEntities = new ArrayList<Entity>();
 
     public void init() {
         window = new Window(800, 600, "myPath");
@@ -48,16 +65,17 @@ public class InputHandler {
                 "src/main/java/com/tecksupport/glfw/shader/vertexShader.txt",
                 "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt"
         );
-        renderer = new Renderer(shader, window);
-
         rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+
         texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
-        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
+
+        entity = new Entity(texturedModel, new Vector3f(0, 0, 0), 0, 0, 0, 20);
 
         camera = new Camera();
-
-        // Initialize GridRenderer
-        gridRenderer = new GridRenderer();
+        renderer = new Renderer(shader, window, camera);
+        fishModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Fish"));
+        fishTextured = new TexturedModel(fishModel, new ModelTexture(loader.loadTexture("fish_texture")));
+        allEntities.add(entity);
 
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
@@ -76,38 +94,22 @@ public class InputHandler {
         while (!window.shouldClose()) {
             startFrameImGui();
 
-            if (!authUI.isLoggedIn()) {
-                authUI.renderLoginPage();
-            } else {
-                // Only render the main application if the user is logged in
-                processInput();
-                renderer.prepare();
-
-                // Calculate the map's transformation matrix
-                Matrix4f mapPositionMatrix = Maths.createTransformationMatrix(
-                        entity.getPosition(),
-                        entity.getRotX(),
-                        entity.getRotY(),
-                        entity.getRotZ(),
-                        entity.getScale()
-                );
-
-                // Render the grid
-                gridRenderer.render(camera.getProjectionMatrix(), camera.getViewMatrix(), mapPositionMatrix);
-
-                // Render the entity (map)
-                shader.bind();
-                shader.loadViewMatrix(camera);
-                renderer.render(entity, shader);
-                shader.unbind();
-
-                // Render building UI
-                buildingInfoUI.renderUI();
+//            if (!authUI.isLoggedIn()) {
+//                authUI.renderLoginPage();
+//            } else {
+            // Only render the main application if the user is logged in
+            processInput();
+            for(Entity instance : allEntities){
+                renderer.processEntity(instance);
             }
+            renderer.render();
+            buildingInfoUI.renderUI();
+//            }
 
             endFrameImGui();
             window.update();
         }
+        export();
         cleanup();
     }
 
@@ -136,7 +138,18 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_E) == GLFW_PRESS) {
             camera.yawRight();
         }
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_N)== GLFW_PRESS){
+            Vector3f pos = camera.getPosition();
+            allEntities.add(new Entity(fishTextured, new Vector3f(pos.x(), pos.y(), pos.z()), 0,  0, 0f, 0.5f));
+        }
+        if (glfwGetKey(window.getWindowID(), GLFW_KEY_M)== GLFW_PRESS){
+
+            allEntities.removeLast();
+        }
+
+
     }
+
 
     void mouseButtonCallback(long window, int button, int action, int mods) {
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
@@ -161,17 +174,32 @@ public class InputHandler {
         oldYaw = xPos;
         oldPitch = yPos;
     }
+    private void export(){
+        String filename = "nodes.txt";
+
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
+            for(Entity e: allEntities){
+                Vector3f position = e.getPosition();
+                String line = position.x + "," + position.y+ "," + position.z;
+                writer.write(line);
+                writer.newLine();
+            }
+
+        }catch(IOException e){
+            System.err.println("ERROR: "+ e.getMessage());
+        }
+    }
 
     public void cleanup() {
         shader.cleanup();
         loader.cleanUp();
-        gridRenderer.cleanup(); // Cleanup grid renderer resources
+        // renderer.cleanup();
+        // mesh.cleanup();
         imGuiGl3.shutdown();
         imGuiGlfw.shutdown();
         ImGui.destroyContext();
         window.cleanup();
     }
-
     void startFrameImGui() {
         imGuiGl3.newFrame();
         imGuiGlfw.newFrame();
