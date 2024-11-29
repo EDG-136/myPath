@@ -1,117 +1,257 @@
 package com.tecksupport.glfw.ui;
 
+import com.tecksupport.database.UserAuthQuery;
+import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.view.Window;
+import imgui.ImFont;
 import imgui.ImGui;
+import imgui.ImVec4;
 import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiInputTextFlags;
-import imgui.type.ImString;
 import imgui.flag.ImGuiWindowFlags;
-import imgui.flag.ImGuiCond;
-import imgui.flag.ImGuiInputTextFlags;
+import imgui.type.ImBoolean;
+import imgui.type.ImString;
 
-import java.util.HashMap;
+import java.awt.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class AuthUI {
+    private final static String NONE = "";
+    private final static String REGISTER_SUCCESS = "Successfully registered!";
+    private final static String INVALID_USER_OR_PASS = "The username or password is invalid!";
+    private final static String REGISTER_INFO_EXISTED = "The username or student id already exists!";
+    private final static ImVec4 RED = new ImVec4(1.0f, 0.0f, 0.0f, 1.0f);
+    private final static ImVec4 GREEN = new ImVec4(0.0f, 1.0f, 0.0f, 1.0f);
+    private final static ImVec4 WHITE = new ImVec4();
+
+    private final UserAuthQuery userAuthQuery;
     private final Window window;
-    private final HashMap<String, String> userDatabase = new HashMap<>(); // Simulated database
+    private final ImString studentIDBuffer = new ImString("", 128); // Using ImGui ImString
     private final ImString usernameBuffer = new ImString("", 128); // Using ImGui ImString
     private final ImString passwordBuffer = new ImString("", 128);
-    private String loginMessage = ""; // Stores the message to display
-    private String signupMessage = ""; // Message for successful signup or welcome message
+    private final ImString firstNameBuffer = new ImString("", 128); // Using ImGui ImString
+    private final ImString lastNameBuffer = new ImString("", 128);
+    private final ImBoolean showPasswordBuffer = new ImBoolean();
+    private String title = "Login Page";
+    private String displayMessage;
+    private ImVec4 displayMessageColor = new ImVec4();
     private boolean isLoggedIn = false; // To track login status
+    private boolean isSignUp;
+    private float width;
+    private float height;
 
-    public AuthUI(Window window) {
+    public AuthUI(Window window, UserAuthQuery userAuthQuery) {
         this.window = window;
+        this.userAuthQuery = userAuthQuery;
     }
 
     public void renderLoginPage() {
         // Set the size and position of the login window
-        ImGui.setNextWindowSize(400, 200, ImGuiCond.Always);
-        ImGui.setNextWindowPos(window.getWindowWidth() / 2.0f - 200, window.getWindowHeight() / 2.0f - 100, ImGuiCond.Always);
+        ImFont defaultFont = ImGui.getFont();
+        ImFont loginFont = new ImFont(defaultFont.ptr);
+        loginFont.setScale(1.4f);
+        ImGui.pushFont(loginFont);
+        if (isSignUp) {
+            width = window.getWindowWidth() / 1.75f;
+            height = window.getWindowHeight() / 1.5f;
+        } else {
+            width = window.getWindowWidth() / 1.75f;
+            height = window.getWindowHeight() / 2.0f;
+        }
 
-        int windowFlags = ImGuiWindowFlags.NoResize | ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoCollapse;
-        ImGui.begin("Login Page", windowFlags);
+        ImGui.setNextWindowPos((window.getScreenWidth() - width) / 2.0f, (window.getScreenHeight() - height) / 2.0f, ImGuiCond.FirstUseEver);
+        ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
+        displayCombo();
+    }
+
+    private void displayCombo() {
+        ImGui.begin(title, getWindowFlag());
 
         ImGui.text("Please log in to access the application.");
         ImGui.spacing();
 
-        // Input fields for username and password
-        ImGui.inputText("Username", usernameBuffer, ImGuiInputTextFlags.None);
-        ImGui.inputText("Password", passwordBuffer, ImGuiInputTextFlags.Password);
+        displayInputFields();
 
-        // Handle the "Sign In" button
-        if (ImGui.button("Sign In")) {
-            String username = usernameBuffer.get().trim();
-            String password = passwordBuffer.get().trim();
-            if (validateCredentials(username, password)) {
-                isLoggedIn = true; // User has logged in
-                loginMessage = ""; // Clear message on successful login
-                signupMessage = ""; // Clear any previous signup message
-            } else {
-                loginMessage = "Invalid credentials. Please try again."; // Set error message
-            }
-        }
+        ImGui.newLine();
 
-        // Handle the "Sign Up" button
-        ImGui.sameLine(); // Position "Sign Up" next to "Sign In"
-        if (ImGui.button("Sign Up")) {
-            String username = usernameBuffer.get().trim();
-            String password = passwordBuffer.get().trim();
-            boolean signUpSuccess = handleSignUp(username, password); // Assume this function returns a boolean indicating success
-            if (signUpSuccess) {
-                signupMessage = "Welcome, " + username + "! You have successfully signed up."; // Set welcome message
-            } else {
-                signupMessage = "Signup failed. Please try again."; // Set error message for signup
-            }
-        }
+        handleLoginIn();
+        ImGui.sameLine();
+        handleSignUp();
 
         ImGui.spacing();
 
-        // Display login message (if any)
-        if (!loginMessage.isEmpty()) {
-            ImGui.textColored(1.0f, 0.0f, 0.0f, 1.0f, loginMessage); // Red text for error messages
-        }
-        if (!signupMessage.isEmpty()) {
-            ImGui.textColored(0.0f, 1.0f, 0.0f, 1.0f, signupMessage); // Green text for success message
-        }
+        displayMessage();
 
+        ImGui.popFont();
         ImGui.end();
     }
-    private boolean validateCredentials(String username, String password) {
-        // Replace with real credential validation logic
-        return userDatabase.containsKey(username) && userDatabase.get(username).equals(password);
-    }
-    private boolean handleSignUp(String username, String password) {
-        if (username.isEmpty() || password.isEmpty()) {
-            System.out.println("Sign-Up Failed: Username and password cannot be empty.");
-            return false;
-        }
 
-        if (userDatabase.containsKey(username)) {
-            System.out.println("Sign-Up Failed: Username already exists.");
+    private void displayInputFields() {
+        float itemWidth = 200;
+
+        int passwordFlag;
+        if (!showPasswordBuffer.get())
+            passwordFlag = ImGuiInputTextFlags.Password;
+        else
+            passwordFlag = ImGuiInputTextFlags.None;
+
+        if (isSignUp)
+        {
+            // Reset Display Message
+            setDisplayMessage(NONE);
+
+            // Show Sign Up UI
+            title = "Signup Page";
+            ImGui.pushItemWidth(itemWidth / 2);
+
+            ImGui.text("StudentID");
+
+            ImGui.inputText("##StudentID", studentIDBuffer, ImGuiInputTextFlags.None);
+
+            ImGui.popItemWidth();
+            ImGui.pushItemWidth(itemWidth);
+
+            ImGui.text("First Name:");
+            ImGui.sameLine(itemWidth, 15);
+            ImGui.text("Last Name:");
+
+            ImGui.inputText("##FirstName", firstNameBuffer, ImGuiInputTextFlags.None);
+            ImGui.sameLine();
+            ImGui.inputText("##LastName", lastNameBuffer, ImGuiInputTextFlags.None);
+
+            ImGui.text("Username:");
+            ImGui.sameLine(itemWidth, 15);
+            ImGui.text("Password:");
+
+            ImGui.inputText("##Username", usernameBuffer, ImGuiInputTextFlags.None);
+            ImGui.sameLine();
+            ImGui.inputText("##Password", passwordBuffer, passwordFlag);
+
+            ImGui.spacing();
+            ImGui.newLine();
+            ImGui.sameLine(itemWidth,20);
+            ImGui.checkbox("Show Password", showPasswordBuffer);
+            ImGui.sameLine();
+
+            ImGui.popItemWidth();
         } else {
-            userDatabase.put(username, password);
-            System.out.println("Sign-Up Successful! Welcome, " + username + "!");
+            // Show Login Page
+            title = "Login Page";
+            ImGui.pushItemWidth(itemWidth);
+
+            ImGui.text("Username:");
+
+            ImGui.inputText("##Username", usernameBuffer, ImGuiInputTextFlags.None);
+
+            ImGui.text("Password:");
+
+            ImGui.inputText("##Password", passwordBuffer, passwordFlag);
+
+            ImGui.spacing();
+            ImGui.checkbox("Show Password", showPasswordBuffer);
+
+            ImGui.popItemWidth();
         }
-        userDatabase.put(username, password);
-        return true;
     }
 
-    private void handleSignIn(String username, String password) {
-        if (username.isEmpty() || password.isEmpty()) {
-            System.out.println("Sign-In Failed: Username and password cannot be empty.");
+    private int getWindowFlag() {
+        return ImGuiWindowFlags.NoResize |
+                ImGuiWindowFlags.NoMove |
+                ImGuiWindowFlags.NoCollapse;
+    }
+
+    private void setDisplayMessage(String message) {
+        switch (message) {
+            case REGISTER_SUCCESS:
+                displayMessageColor = GREEN;
+                break;
+
+            case REGISTER_INFO_EXISTED:
+            case INVALID_USER_OR_PASS:
+                displayMessageColor = RED;
+                break;
+
+            default:
+                displayMessageColor = WHITE;
+        }
+        displayMessage = message;
+    }
+
+    private void displayMessage() {
+        if (displayMessage != null)
+            ImGui.textColored(displayMessageColor, displayMessage);
+    }
+
+    private void handleSignUp() {
+
+        // Handle the "Sign In" button
+        if (!ImGui.button("Sign In"))
+            return;
+
+        if (!isSignUp) {
+            isSignUp = true;
             return;
         }
 
-        if (userDatabase.containsKey(username) && userDatabase.get(username).equals(password)) {
-            System.out.println("Sign-In Successful! Welcome back, " + username + "!");
-            isLoggedIn = true;
+        String studentID = studentIDBuffer.get().trim();
+        String username = usernameBuffer.get().trim();
+        String password = passwordBuffer.get().trim();
+        String firstName = firstNameBuffer.get().trim();
+        String lastName = lastNameBuffer.get().trim();
+
+        // Display message if register failed
+        // Show login menu if success
+        if (!userAuthQuery.register(studentID, username, password, firstName, lastName)) {
+            setDisplayMessage(REGISTER_INFO_EXISTED);
         } else {
-            System.out.println("Sign-In Failed: Invalid username or password.");
+            setDisplayMessage(REGISTER_SUCCESS);
+            isSignUp = false;
         }
+    }
+
+    private void handleLoginIn() {
+        if (!ImGui.button("Login In"))
+            return;
+
+        if (isSignUp) {
+            setDisplayMessage(NONE);
+            isSignUp = false;
+            return;
+        }
+
+        String username = usernameBuffer.get().trim();
+        String password = passwordBuffer.get().trim();
+
+        if (userAuthQuery.isPasswordCorrect(username, password)) {
+            isLoggedIn = true;
+            return;
+        }
+
+        setDisplayMessage(INVALID_USER_OR_PASS);
     }
 
     public boolean isLoggedIn() {
         return isLoggedIn;
+    }
+
+    private boolean isStudentIDValid(String studentID) {
+        Pattern regex = Pattern.compile("^\\d{9}$");
+        Matcher matcher = regex.matcher(studentID);
+        return matcher.find();
+    }
+
+    private boolean isFirstNameValid(String firstName) {
+        return firstName.length() <= 15;
+    }
+
+    private boolean isLastNameValid(String lastName) {
+        return lastName.length() <= 15;
+    }
+
+    private boolean isUsernameValid(String username) {
+        Pattern regex = Pattern.compile("\\W");
+        Matcher matcher = regex.matcher(username);
+        return matcher.find();
     }
 }

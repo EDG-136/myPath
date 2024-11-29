@@ -1,23 +1,28 @@
 package com.tecksupport.database;
 
-import org.junit.Assert;
-import org.junit.Test;
+import com.tecksupport.schedulePlanner.CourseSection;
+import org.junit.jupiter.api.*;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClassInfoQueryTest {
-    MySQLDatabase database;
+    private static MySQLDatabase database;
+    private static CourseQuery courseQuery;
 
-    @Test
-    public void ClassInfoQueryTest1() {
+    @BeforeAll
+    public static void init() {
         database = new MySQLDatabase("localhost/TeckSupportDB", "client", "CS370TeckSupport");
-        database.Connect();
+        database.connect();
+        
+        courseQuery = new CourseQuery(database.getConnection());
+    }
+    @Test
+    public void classInfoQueryTest1() {
+        CourseSection info = courseQuery.getCourseInfo(42280);
 
-        CourseInfo info = database.getCourseInfo(42280);
+        database.close();
 
-        database.Close();
-
-        CourseInfo correctInfo = new CourseInfo(
+        CourseSection correctInfo = new CourseSection(
                 42280,
                 "INTRO SOFTWARE ENGR",
                 "CS",
@@ -27,11 +32,11 @@ public class ClassInfoQueryTest {
         compareCourseInfo(info, correctInfo);
     }
 
-    void compareCourseInfo(CourseInfo info, CourseInfo actual) {
-        assertEquals(info.getCourseID(), actual.getCourseID());
-        assertEquals(info.getCourseName(), actual.getCourseName());
-        assertEquals(info.getCourseCatalog(), actual.getCourseCatalog());
-        assertEquals(info.getCourseSection(), actual.getCourseSection());
-        assertEquals(info.getCourseSubject(), actual.getCourseSubject());
+    void compareCourseInfo(CourseSection info, CourseSection actual) {
+        assertEquals(info.getID(), actual.getID());
+        assertEquals(info.getName(), actual.getName());
+        assertEquals(info.getCatalog(), actual.getCatalog());
+        assertEquals(info.getSection(), actual.getSection());
+        assertEquals(info.getSubject(), actual.getSubject());
     }
 }

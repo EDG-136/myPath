@@ -1,48 +1,46 @@
 package com.tecksupport.glfw.controller;
 
 
+import com.tecksupport.database.CourseQuery;
+import com.tecksupport.database.FacultyQuery;
+import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
+import com.tecksupport.glfw.ui.GeneralCourseSelectionUI;
+import com.tecksupport.glfw.ui.FacultyInfoUI;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
 import imgui.ImGui;
+import imgui.ImGuiIO;
 import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.system.Callback;
-
-import java.nio.DoubleBuffer;
-import java.util.*;
-
-import imgui.type.ImString;
 
 
-import javax.swing.*;
+import javax.xml.transform.Source;
 
 import static org.lwjgl.glfw.GLFW.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 
 
 public class InputHandler {
+    private static final int ORIGINAL_WIDTH = 800;
+    private static final int ORIGINAL_HEIGHT = 600;
+    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
+    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private final CourseQuery courseQuery;
+    private final UserAuthQuery userAuthQuery;
+    private final FacultyQuery facultyQuery;
     private Window window;
     private Shader shader;
     private Mesh mesh;
     private Camera camera;
     private RawModel rawModel;
-    private RawModel fishModel;
     private Renderer renderer;
     private Loader loader;
     private TexturedModel texturedModel;
-    private TexturedModel fishTextured;
     private RawModel square;
     private Entity entity;
     private ModelData modelData;
@@ -50,66 +48,83 @@ public class InputHandler {
     private double oldPitch;
     private BuildingInfoUI buildingInfoUI;
     private AuthUI authUI;
-    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
-    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private FacultyInfoUI facultyInfoUI;
+    private GeneralCourseSelectionUI generalCourseSelectionUI;
 
-    private Random random = new Random();
-
-    private List<Entity> allEntities = new ArrayList<Entity>();
+    public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery)
+    {
+        this.courseQuery = courseQuery;
+        this.userAuthQuery = userAuthQuery;
+        this.facultyQuery = facultyQuery;
+    }
 
     public void init() {
-        window = new Window(800, 600, "myPath");
+        window = new Window(ORIGINAL_WIDTH, ORIGINAL_HEIGHT, "myPath");
         window.init();
         loader = new Loader();
         shader = new Shader(
                 "src/main/java/com/tecksupport/glfw/shader/vertexShader.txt",
                 "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt"
         );
-        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+        renderer = new Renderer(shader, window);
 
-        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
-
-        entity = new Entity(texturedModel, new Vector3f(0, 0, 0), 0, 0, 0, 20);
-
+//        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+//
+//        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
+//
+//        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
         camera = new Camera();
-        renderer = new Renderer(shader, window, camera);
-        fishModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Fish"));
-        fishTextured = new TexturedModel(fishModel, new ModelTexture(loader.loadTexture("fish_texture")));
-        allEntities.add(entity);
+        // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
+        //Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
+        // shader.setUniform("camera", camMat);
 
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
 
+
         System.out.println("Initializing ImGui");
         ImGui.createContext();
+
+        ImGuiIO io = ImGui.getIO();
+        io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
+        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
+
         imGuiGlfw.init(window.getWindowID(), true);
         imGuiGl3.init(window.getGlslVersion());
         System.out.println("Initialized ImGui");
 
-        authUI = new AuthUI(window);
-        buildingInfoUI = new BuildingInfoUI(window);
+        io.setIniFilename(null);
+
+        authUI = new AuthUI(window, userAuthQuery);
+//        buildingInfoUI = new BuildingInfoUI(window);
+        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
+        generalCourseSelectionUI = new GeneralCourseSelectionUI(window, courseQuery);
     }
 
     public void run() {
         while (!window.shouldClose()) {
             startFrameImGui();
 
-//            if (!authUI.isLoggedIn()) {
-//                authUI.renderLoginPage();
-//            } else {
-            // Only render the main application if the user is logged in
-            processInput();
-            for(Entity instance : allEntities){
-                renderer.processEntity(instance);
+            if (!authUI.isLoggedIn()) {
+                renderer.prepare(0f,0f,0f,0f);
+                authUI.renderLoginPage();
+                generalCourseSelectionUI.render();
+                ImGui.showDemoWindow();
+            } else {
+                // Only render the main application if the user is logged in
+                processInput();
+                renderer.prepare(0.6f, 0.8f, 1f, 1f);
+                shader.bind();
+                shader.loadViewMatrix(camera);
+                renderer.render(entity, shader);
+                shader.unbind();
+                buildingInfoUI.renderUI();
+                facultyInfoUI.render();
+                //generalCourseSelectionUI.render();
             }
-            renderer.render();
-            buildingInfoUI.renderUI();
-//            }
-
             endFrameImGui();
             window.update();
         }
-        export();
         cleanup();
     }
 
@@ -138,16 +153,7 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_E) == GLFW_PRESS) {
             camera.yawRight();
         }
-        if (glfwGetKey(window.getWindowID(), GLFW_KEY_N)== GLFW_PRESS){
-            Vector3f pos = camera.getPosition();
-            allEntities.add(new Entity(fishTextured, new Vector3f(pos.x(), pos.y(), pos.z()), 0,  0, 0f, 0.5f));
-        }
-        if (glfwGetKey(window.getWindowID(), GLFW_KEY_M)== GLFW_PRESS){
-
-            allEntities.removeLast();
-        }
-
-
+        // Handle more inputs here
     }
 
 
@@ -174,21 +180,6 @@ public class InputHandler {
         oldYaw = xPos;
         oldPitch = yPos;
     }
-    private void export(){
-        String filename = "nodes.txt";
-
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
-            for(Entity e: allEntities){
-                Vector3f position = e.getPosition();
-                String line = position.x + "," + position.y+ "," + position.z;
-                writer.write(line);
-                writer.newLine();
-            }
-
-        }catch(IOException e){
-            System.err.println("ERROR: "+ e.getMessage());
-        }
-    }
 
     public void cleanup() {
         shader.cleanup();
@@ -200,6 +191,7 @@ public class InputHandler {
         ImGui.destroyContext();
         window.cleanup();
     }
+
     void startFrameImGui() {
         imGuiGl3.newFrame();
         imGuiGlfw.newFrame();
