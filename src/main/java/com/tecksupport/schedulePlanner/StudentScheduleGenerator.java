@@ -21,16 +21,15 @@ public class StudentScheduleGenerator {
         }
 
         GeneralCourse generalCourse = currentCourse.next();
-        Set<CourseSection> courseSections = generalCourse.getCourses();
+        List<CourseSection> courseSectionList = generalCourse.getCourseSectionList();
 
         // Creating a branch for every course section in current general course
-        for (CourseSection courseSection : courseSections) {
+        for (CourseSection courseSection : courseSectionList) {
             // Create a copy of student schedules
             StudentSchedules branchSchedule = new StudentSchedules(studentSchedules);
-            List<Schedule> schedulesToAdd = generalCourse.getSchedules(courseSection);
 
             // Stop branching if failed to add (overlap detected)
-            if (!branchSchedule.addSchedules(schedulesToAdd))
+            if (!branchSchedule.addCourseSection(courseSection))
                 continue;
 
             generateScheduleIntoList(schedulesList, branchSchedule, currentCourse);

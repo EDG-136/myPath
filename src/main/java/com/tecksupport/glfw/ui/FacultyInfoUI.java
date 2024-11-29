@@ -43,8 +43,8 @@ public class FacultyInfoUI {
             return;
 
         // Set window size and location
-        ImGui.setNextWindowSize(width, height, ImGuiCond.Once);
-        ImGui.setNextWindowPos(15, 30, ImGuiCond.Once);
+        ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
+        ImGui.setNextWindowPos(15, 30, ImGuiCond.FirstUseEver);
 
         // Open window
         if (!ImGui.begin(TITLE, getWindowFlags()))

@@ -38,11 +38,11 @@ public class CourseGeneratorTest {
 
         Schedule schedule6 = new Schedule(43298, "SCI2 302", "SCI2", "08:00:00", "09:30:00", "MWF", "2024-08-30", "2024-12-10");
 
-        cs370.addSchedule(cs370Section1, List.of(schedule1, schedule2));
-        cs370.addSchedule(cs370Section2, List.of(schedule3, schedule4));
-
-        cs436.addSchedule(cs436Section1, List.of(schedule5));
-        cs436.addSchedule(cs436Section2, List.of(schedule6));
+//        cs370.addSchedule(cs370Section1, List.of(schedule1, schedule2));
+//        cs370.addSchedule(cs370Section2, List.of(schedule3, schedule4));
+//
+//        cs436.addSchedule(cs436Section1, List.of(schedule5));
+//        cs436.addSchedule(cs436Section2, List.of(schedule6));
 
         generator.addGeneralCourse(cs370);
         generator.addGeneralCourse(cs436);
@@ -53,8 +53,8 @@ public class CourseGeneratorTest {
             System.out.println(String.format("%10s", "-").replace(' ', '-'));
             for (int i = 0; i < 7; i++) {
                 System.out.println(getDayInWeek(i) + ": ");
-                for (Schedule schedule : studentSchedules.schedulesInWeek.get(i)) {
-                    System.out.println(schedule.getCourseID() + " " + schedule.getStartTime() + " " + schedule.getEndTime() + " " + schedule.getDaysInWeek());
+                for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
+                    System.out.println(courseSection.getID());
                 }
             }
         }

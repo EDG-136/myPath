@@ -60,8 +60,8 @@ public class AuthUI {
             height = window.getWindowHeight() / 2.0f;
         }
 
-        ImGui.setNextWindowPos((window.getScreenWidth() - width) / 2.0f, (window.getScreenHeight() - height) / 2.0f, ImGuiCond.Once);
-        ImGui.setNextWindowSize(width, height, ImGuiCond.Once);
+        ImGui.setNextWindowPos((window.getScreenWidth() - width) / 2.0f, (window.getScreenHeight() - height) / 2.0f, ImGuiCond.FirstUseEver);
+        ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
         displayCombo();
     }
 

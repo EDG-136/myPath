@@ -1,12 +1,16 @@
 package com.tecksupport.schedulePlanner;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CourseSection {
     private final int ID;
     private final String name;
     private final String subject;
     private final String catalog;
     private final String section;
+    private final List<Schedule> schedules = new ArrayList<>();
 
     public CourseSection(int ID, String name, String subject, String catalog, String section) {
         this.ID = ID;
@@ -34,6 +38,14 @@ public class CourseSection {
 
     public String getSection() {
         return section;
+    }
+
+    public void addSchedule(Schedule schedule) {
+        schedules.add(schedule);
+    }
+
+    public List<Schedule> getSchedules() {
+        return schedules;
     }
 
     @Override

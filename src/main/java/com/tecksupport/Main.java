@@ -32,7 +32,7 @@ public class Main {
   }
 
   public static void testSQL(CourseQuery courseQuery) {
-    List<Schedule> scheduleList = courseQuery.getAllSchedules();
+    List<Schedule> scheduleList = courseQuery.getScheduleList();
     HashSet<String> startTimes = new HashSet<>();
     HashSet<String> days = new HashSet<>();
 

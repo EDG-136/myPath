@@ -1,6 +1,7 @@
 package com.tecksupport.database;
 
 import com.tecksupport.schedulePlanner.CourseSection;
+import com.tecksupport.schedulePlanner.GeneralCourse;
 import com.tecksupport.schedulePlanner.Schedule;
 import org.jetbrains.annotations.NotNull;
 
@@ -13,16 +14,27 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class CourseQuery {
+    private static final long QUERY_WAIT_TIME_IN_MILLIS = 30000;
     private final Logger logger = Logger.getLogger(this.getClass().getName());
     private final Connection connection;
+    private final List<CourseSection> courseSectionList;
+    private final List<GeneralCourse> generalCourseList;
+    private final List<Schedule> scheduleList;
+    private long lastGeneralCourseQueryTime;
+    private long lastCourseSectionQueryTime;
 
     public CourseQuery(Connection connection) {
         this.connection = connection;
+
+        scheduleList = getAllSchedules();
+        courseSectionList = queryCourseSectionList();
+        generalCourseList = queryGeneralCourseList();
+
+        addSchedulesToCourseSections();
+        addCourseSectionsToGeneralCourseList();
     }
 
-    public List<CourseSection> getAllCourses() {
-        if (connection == null)
-            return null;
+    public List<CourseSection> queryCourseSectionList() {
         try {
             String query = "SELECT * FROM Courses;";
 
@@ -34,8 +46,8 @@ public class CourseQuery {
 
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQL All course query error!", e);
-            return null;
         }
+        return null;
     }
 
     public CourseSection getCourseInfo(int courseID) {
@@ -149,5 +161,68 @@ public class CourseQuery {
             schedules.add(schedule);
         }
         return schedules;
+    }
+
+    public List<GeneralCourse> queryGeneralCourseList() {
+        List<GeneralCourse> generalCourses = new ArrayList<>();
+        try {
+            String query = "SELECT DISTINCT CourseSubject, CourseCatalog FROM Courses;";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.execute();
+
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while (resultSet.next()) {
+                String subject = resultSet.getString("CourseSubject");
+                String catalog = resultSet.getString("CourseCatalog");
+                GeneralCourse generalCourse = new GeneralCourse(subject, catalog);
+                generalCourses.add(generalCourse);
+            }
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "MySQL All General Course query error!", e);
+        }
+
+        return generalCourses;
+    }
+
+    public List<GeneralCourse> getGeneralCourseList() {
+        return generalCourseList;
+    }
+
+    public List<CourseSection> getCourseSectionList() {
+        return courseSectionList;
+    }
+
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    private void addSchedulesToCourseSections() {
+        for (Schedule schedule : scheduleList) {
+            for (CourseSection courseSection : courseSectionList) {
+                if (schedule.getCourseID() != courseSection.getID())
+                    continue;
+
+                courseSection.addSchedule(schedule);
+                break;
+            }
+        }
+    }
+
+    private void addCourseSectionsToGeneralCourseList() {
+        for (CourseSection courseSection : courseSectionList) {
+            for (GeneralCourse generalCourse : generalCourseList) {
+                if (!isCourseSectionInGeneralCourse(courseSection, generalCourse))
+                    continue;
+
+                generalCourse.addSection(courseSection);
+                break;
+            }
+        }
+    }
+
+    private boolean isCourseSectionInGeneralCourse(CourseSection courseSection, GeneralCourse generalCourse) {
+        return courseSection.getSubject().equals(generalCourse.getSubject())
+                || courseSection.getCatalog().equals(generalCourse.getCatalog());
     }
 }
