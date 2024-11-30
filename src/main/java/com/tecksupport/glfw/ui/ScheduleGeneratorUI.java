@@ -99,7 +99,7 @@ public class ScheduleGeneratorUI {
             generatedSchedules = studentScheduleGenerator.generateSchedule();
         }
 
-        int tableFLag = ImGuiTableFlags.SizingStretchProp;
+        int tableFLag = ImGuiTableFlags.SizingStretchProp | ImGuiTableFlags.BordersOuter | ImGuiTableFlags.RowBg;
         if (!ImGui.beginTable("##ScheduleGenerator", 5, tableFLag))
             return;
         ImGui.tableHeadersRow();
@@ -129,9 +129,11 @@ public class ScheduleGeneratorUI {
             return;
         }
         for (StudentSchedules studentSchedules : generatedSchedules) {
+            if (studentSchedules.getCourseSectionList().isEmpty())
+                continue;
             ImGui.tableNextRow();
             ImGui.tableSetColumnIndex(0);
-            if (ImGui.button("View")) {
+            if (ImGui.button("View##" + studentSchedules)) {
                 boolean isNew = true;
                 ScheduleUI newScheduleUI = new ScheduleUI(studentScheduleGenerator, studentSchedules);
                 for (ScheduleUI scheduleUI : openedSchedules) {
@@ -211,8 +213,9 @@ public class ScheduleGeneratorUI {
                 }
             }
             ImGui.sameLine();
-            if (ImGui.button("X"))
+            if (ImGui.button("X##" + selectedCourse)) {
                 toRemove.add(selected);
+            }
             ImGui.sameLine(0);
             ImGui.dummy(0, 0);
 
