@@ -1,20 +1,20 @@
 package com.tecksupport.glfw.ui;
 
 import com.tecksupport.database.CourseQuery;
-import com.tecksupport.schedulePlanner.CourseSection;
+import com.tecksupport.schedulePlanner.*;
 import com.tecksupport.glfw.view.Window;
-import com.tecksupport.schedulePlanner.GeneralCourse;
-import com.tecksupport.schedulePlanner.Schedule;
 import imgui.*;
 import imgui.flag.*;
 import imgui.type.ImBoolean;
 
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public class ScheduleGeneratorUI {
     private final static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
     private final static int WINDOW_FLAG = ImGuiWindowFlags.None;
+    private final StudentScheduleGenerator studentScheduleGenerator = new StudentScheduleGenerator();
     private final ImBoolean isOpen = new ImBoolean();
     private final Window window;
     private final CourseQuery courseQuery;
@@ -22,6 +22,8 @@ public class ScheduleGeneratorUI {
     private final HashSet<Integer> selectedCourseIndexes = new HashSet<>();
     private final HashSet<Integer> blackListForGenerator = new HashSet<>();
     private final HashSet<Integer> courseSectionBlackListIndexes = new HashSet<>();
+    private List<StudentSchedules> generatedSchedules;
+    private final List<ScheduleUI> openedSchedules = new ArrayList<>();
     private int courseIndexToViewSection = -1;
     private float width;
     private float height;
@@ -69,8 +71,92 @@ public class ScheduleGeneratorUI {
         height = ImGui.getWindowHeight();
 
         handleGeneralCourseSelectionTable();
+        handleScheduleGeneratorTable();
+        handleOpenedSchedules();
 
         ImGui.end();
+    }
+
+    private void handleOpenedSchedules() {
+        List<ScheduleUI> toRemove = new ArrayList<>();
+        for (ScheduleUI scheduleUI : openedSchedules) {
+            if (!scheduleUI.isOpen())
+                toRemove.add(scheduleUI);
+            scheduleUI.render();
+        }
+        openedSchedules.removeAll(toRemove);
+    }
+
+    private void handleScheduleGeneratorTable() {
+        if (ImGui.button("Generate")) {
+            studentScheduleGenerator.clearGeneralCourse();
+            for (int selected : selectedCourseIndexes) {
+                if (blackListForGenerator.contains(selected))
+                    continue;
+
+                studentScheduleGenerator.addGeneralCourse(generalCourseList.get(selected));
+            }
+            generatedSchedules = studentScheduleGenerator.generateSchedule();
+        }
+
+        int tableFLag = ImGuiTableFlags.SizingStretchProp;
+        if (!ImGui.beginTable("##ScheduleGenerator", 5, tableFLag))
+            return;
+        ImGui.tableHeadersRow();
+        ImGui.tableSetColumnIndex(1);
+        ImGui.text("Total");
+        ImGui.sameLine();
+        helpMarker("Total Distance Between Two Class");
+
+        ImGui.tableSetColumnIndex(2);
+        ImGui.text("Shortest");
+        ImGui.sameLine();
+        helpMarker("Shortest Distance Between Two Class");
+
+        ImGui.tableSetColumnIndex(3);
+        ImGui.text("Average");
+        ImGui.sameLine();
+        helpMarker("Average Distance Between Two Class");
+
+        ImGui.tableSetColumnIndex(4);
+        ImGui.sameLine();
+        ImGui.text("Longest");
+        ImGui.sameLine();
+        helpMarker("Longest Distance Between Two Class");
+
+        if (generatedSchedules == null) {
+            ImGui.endTable();
+            return;
+        }
+        for (StudentSchedules studentSchedules : generatedSchedules) {
+            ImGui.tableNextRow();
+            ImGui.tableSetColumnIndex(0);
+            if (ImGui.button("View")) {
+                boolean isNew = true;
+                ScheduleUI newScheduleUI = new ScheduleUI(studentScheduleGenerator, studentSchedules);
+                for (ScheduleUI scheduleUI : openedSchedules) {
+                    if (scheduleUI.getId().equals(newScheduleUI.getId())) {
+                        isNew = false;
+                        break;
+                    }
+                }
+                if (isNew)
+                    openedSchedules.add(newScheduleUI);
+            }
+            ImGui.tableSetColumnIndex(1);
+            ImGui.text("500m");
+
+            ImGui.tableSetColumnIndex(2);
+            ImGui.text("20m");
+
+            ImGui.tableSetColumnIndex(3);
+            ImGui.text("100m");
+
+            ImGui.tableSetColumnIndex(4);
+            ImGui.text("150m");
+        }
+
+        ImGui.endTable();
     }
 
     private void handleGeneralCourseSelectionTable() {
@@ -115,6 +201,7 @@ public class ScheduleGeneratorUI {
             ImGui.sameLine();
             ImGui.text(title);
             ImGui.sameLine();
+            ImGui.setCursorPosX(ImGui.getWindowWidth() / 2);
 
             if (ImGui.button("View Sections##" + selectedCourse)) {
                 if (courseIndexToViewSection == selected)
@@ -145,14 +232,13 @@ public class ScheduleGeneratorUI {
 
     private void handleCourseSection() {
         float prevFont = defaultFont.getScale();
-        defaultFont.setScale(getFontScale() * 0.75f);
+        defaultFont.setScale(getFontScale() * 0.7f);
         ImGui.pushFont(defaultFont);
 
         GeneralCourse generalCourseToView = generalCourseList.get(courseIndexToViewSection);
         List<CourseSection> courseSectionToShow = generalCourseToView.getCourseSectionList();
 
-        ImGui.separator();
-        int tableFlag = ImGuiTableFlags.SizingStretchProp | ImGuiTableFlags.BordersV | ImGuiTableFlags.BordersOuter | ImGuiTableFlags.RowBg;
+        int tableFlag = ImGuiTableFlags.SizingStretchProp | ImGuiTableFlags.SizingFixedFit | ImGuiTableFlags.BordersV | ImGuiTableFlags.BordersOuter | ImGuiTableFlags.RowBg;
         if (!ImGui.beginTable("##CourseSectionInfo", 3, tableFlag))
             return;
         ImGui.tableHeadersRow();
@@ -305,5 +391,17 @@ public class ScheduleGeneratorUI {
                 .replace("R", "Th")
                 .replace("S", "Sa")
                 .replace("U", "Su");
+    }
+
+    static void helpMarker(String message)
+    {
+        ImGui.textDisabled("(?)");
+        if (ImGui.isItemHovered()) {
+            ImGui.beginTooltip();
+            ImGui.pushTextWrapPos(ImGui.getFontSize() * 35.0f);
+            ImGui.textUnformatted(message);
+            ImGui.popTextWrapPos();
+            ImGui.endTooltip();
+        }
     }
 }

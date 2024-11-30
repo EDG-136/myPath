@@ -42,10 +42,8 @@ public class StudentSchedules {
         for (Schedule currentSchedule : scheduleList) {
             Pattern regex = Pattern.compile("[" + schedule.getDaysInWeek() + "]");
             Matcher matcher = regex.matcher(currentSchedule.getDaysInWeek());
-            System.out.println(schedule.getCourseID() +  " to " + currentSchedule.getCourseID());
             if (!matcher.find())
                 continue;
-            System.out.println(schedule.getCourseID() +  " Matched " + currentSchedule.getCourseID());
 
             if (isScheduleOverlap(schedule, currentSchedule))
                 return true;
