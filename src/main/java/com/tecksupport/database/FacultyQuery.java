@@ -1,7 +1,6 @@
 package com.tecksupport.database;
 
-import com.tecksupport.database.data.Faculty;
-import org.lwjgl.system.linux.Stat;
+import com.tecksupport.schedulePlanner.Faculty;
 
 import java.sql.*;
 import java.util.ArrayList;

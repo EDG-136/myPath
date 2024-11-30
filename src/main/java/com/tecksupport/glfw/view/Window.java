@@ -23,6 +23,7 @@ public class Window {
     private final String title;
     private final boolean resized;
     private String glslVersion = null;
+    private GLFWVidMode vidmode;
 
     private GLFWKeyCallback keyCallback;
 
@@ -65,7 +66,7 @@ public class Window {
             glfwGetWindowSize(windowHandle, pWidth, pHeight);
 
             // Get the resolution of the primary monitor
-            GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
+            vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 
             // Center the window
             glfwSetWindowPos(windowHandle, (vidmode.width() - pWidth.get(0)) / 2, (vidmode.height() - pHeight.get(0)) / 2
@@ -105,7 +106,6 @@ public class Window {
 
     public void update() {
         glfwSwapBuffers(windowHandle); // Swap the color buffer (double buffering)
-
         glfwPollEvents();
     }
 
@@ -143,7 +143,26 @@ public class Window {
         return h.get(0);
     }
 
+    public int getWindowPosX() {
+        IntBuffer x = BufferUtils.createIntBuffer(1);
+        glfwGetWindowPos(windowHandle, x, null);
+        return x.get();
+    }
+
+    public int getWindowPosY() {
+        IntBuffer y = BufferUtils.createIntBuffer(1);
+        glfwGetWindowPos(windowHandle, null, y);
+        return y.get();
+    }
+
     public String getGlslVersion() {
         return glslVersion;
+    }
+
+    public float getScreenWidth() {
+        return vidmode.width();
+    }
+    public float getScreenHeight() {
+        return vidmode.height();
     }
 }

@@ -1,6 +1,6 @@
 package com.tecksupport.database;
 
-import com.tecksupport.database.data.Course;
+import com.tecksupport.schedulePlanner.CourseSection;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -18,11 +18,11 @@ public class ClassInfoQueryTest {
     }
     @Test
     public void classInfoQueryTest1() {
-        Course info = courseQuery.getCourseInfo(42280);
+        CourseSection info = courseQuery.getCourseInfo(42280);
 
         database.close();
 
-        Course correctInfo = new Course(
+        CourseSection correctInfo = new CourseSection(
                 42280,
                 "INTRO SOFTWARE ENGR",
                 "CS",
@@ -32,7 +32,7 @@ public class ClassInfoQueryTest {
         compareCourseInfo(info, correctInfo);
     }
 
-    void compareCourseInfo(Course info, Course actual) {
+    void compareCourseInfo(CourseSection info, CourseSection actual) {
         assertEquals(info.getID(), actual.getID());
         assertEquals(info.getName(), actual.getName());
         assertEquals(info.getCatalog(), actual.getCatalog());

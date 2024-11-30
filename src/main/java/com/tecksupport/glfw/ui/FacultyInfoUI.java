@@ -1,14 +1,13 @@
 package com.tecksupport.glfw.ui;
 
 import com.tecksupport.database.FacultyQuery;
-import com.tecksupport.database.data.Faculty;
+import com.tecksupport.schedulePlanner.Faculty;
 import com.tecksupport.glfw.view.Window;
 import imgui.*;
-import imgui.flag.ImGuiConfigFlags;
+import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiTreeNodeFlags;
 import imgui.flag.ImGuiWindowFlags;
 
-import java.awt.*;
 import java.util.List;
 
 public class FacultyInfoUI {
@@ -16,26 +15,26 @@ public class FacultyInfoUI {
     private static final ImVec4 LIGHT_GRAY = new ImVec4(0.8f, 0.8f, 0.8f, 1);
     private final ImGuiTextFilter filter = new ImGuiTextFilter();
     private final Window window;
-    private final FacultyQuery facultyQuery;
-    private List<Faculty> faculties;
+    private final List<Faculty> faculties;
     private String selectedFaculty;
     private float width;
     private float height;
 
     public FacultyInfoUI(Window window, FacultyQuery facultyQuery) {
         this.window = window;
-        this.facultyQuery = facultyQuery;
         faculties = facultyQuery.getListOfAllFaculties();
-        width = window.getWindowWidth() / 2.5f;
-        height = window.getWindowHeight() / 2.0f;
+
+        // Calculate window size
+        width = window.getScreenWidth() / 3f;
+        height = window.getScreenHeight() / 2.5f;
     }
 
     public int getWindowFlags() {
-        return ImGuiWindowFlags.NoMove | ImGuiWindowFlags.NoResize;
+        return ImGuiWindowFlags.NoCollapse;
     }
 
     public int getTreeNodeFlags() {
-        return ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.OpenOnDoubleClick | ImGuiTreeNodeFlags.SpanAvailWidth;
+        return ImGuiTreeNodeFlags.OpenOnArrow | ImGuiTreeNodeFlags.OpenOnDoubleClick;
     }
 
     public void render() {
@@ -43,13 +42,9 @@ public class FacultyInfoUI {
         if (faculties == null)
             return;
 
-        // Calculate window size
-        width = window.getWindowWidth() / 2.5f;
-        height = window.getWindowHeight() / 2.0f;
-
         // Set window size and location
-        ImGui.setNextWindowSize(width, height);
-        ImGui.setNextWindowPos(0, 0);
+        ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
+        ImGui.setNextWindowPos(15, 30, ImGuiCond.FirstUseEver);
 
         // Open window
         if (!ImGui.begin(TITLE, getWindowFlags()))
