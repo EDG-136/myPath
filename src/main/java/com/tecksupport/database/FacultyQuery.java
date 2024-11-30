@@ -17,6 +17,8 @@ public class FacultyQuery {
     }
 
     public List<Faculty> getListOfAllFaculties() {
+        if (connection == null)
+            return null;
         try {
             String query = "SELECT FacultyID, Name, Description FROM Faculties;";
             PreparedStatement statement = connection.prepareStatement(query);

@@ -22,7 +22,18 @@ public class Camera {
 
     public Camera(){}
 
-    public void addRotation(float pitch, float yaw, float roll) {
+    public void setPosition(float x, float y, float z) {
+        position.x = x;
+        position.y = y;
+        position.z = z;
+    }
+    public void setRotation(float yaw, float pitch, float roll) {
+        this.yaw = yaw;
+        this.pitch = pitch;
+        this.roll = roll;
+    }
+
+    public void addRotation(float yaw, float pitch, float roll) {
         this.yaw += yaw * ROTATE_SENSITIVE;
         this.pitch += pitch * ROTATE_SENSITIVE;
         this.roll += roll * ROTATE_SENSITIVE;
