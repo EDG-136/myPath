@@ -6,11 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Fixed Icons Path">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/imgui.ini" beforeDir="false" afterPath="$PROJECT_DIR$/imgui.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/nodes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/nodes.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/model/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/model/Entity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Camera.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/view/Camera.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +74,7 @@
     &quot;JUnit.ClassInfoQueryTest.executor&quot;: &quot;Debug&quot;,
     &quot;JUnit.PathfinderTests.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;edgBranch&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/curth/IdeaProjects/GUI/src/mainSidebar.java&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,

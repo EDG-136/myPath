@@ -12,25 +12,11 @@ import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.joml.Vector3f;
-import org.lwjgl.BufferUtils;
-import org.lwjgl.system.Callback;
-
-import java.nio.DoubleBuffer;
 import java.util.*;
-
-import imgui.type.ImString;
-
-
-import javax.swing.*;
-
 import static org.lwjgl.glfw.GLFW.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
-
 
 public class InputHandler {
     private Window window;
@@ -52,6 +38,10 @@ public class InputHandler {
     private AuthUI authUI;
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+
+
+    private static double lastPressedTime = 0;
+    private static final double pressDelay = 0.3;
 
     private Random random = new Random();
 
@@ -114,6 +104,9 @@ public class InputHandler {
     }
 
     public void processInput() {
+
+        double currentTime = glfwGetTime();
+
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_W) == GLFW_PRESS) {
             camera.forward();
         }
@@ -140,16 +133,18 @@ public class InputHandler {
         }
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_N)== GLFW_PRESS){
             Vector3f pos = camera.getPosition();
-            allEntities.add(new Entity(fishTextured, new Vector3f(pos.x(), pos.y(), pos.z()), 0,  0, 0f, 0.5f));
+            if (currentTime - lastPressedTime >= pressDelay){
+                allEntities.add(new Entity(fishTextured, new Vector3f(pos.x(), pos.y(), pos.z()), 0,  0, 0f, 0.5f));
+                lastPressedTime = currentTime;
+            }
         }
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_M)== GLFW_PRESS){
-
-            allEntities.removeLast();
+            if (currentTime - lastPressedTime >= pressDelay){
+                allEntities.removeLast();
+                lastPressedTime = currentTime;
+            }
         }
-
-
     }
-
 
     void mouseButtonCallback(long window, int button, int action, int mods) {
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
@@ -165,26 +160,23 @@ public class InputHandler {
             oldPitch = yPos;
             return;
         }
-
         double yaw = xPos - oldYaw;
         double pitch = yPos - oldPitch;
-
         camera.addRotation((float) pitch, (float) yaw, 0);
-
         oldYaw = xPos;
         oldPitch = yPos;
     }
     private void export(){
         String filename = "nodes.txt";
-
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
+            int id = 0;
             for(Entity e: allEntities){
                 Vector3f position = e.getPosition();
-                String line = position.x + "," + position.y+ "," + position.z;
+                String line = id + ":" + position.x + "," + position.y+ "," + position.z;
                 writer.write(line);
                 writer.newLine();
+                id++;
             }
-
         }catch(IOException e){
             System.err.println("ERROR: "+ e.getMessage());
         }
@@ -193,8 +185,7 @@ public class InputHandler {
     public void cleanup() {
         shader.cleanup();
         loader.cleanUp();
-        // renderer.cleanup();
-        // mesh.cleanup();
+
         imGuiGl3.shutdown();
         imGuiGlfw.shutdown();
         ImGui.destroyContext();
