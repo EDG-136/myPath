@@ -1,4 +1,4 @@
-package com.tecksupport.pathfinder.node;
+package com.tecksupport.glfw.pathfinder.node;
 
 public class Node {
     private final long id;

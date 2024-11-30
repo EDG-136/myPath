@@ -1,4 +1,4 @@
-package com.tecksupport.pathfinder.OSM;
+package com.tecksupport.glfw.pathfinder.OSM;
 
 import org.w3c.dom.*;
 import javax.xml.parsers.*;
@@ -12,7 +12,7 @@ public class OSMParser {
     // Static block for initialization
     static {
         try {
-            initialize("src/main/resources/OSMMap/map.osm"); // Path to your map.osm file
+            initialize("src/main/resources/OSMMap/map.osm");
         } catch (Exception e) {
             System.err.println("Failed to initialize OSMParser: " + e.getMessage());
         }
