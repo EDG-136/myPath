@@ -223,6 +223,6 @@ public class CourseQuery {
 
     private boolean isCourseSectionInGeneralCourse(CourseSection courseSection, GeneralCourse generalCourse) {
         return courseSection.getSubject().equals(generalCourse.getSubject())
-                || courseSection.getCatalog().equals(generalCourse.getCatalog());
+                && courseSection.getCatalog().equals(generalCourse.getCatalog());
     }
 }

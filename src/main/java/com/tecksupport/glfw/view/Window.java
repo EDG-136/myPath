@@ -143,6 +143,18 @@ public class Window {
         return h.get(0);
     }
 
+    public int getWindowPosX() {
+        IntBuffer x = BufferUtils.createIntBuffer(1);
+        glfwGetWindowPos(windowHandle, x, null);
+        return x.get();
+    }
+
+    public int getWindowPosY() {
+        IntBuffer y = BufferUtils.createIntBuffer(1);
+        glfwGetWindowPos(windowHandle, null, y);
+        return y.get();
+    }
+
     public String getGlslVersion() {
         return glslVersion;
     }
