@@ -7,7 +7,7 @@ import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
-import com.tecksupport.glfw.ui.GeneralCourseSelectionUI;
+import com.tecksupport.glfw.ui.ScheduleGeneratorUI;
 import com.tecksupport.glfw.ui.FacultyInfoUI;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
@@ -17,10 +17,7 @@ import imgui.ImGuiIO;
 import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
-import org.joml.Vector3f;
 
-
-import javax.xml.transform.Source;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -49,7 +46,7 @@ public class InputHandler {
     private BuildingInfoUI buildingInfoUI;
     private AuthUI authUI;
     private FacultyInfoUI facultyInfoUI;
-    private GeneralCourseSelectionUI generalCourseSelectionUI;
+    private ScheduleGeneratorUI scheduleGeneratorUI;
 
     public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery)
     {
@@ -98,7 +95,7 @@ public class InputHandler {
         authUI = new AuthUI(window, userAuthQuery);
 //        buildingInfoUI = new BuildingInfoUI(window);
         facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
-        generalCourseSelectionUI = new GeneralCourseSelectionUI(window, courseQuery);
+        scheduleGeneratorUI = new ScheduleGeneratorUI(window, courseQuery);
     }
 
     public void run() {
@@ -108,7 +105,7 @@ public class InputHandler {
             if (!authUI.isLoggedIn()) {
                 renderer.prepare(0f,0f,0f,0f);
                 authUI.renderLoginPage();
-                generalCourseSelectionUI.render();
+                scheduleGeneratorUI.render();
                 ImGui.showDemoWindow();
             } else {
                 // Only render the main application if the user is logged in
@@ -120,7 +117,7 @@ public class InputHandler {
                 shader.unbind();
                 buildingInfoUI.renderUI();
                 facultyInfoUI.render();
-                //generalCourseSelectionUI.render();
+                //scheduleGeneratorUI.render();
             }
             endFrameImGui();
             window.update();
