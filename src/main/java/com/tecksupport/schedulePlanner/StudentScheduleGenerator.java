@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 public class StudentScheduleGenerator {
+    private final List<StudentSchedules> savedSchedules = new ArrayList<>();
     private final List<GeneralCourse> selectedGeneralCourses = new ArrayList<>();
 
     public List<StudentSchedules> generateSchedule() {
@@ -45,5 +46,17 @@ public class StudentScheduleGenerator {
 
     public void removeGeneralCourse(GeneralCourse generalCourse) {
         selectedGeneralCourses.remove(generalCourse);
+    }
+
+    public void addSavedSchedule(StudentSchedules studentSchedules) {
+        savedSchedules.add(studentSchedules);
+    }
+
+    public void removeSavedSchedule(StudentSchedules studentSchedules) {
+        savedSchedules.remove(studentSchedules);
+    }
+
+    public void clearGeneralCourse() {
+        selectedGeneralCourses.clear();
     }
 }
