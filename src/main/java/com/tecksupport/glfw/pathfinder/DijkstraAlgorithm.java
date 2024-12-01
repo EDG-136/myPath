@@ -1,4 +1,8 @@
-package com.tecksupport.pathfinder;
+package com.tecksupport.glfw.pathfinder;
+
+
+
+
 
 
 import com.tecksupport.pathfinder.node.Node;

@@ -1,4 +1,4 @@
-package com.tecksupport.pathfinder.OSM;
+package com.tecksupport.glfw.pathfinder.OSM;
 
 public class OSMNode {
     private final long id;

@@ -1,4 +1,4 @@
-package com.tecksupport.pathfinder.node;
+package com.tecksupport.glfw.pathfinder.node;
 
 import java.util.*;
 

@@ -1,6 +1,6 @@
-package com.tecksupport.pathfinder.OSM;
+package com.tecksupport.glfw.pathfinder.OSM;
 
-import com.tecksupport.pathfinder.node.Node;
+import com.tecksupport.glfw.pathfinder.node.Node;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
