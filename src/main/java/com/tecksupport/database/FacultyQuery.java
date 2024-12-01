@@ -20,7 +20,7 @@ public class FacultyQuery {
         if (connection == null)
             return null;
         try {
-            String query = "SELECT FacultyID, Name, Description FROM Faculties;";
+            String query = "SELECT FacultyID, Name, Description, Longitude, Latitude FROM Faculties;";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.execute();
 
@@ -40,8 +40,10 @@ public class FacultyQuery {
                 String acronym = resultSet.getString("FacultyID");
                 String name = resultSet.getString("Name");
                 String description = resultSet.getString("Description");
+                double longitude = resultSet.getDouble("Longitude");
+                double latitude = resultSet.getDouble("Latitude");
 
-                Faculty faculty = new Faculty(acronym, name, description);
+                Faculty faculty = new Faculty(acronym, name, description, longitude, latitude);
                 faculties.add(faculty);
             }
         } catch (SQLException e) {

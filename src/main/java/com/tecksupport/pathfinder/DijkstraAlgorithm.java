@@ -7,6 +7,9 @@ import java.util.*;
 
 public class DijkstraAlgorithm {
     private static final double MAX_HEIGHT_DIFFERENCE = 10.0; // Maximum Z difference
+    private final Map<Long, Node> nodeMap = new HashMap<>();
+
+
 
     /**
      * Finds the shortest path between two nodes using Dijkstra's algorithm.
@@ -121,5 +124,9 @@ public class DijkstraAlgorithm {
         }
 
         return completePath;
+    }
+
+    public void addNode(Node node) {
+        nodeMap.put(node.getId(), node);
     }
 }

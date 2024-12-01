@@ -23,8 +23,6 @@ public class StudentScheduleGenerator {
 
         GeneralCourse currentCourse = selectedGeneralCourses.get(i);
         List<CourseSection> courseSectionList = currentCourse.getCourseSectionList();
-        System.out.println("Pass: " + i);
-        System.out.println("Adding " + currentCourse.getSubject() + " " + currentCourse.getCatalog());
         i++;
         // Creating a branch for every course section in current general course
         for (CourseSection courseSection : courseSectionList) {
@@ -34,7 +32,6 @@ public class StudentScheduleGenerator {
             // Stop branching if failed to add (overlap detected)
             if (!branchSchedule.addCourseSection(courseSection))
                 continue;
-            System.out.println("Branching " + courseSection.getID());
 
             generateScheduleIntoList(schedulesList, branchSchedule, i);
         }

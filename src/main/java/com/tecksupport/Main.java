@@ -18,8 +18,8 @@ public class Main {
     UserAuthQuery userAuthQuery = new UserAuthQuery(database.getConnection());
     FacultyQuery facultyQuery = new FacultyQuery(database.getConnection());
     // Uncomment this to update database
-//    FileReader fileReader = new FileReader(database.getConnection());
-//    fileReader.createTables();
+    FileReader fileReader = new FileReader(database.getConnection());
+    fileReader.createTables();
 
 //    testSQL(courseQuery);
 
