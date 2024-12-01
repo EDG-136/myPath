@@ -14,14 +14,16 @@ public class Main {
     System.out.println("Program Starting");
 
     database.connect();
+    FileReader fileReader = new FileReader(database.getConnection());
+    fileReader.createTables();
+
     CourseQuery courseQuery = new CourseQuery(database.getConnection());
     UserAuthQuery userAuthQuery = new UserAuthQuery(database.getConnection());
     FacultyQuery facultyQuery = new FacultyQuery(database.getConnection());
-    // Uncomment this to update database
-//    FileReader fileReader = new FileReader(database.getConnection());
-//    fileReader.createTables();
 
-//    testSQL(courseQuery);
+
+
+    testSQL(courseQuery);
 
     InputHandler instance = new InputHandler(courseQuery, userAuthQuery, facultyQuery);
 
@@ -39,7 +41,7 @@ public class Main {
     Pattern regex = Pattern.compile("S");
 
     for (Schedule schedule : scheduleList) {
-//      Matcher matcher = regex.matcher(schedule.getDaysInWeek());
+ //     Matcher matcher = regex.matcher(schedule.getDaysInWeek());
 //      if (!matcher.find())
 //        continue;
 
