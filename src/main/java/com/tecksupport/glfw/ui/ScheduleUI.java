@@ -1,5 +1,6 @@
 package com.tecksupport.glfw.ui;
 
+import com.tecksupport.glfw.view.Window;
 import com.tecksupport.schedulePlanner.CourseSection;
 import com.tecksupport.schedulePlanner.Schedule;
 import com.tecksupport.schedulePlanner.StudentScheduleGenerator;
@@ -23,6 +24,7 @@ public class ScheduleUI {
     private static final int DAYS_IN_A_WEEK = 7;
     private static final int TOTAL_BLOCK = 64; // ( 22 (10PM) - 6 (6AM) ) * 60 (MIN PER HOUR) / BLOCK_SIZE (MIN)
     private static final int BLOCK_SIZE = 15;
+    private static final int OFFSET_SIZE = 10;
 
     private final ColoredBlock[] mondayBlocks = new ColoredBlock[TOTAL_BLOCK];
     private final ColoredBlock[] tuesdayBlocks = new ColoredBlock[TOTAL_BLOCK];
@@ -33,14 +35,24 @@ public class ScheduleUI {
     private final ColoredBlock[] sundayBlocks = new ColoredBlock[TOTAL_BLOCK];
     private final StringBuilder id = new StringBuilder();
 
+    private final Window window;
     private final StudentScheduleGenerator studentScheduleGenerator;
     private final StudentSchedules studentSchedules;
     private final ImBoolean isOpen;
+    private final int offset;
+    private float width;
+    private float height;
 
-    public ScheduleUI(StudentScheduleGenerator studentScheduleGenerator, StudentSchedules studentSchedules) {
+    public ScheduleUI(Window window, StudentScheduleGenerator studentScheduleGenerator, StudentSchedules studentSchedules, int offset) {
+        this.window = window;
         this.studentScheduleGenerator = studentScheduleGenerator;
         this.studentSchedules = studentSchedules;
+        this.offset = offset;
         this.isOpen = new ImBoolean(true);
+
+        width = window.getScreenWidth() / 3;
+        height = window.getScreenHeight() / 2;
+
         for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
             id.append(courseSection.getID());
         }
@@ -59,7 +71,6 @@ public class ScheduleUI {
                     ColoredBlock[] coloredBlocks = getDayInWeekBlock(dayInChar);
                     if (coloredBlocks == null)
                         break;
-                    System.out.println(endBlock);
                     for (int i = startBlock; i < endBlock && i < TOTAL_BLOCK; i++) {
                         coloredBlocks[i] = coloredBlock;
                     }
@@ -69,13 +80,40 @@ public class ScheduleUI {
     }
 
     public void render() {
-        ImGui.setNextWindowSize(ImGui.getWindowSizeX(), ImGui.getWindowSizeY(), ImGuiCond.FirstUseEver);
-        ImGui.begin(TITLE + "##" + id, isOpen);
+        ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
+        ImGui.setNextWindowPos((window.getScreenWidth() / 3 - width + offset * OFFSET_SIZE) % window.getScreenWidth(), (40 + offset * OFFSET_SIZE) % window.getScreenHeight(), ImGuiCond.Always);
+        if (!ImGui.begin(TITLE + "##" + id, isOpen)) {
+            ImGui.end();
+            return;
+        }
+
         if (ImGui.button("Save")) {
             studentScheduleGenerator.addSavedSchedule(studentSchedules);
         }
+
+        handleCalendarTable();
+
+        ImGui.end();
+    }
+
+    private void handleShowPathButtons() {
+        for (int i = 1; i <= DAYS_IN_A_WEEK; i++) {
+            String day = getDayInWeekFromNum(i);
+            ImGui.tableSetColumnIndex(i);
+            if (ImGui.button("Show##" + day)) {
+
+            }
+        }
+    }
+
+    private void handleCalendarTable() {
         int tableFlag = ImGuiTableFlags.SizingStretchSame | ImGuiTableFlags.BordersOuter | ImGuiTableFlags.BordersV | ImGuiTableFlags.RowBg;
-        ImGui.beginTable("##Calendar", 8, tableFlag);
+        if (!ImGui.beginTable("##Calendar", 8, tableFlag))
+            return;
+
+        ImGui.tableNextRow();
+        handleShowPathButtons();
+
         ImGui.tableHeadersRow();
 
         ImGui.tableSetColumnIndex(1);
@@ -125,7 +163,6 @@ public class ScheduleUI {
             }
         }
         ImGui.endTable();
-        ImGui.end();
     }
 
     private String formattedDayInWeek(String dayInWeek) {
@@ -169,6 +206,19 @@ public class ScheduleUI {
             case 'F' -> fridayBlocks;
             case 'S' -> saturdayBlocks;
             case 'U' -> sundayBlocks;
+            default -> null;
+        };
+    }
+
+    private String getDayInWeekFromNum(int dayInNum) {
+        return switch (dayInNum) {
+            case 1 -> "Monday";
+            case 2 -> "Tuesday";
+            case 3 -> "Wednesday";
+            case 4 -> "Thursday";
+            case 5 -> "Friday";
+            case 6 -> "Saturday";
+            case 7 -> "Sunday";
             default -> null;
         };
     }

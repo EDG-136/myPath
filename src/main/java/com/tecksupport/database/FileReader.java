@@ -50,6 +50,8 @@ public class FileReader {
                     "FacultyID VARCHAR(20) NOT NULL," +
                     "Name VARCHAR(100)," +
                     "Description VARCHAR(1000)," +
+                    "Longitude DOUBLE," +
+                    "Latitude DOUBLE," +
                     "CONSTRAINT FacultyPK PRIMARY KEY (FacultyID)" +
                     ");";
             String scheduleTable = "CREATE TABLE IF NOT EXISTS Schedules (" +
