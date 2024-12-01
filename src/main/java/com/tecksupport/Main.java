@@ -11,7 +11,6 @@ public class  Main {
 
     instance.init();
     instance.run();
-
   }
 
 }

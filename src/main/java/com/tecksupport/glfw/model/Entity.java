@@ -36,6 +36,9 @@ public class Entity {
     public Vector3f getPosition() {
         return position;
     }
+    public float getX(){return position.x;}
+    public float getY(){return position.y;}
+    public float getZ(){return position.z;}
 
     public TexturedModel getModel() {
         return model;

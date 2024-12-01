@@ -4,6 +4,8 @@ package com.tecksupport.glfw.controller;
 import com.tecksupport.glfw.model.*;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
+import com.tecksupport.glfw.utils.Node;
+
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
@@ -12,11 +14,14 @@ import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.joml.Vector3f;
+
+import java.io.*;
 import java.util.*;
+
+
 import static org.lwjgl.glfw.GLFW.*;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL11C.GL_LINE_STRIP;
 
 public class InputHandler {
     private Window window;
@@ -38,6 +43,8 @@ public class InputHandler {
     private AuthUI authUI;
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+
+    ArrayList<Node> nodes = new ArrayList<>();
 
 
     private static double lastPressedTime = 0;
@@ -63,9 +70,18 @@ public class InputHandler {
 
         camera = new Camera();
         renderer = new Renderer(shader, window, camera);
-        fishModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Fish"));
+        fishModel = loader.loadToVAO(OBJFileLoader.loadOBJ("fish"));
         fishTextured = new TexturedModel(fishModel, new ModelTexture(loader.loadTexture("fish_texture")));
         allEntities.add(entity);
+//        read();
+//        for(int i = 0; i < nodes.size(); i++){
+//            float x = nodes.get(i).getX();
+//            float y = nodes.get(i).getY();
+//            float z = nodes.get(i).getZ();
+//
+//            allEntities.add(new Entity(fishTextured, new Vector3f(x,y,z), 0,0,0, 1));
+//
+//        }
 
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
@@ -93,6 +109,7 @@ public class InputHandler {
                     renderer.processEntity(instance);
                 }
                 renderer.render();
+//                drawPath(allEntities);
                 buildingInfoUI.renderUI();
 //            }
 
@@ -166,6 +183,44 @@ public class InputHandler {
         oldYaw = xPos;
         oldPitch = yPos;
     }
+    private void read(){
+        String filename = "nodes.txt";
+
+        try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
+            String line;
+            while ((line = reader.readLine()) != null){
+                Node node = parseLine(line);
+                nodes.add(node);
+            }
+
+        }catch (IOException e){
+            System.err.println("Error reading the file: " + e.getMessage());
+        }
+
+    }
+    private Node parseLine(String line){
+        try{
+//            String coordPart = line.split(":")[1];
+//            int id = Integer.parseInt(lines[0].trim());
+            String[] coords = line.split(",");
+            float x = Float.parseFloat(coords[0].trim());
+            float y = Float.parseFloat(coords[1].trim());
+            float z = Float.parseFloat(coords[2].trim());
+
+            return new Node(0,x,y,z);
+
+        }catch (Exception e){
+            System.err.println("Error Parsing Strings: "+line);
+            return null;
+        }
+
+    }
+//    private void createNodes(){
+//        ArrayList<Node> nodes;
+//        for(Node node : nodeList){
+//
+//        }
+//    }
     private void export(){
         String filename = "nodes.txt";
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
@@ -180,6 +235,26 @@ public class InputHandler {
         }catch(IOException e){
             System.err.println("ERROR: "+ e.getMessage());
         }
+    }
+    private void drawPath(List<Entity> corner){
+
+        glBegin(GL_LINE_STRIP);
+        glColor3f(0.0f, 1.0f, 0.0f);
+
+//        glLineWidth(100.0f);
+//        for(int i = 1; i <corner.size(); i++){
+//            Entity node = corner.get(i);
+//            float x = node.getX();
+//            float y= node.getY();
+//            float z= node.getZ();
+//            glVertex3f(x,y,z);
+//        }
+        glVertex3f(0.0f, 0.0f, 0.0f);
+        glVertex3f(50.0f, 50.0f, 50.0f);
+
+
+        glEnd();
+
     }
 
     public void cleanup() {
