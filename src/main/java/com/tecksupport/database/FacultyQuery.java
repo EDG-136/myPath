@@ -4,6 +4,8 @@ import com.tecksupport.schedulePlanner.Faculty;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,9 +13,14 @@ import java.util.logging.Logger;
 public class FacultyQuery {
     private final Connection connection;
     private final Logger logger = Logger.getLogger(getClass().getName());
+    private final HashMap<String, Faculty> facultyHashMap = new HashMap<>();
 
     public FacultyQuery(Connection connection) {
         this.connection = connection;
+        List<Faculty> facultyList = getListOfAllFaculties();
+        for (Faculty faculty : facultyList) {
+            facultyHashMap.put(faculty.getAcronym(), faculty);
+        }
     }
 
     public List<Faculty> getListOfAllFaculties() {
@@ -50,5 +57,13 @@ public class FacultyQuery {
             throw new RuntimeException(e);
         }
         return faculties;
+    }
+
+    public Faculty getFacultyFromAcronym(String acronym) {
+        return facultyHashMap.get(acronym);
+    }
+
+    public List<Faculty> getFacultyList() {
+        return facultyHashMap.values().stream().toList();
     }
 }

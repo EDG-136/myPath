@@ -1,5 +1,8 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Main" type="Application" factoryName="Application">
+    <envs>
+      <env name="ORS_API_KEY" value="5b3ce3597851110001cf6248b1f4cd365d7c45eeaced5f4c2d025be7" />
+    </envs>
     <option name="MAIN_CLASS_NAME" value="com.tecksupport.Main" />
     <module name="MyPath" />
     <option name="VM_PARAMETERS" value="-XstartOnFirstThread" />

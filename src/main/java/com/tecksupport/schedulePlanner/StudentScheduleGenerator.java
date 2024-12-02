@@ -1,13 +1,20 @@
 package com.tecksupport.schedulePlanner;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import com.tecksupport.database.CourseQuery;
+import com.tecksupport.database.FacultyQuery;
+import com.tecksupport.glfw.pathfinder.OSM.ORSAPI;
+import com.tecksupport.glfw.pathfinder.OSM.RouteSummary;
+
+import java.util.*;
 
 public class StudentScheduleGenerator {
+    private final FacultyQuery facultyQuery;
     private final List<StudentSchedules> savedSchedules = new ArrayList<>();
     private final List<GeneralCourse> selectedGeneralCourses = new ArrayList<>();
+
+    public StudentScheduleGenerator(FacultyQuery facultyQuery) {
+        this.facultyQuery = facultyQuery;
+    }
 
     public List<StudentSchedules> generateSchedule() {
         List<StudentSchedules> studentSchedulesList = new ArrayList<>();
@@ -17,6 +24,8 @@ public class StudentScheduleGenerator {
 
     public void generateScheduleIntoList(List<StudentSchedules> schedulesList, StudentSchedules studentSchedules, int i) {
         if (i >= selectedGeneralCourses.size()) {
+            RouteSummary routeSummary = ORSAPI.getRouteSummary(getFacultiesPerDay(studentSchedules));
+            studentSchedules.setRouteSummary(routeSummary);
             schedulesList.add(studentSchedules);
             return;
         }
@@ -35,6 +44,25 @@ public class StudentScheduleGenerator {
 
             generateScheduleIntoList(schedulesList, branchSchedule, i);
         }
+    }
+
+    private HashMap<EDayInWeek, List<Faculty>> getFacultiesPerDay(StudentSchedules studentSchedules) {
+        HashMap<EDayInWeek, List<Faculty>> facultyHashMap = new HashMap<>();
+        for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
+            for (Schedule schedule : courseSection.getSchedules()) {
+                char[] daysInWeek = schedule.getDaysInWeek().toCharArray();
+                for (char dayInChar : daysInWeek) {
+                    EDayInWeek dayInWeek = StudentSchedules.getDayInWeek(dayInChar);
+                    List<Faculty> facultyList = facultyHashMap.computeIfAbsent(dayInWeek, k -> new ArrayList<>());
+                    Faculty faculty = facultyQuery.getFacultyFromAcronym(schedule.getFacultyID());
+                    facultyList.add(faculty);
+                }
+            }
+        }
+        return facultyHashMap;
+    }
+
+    private void getFacultyList(EDayInWeek dayInWeek) {
     }
 
     public void addGeneralCourse(GeneralCourse generalCourse) {

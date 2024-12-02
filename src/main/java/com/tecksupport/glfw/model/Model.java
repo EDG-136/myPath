@@ -76,7 +76,6 @@ public class Model {
                 processVertex(vertex2, indices, textures, normals, textureArray, normalArray);
                 processVertex(vertex3, indices, textures, normals, textureArray, normalArray);
 
-                System.out.println(line);
                 line = reader.readLine();
 
             }

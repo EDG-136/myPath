@@ -3,6 +3,7 @@ package com.tecksupport.utils;
 import com.tecksupport.glfw.pathfinder.OSM.ORSAPI;
 import com.tecksupport.glfw.pathfinder.OSM.RouteSummary;
 import com.tecksupport.glfw.pathfinder.OSM.SegmentSummary;
+import com.tecksupport.schedulePlanner.EDayInWeek;
 import com.tecksupport.schedulePlanner.Faculty;
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +41,15 @@ public class TestArea {
         tuesday.add(mark);
         tuesday.add(sci);
         tuesday.add(kel);
+        tuesday.add(vep);
+        tuesday.add(lotF);
+        tuesday.add(PSI);
+        tuesday.add(lotC);
+        tuesday.add(lotB);
+        tuesday.add(arts);
+        tuesday.add(sbsb);
+        tuesday.add(clinical);
+        tuesday.add(univ);
 
         List<Faculty> wednesday = new ArrayList<>();
 
@@ -51,14 +61,14 @@ public class TestArea {
         List<Faculty> saturday = new ArrayList<>();
         List<Faculty> sunday = new ArrayList<>();
 
-        HashMap<Integer, List<Faculty>> facultyHashMap = new HashMap<>();
-        facultyHashMap.put(0, monday);
-        facultyHashMap.put(1, tuesday);
-        facultyHashMap.put(2, wednesday);
-        facultyHashMap.put(3, thursday);
-        facultyHashMap.put(4, friday);
-        facultyHashMap.put(5, saturday);
-        facultyHashMap.put(6, sunday);
+        HashMap<EDayInWeek, List<Faculty>> facultyHashMap = new HashMap<>();
+        facultyHashMap.put(EDayInWeek.MONDAY, monday);
+        facultyHashMap.put(EDayInWeek.TUESDAY, tuesday);
+        facultyHashMap.put(EDayInWeek.WEDNESDAY, wednesday);
+        facultyHashMap.put(EDayInWeek.THURSDAY, thursday);
+        facultyHashMap.put(EDayInWeek.FRIDAY, friday);
+        facultyHashMap.put(EDayInWeek.SATURDAY, saturday);
+        facultyHashMap.put(EDayInWeek.SUNDAY, sunday);
 
         RouteSummary routeSummary = ORSAPI.getRouteSummary(facultyHashMap);
 
@@ -68,9 +78,9 @@ public class TestArea {
         System.out.println("Total Distance: " + routeSummary.getTotalDistanceInMeter());
         System.out.println("Total Duration: " + routeSummary.getTotalTimeInSec());
 
-        for (int i = 0; i < 7; i++) {
-            System.out.println("Day: " + i);
-            List<SegmentSummary> segmentSummaries = routeSummary.getSegmentSummaryMap().get(i);
+        for (EDayInWeek dayInWeek : EDayInWeek.values()) {
+            System.out.println("Day: " + dayInWeek.toString());
+            List<SegmentSummary> segmentSummaries = routeSummary.getSegmentSummaryMap().get(dayInWeek);
             if (segmentSummaries == null)
                 continue;
             for (SegmentSummary segmentSummary : segmentSummaries) {

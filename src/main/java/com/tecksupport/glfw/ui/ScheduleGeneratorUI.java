@@ -1,6 +1,8 @@
 package com.tecksupport.glfw.ui;
 
 import com.tecksupport.database.CourseQuery;
+import com.tecksupport.database.FacultyQuery;
+import com.tecksupport.glfw.pathfinder.OSM.RouteSummary;
 import com.tecksupport.schedulePlanner.*;
 import com.tecksupport.glfw.view.Window;
 import imgui.*;
@@ -13,11 +15,11 @@ import java.util.regex.Pattern;
 
 public class ScheduleGeneratorUI {
     private final static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
-    private final static int WINDOW_FLAG = ImGuiWindowFlags.None;
-    private final StudentScheduleGenerator studentScheduleGenerator = new StudentScheduleGenerator();
+    private final StudentScheduleGenerator studentScheduleGenerator;
     private final ImBoolean isOpen = new ImBoolean();
     private final Window window;
     private final CourseQuery courseQuery;
+    private final FacultyQuery facultyQuery;
     private final ImGuiTextFilter filter = new ImGuiTextFilter();
     private final HashSet<Integer> selectedCourseIndexes = new HashSet<>();
     private final HashSet<Integer> blackListForGenerator = new HashSet<>();
@@ -38,9 +40,11 @@ public class ScheduleGeneratorUI {
 
 
 
-    public ScheduleGeneratorUI(Window window, CourseQuery courseQuery) {
+    public ScheduleGeneratorUI(Window window, CourseQuery courseQuery, FacultyQuery facultyQuery) {
         this.window = window;
         this.courseQuery = courseQuery;
+        this.facultyQuery = facultyQuery;
+        this.studentScheduleGenerator = new StudentScheduleGenerator(facultyQuery);
         this.defaultFont = ImGui.getFont();
         this.isOpen.set(true);
         this.courseSectionList = courseQuery.getCourseSectionList();
@@ -93,8 +97,16 @@ public class ScheduleGeneratorUI {
             for (int selected : selectedCourseIndexes) {
                 if (blackListForGenerator.contains(selected))
                     continue;
+                GeneralCourse original = generalCourseList.get(selected);
+                GeneralCourse generalCourse = new GeneralCourse(original.getSubject(), original.getCatalog());
+                List<CourseSection> courseSectionList = original.getCourseSectionList();
+                for (int i = 0; i < courseSectionList.size(); i++) {
+                    if (courseSectionBlackListIndexes.contains(i))
+                        continue;
 
-                studentScheduleGenerator.addGeneralCourse(generalCourseList.get(selected));
+                    generalCourse.addSection(courseSectionList.get(i));
+                }
+                studentScheduleGenerator.addGeneralCourse(generalCourse);
             }
             generatedSchedules = studentScheduleGenerator.generateSchedule();
         }
@@ -135,27 +147,41 @@ public class ScheduleGeneratorUI {
             ImGui.tableSetColumnIndex(0);
             if (ImGui.button("View##" + studentSchedules)) {
                 boolean isNew = true;
-                ScheduleUI newScheduleUI = new ScheduleUI(window, studentScheduleGenerator, studentSchedules, openedSchedules.size());
+                String newID = ScheduleUI.calculateID(studentSchedules);
                 for (ScheduleUI scheduleUI : openedSchedules) {
-                    if (scheduleUI.getId().equals(newScheduleUI.getId())) {
+                    if (scheduleUI.getId().equals(newID)) {
                         isNew = false;
                         break;
                     }
                 }
                 if (isNew)
-                    openedSchedules.add(newScheduleUI);
+                    openedSchedules.add(new ScheduleUI(window, studentScheduleGenerator, studentSchedules, openedSchedules.size()));
             }
+
+            RouteSummary routeSummary = studentSchedules.getRouteSummary();
+            float total = 0;
+            float shortest = 0;
+            float average = 0;
+            float longest = 0;
+
+            if (routeSummary != null) {
+                total = routeSummary.getTotalDistanceInMeter();
+                shortest = routeSummary.getShortestDistance();
+                average = routeSummary.getAverageDistance();
+                longest = routeSummary.getLongestDistance();
+            }
+
             ImGui.tableSetColumnIndex(1);
-            ImGui.text("500m");
+            ImGui.text(total + "m");
 
             ImGui.tableSetColumnIndex(2);
-            ImGui.text("20m");
+            ImGui.text(shortest + "m");
 
             ImGui.tableSetColumnIndex(3);
-            ImGui.text("100m");
+            ImGui.text(average + "m");
 
             ImGui.tableSetColumnIndex(4);
-            ImGui.text("150m");
+            ImGui.text(longest + "m");
         }
 
         ImGui.endTable();

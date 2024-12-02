@@ -33,7 +33,7 @@ public class ScheduleUI {
     private final ColoredBlock[] fridayBlocks = new ColoredBlock[TOTAL_BLOCK];
     private final ColoredBlock[] saturdayBlocks = new ColoredBlock[TOTAL_BLOCK];
     private final ColoredBlock[] sundayBlocks = new ColoredBlock[TOTAL_BLOCK];
-    private final StringBuilder id = new StringBuilder();
+    private final String id;
 
     private final Window window;
     private final StudentScheduleGenerator studentScheduleGenerator;
@@ -50,12 +50,10 @@ public class ScheduleUI {
         this.offset = offset;
         this.isOpen = new ImBoolean(true);
 
+        this.id = calculateID(studentSchedules);
+
         width = window.getScreenWidth() / 3;
         height = window.getScreenHeight() / 2;
-
-        for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
-            id.append(courseSection.getID());
-        }
 
         for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
 
@@ -231,6 +229,14 @@ public class ScheduleUI {
     }
 
     public String getId() {
+        return id;
+    }
+
+    public static String calculateID(StudentSchedules studentSchedules) {
+        StringBuilder id = new StringBuilder();
+        for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
+            id.append(courseSection.getID());
+        }
         return id.toString();
     }
 

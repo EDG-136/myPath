@@ -1,5 +1,6 @@
 package com.tecksupport.glfw.pathfinder.OSM;
 
+import com.tecksupport.schedulePlanner.EDayInWeek;
 import com.tecksupport.schedulePlanner.Faculty;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,7 +21,7 @@ public class ORSAPI {
     private static final String API_KEY = System.getenv("ORS_API_KEY");
     private static final Logger LOGGER = Logger.getLogger(ORSAPI.class.getName());
 
-    public static RouteSummary getRouteSummary(HashMap<Integer, List<Faculty>> facultyMap) {
+    public static RouteSummary getRouteSummary(HashMap<EDayInWeek, List<Faculty>> facultyMap) {
         int totalCoordinate = 0;
         for (List<Faculty> facultyList : facultyMap.values()) {
             totalCoordinate += facultyList.size();
@@ -31,17 +32,16 @@ public class ORSAPI {
         // Because we need to keep days in order
         // In theory days should be in order, but it's just in case
         int currentIndex = 0;
-        for (int i = 0; i < DAYS_IN_A_WEEK; i++) {
-            List<Faculty> facultyList = facultyMap.get(i);
+        for (EDayInWeek dayInWeek : EDayInWeek.values()) {
+            List<Faculty> facultyList = facultyMap.get(dayInWeek);
+            if (facultyList == null)
+                continue;
             for (Faculty faculty : facultyList) {
                 coordinates[currentIndex][0] = faculty.getLatitude();
                 coordinates[currentIndex][1] = faculty.getLongitude();
                 currentIndex++;
             }
         }
-
-        System.out.println("Total Coord: " + coordinates.length);
-
         JSONObject jsonResult = callORSApi(coordinates);
         if (jsonResult == null)
             return null;
@@ -53,10 +53,9 @@ public class ORSAPI {
         RouteSummary routeSummary = new RouteSummary();
 
         JSONArray segments = routes.getJSONObject(0).getJSONArray("segments");
-        System.out.println(segments);
         currentIndex = 0;
-        for (int i = 0; i < DAYS_IN_A_WEEK; i++) {
-            List<Faculty> facultyList = facultyMap.get(i);
+        for (EDayInWeek dayInWeek : EDayInWeek.values()) {
+            List<Faculty> facultyList = facultyMap.get(dayInWeek);
             for (int j = 0; j < facultyList.size() - 1; j++) {
                 JSONObject segment = segments.getJSONObject(currentIndex);
                 float segmentDistance = segment.getFloat("distance");
@@ -65,7 +64,7 @@ public class ORSAPI {
                 totalDuration += segmentDuration;
 
                 SegmentSummary segmentSummary = new SegmentSummary(segmentDistance, segmentDuration);
-                routeSummary.addSegment(i, segmentSummary);
+                routeSummary.addSegment(dayInWeek, segmentSummary);
                 currentIndex++;
             }
             currentIndex++;
@@ -78,10 +77,16 @@ public class ORSAPI {
     }
 
     private static JSONObject callORSApi(double[][] coordinates) {
+        if (coordinates.length < 2) {
+            return null;
+        }
         Client client = ClientBuilder.newClient();
         JSONObject payload = new JSONObject();
         payload.put("coordinates", coordinates);
         payload.put("preference", "shortest");
+
+        if (payload.toString().contains("coordinates"))
+            return null;
 
         try (Response response = client.target(API_URL)
                 .request()

@@ -1,5 +1,7 @@
 package com.tecksupport.schedulePlanner;
 
+import com.tecksupport.database.FacultyQuery;
+import com.tecksupport.database.MySQLDatabase;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,7 +16,9 @@ public class CourseGeneratorTest {
 
     @BeforeEach
     public void init() {
-        generator = new StudentScheduleGenerator();
+        MySQLDatabase database = new MySQLDatabase("//TeckSupportDB", "client", "TeckSupport");
+        database.connect();
+        generator = new StudentScheduleGenerator(new FacultyQuery(database.getConnection()));
     }
 
     @Test

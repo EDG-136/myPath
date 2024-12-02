@@ -95,7 +95,7 @@ public class InputHandler {
         authUI = new AuthUI(window, userAuthQuery);
 //        buildingInfoUI = new BuildingInfoUI(window);
         facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
-        scheduleGeneratorUI = new ScheduleGeneratorUI(window, courseQuery);
+        scheduleGeneratorUI = new ScheduleGeneratorUI(window, courseQuery, facultyQuery);
     }
 
     public void run() {

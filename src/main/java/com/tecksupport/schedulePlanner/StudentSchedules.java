@@ -1,21 +1,18 @@
 package com.tecksupport.schedulePlanner;
 
+import com.tecksupport.glfw.pathfinder.OSM.RouteSummary;
+
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StudentSchedules {
-    private static final int MONDAY = 0;
-    private static final int TUESDAY = 1;
-    private static final int WEDNESDAY = 2;
-    private static final int THURSDAY = 3;
-    private static final int FRIDAY = 4;
-    private static final int SATURDAY = 5;
-    private static final int SUNDAY = 6;
     private final List<CourseSection> courseSectionList = new ArrayList<>();
+    private RouteSummary routeSummary;
 
     // Had   to keep this for the first empty schedule
     public StudentSchedules() {
@@ -64,22 +61,31 @@ public class StudentSchedules {
         return time.isAfter(schedule.getStartTime()) && time.isBefore(schedule.getEndTime());
     }
 
-    private static int getDayInWeek(char letter) {
+    public static EDayInWeek getDayInWeek(char letter) {
         // IDK why the school chose these letters
         // Email to them if you care
         return switch (letter) {
-            case 'M' -> MONDAY;
-            case 'T' -> TUESDAY;
-            case 'W' -> WEDNESDAY;
-            case 'R' -> THURSDAY;
-            case 'F' -> FRIDAY;
-            case 'S' -> SATURDAY;
-            case 'U' -> SUNDAY;
-            default -> -1;
+            case 'M' -> EDayInWeek.MONDAY;
+            case 'T' -> EDayInWeek.TUESDAY;
+            case 'W' -> EDayInWeek.WEDNESDAY;
+            case 'R' -> EDayInWeek.THURSDAY;
+            case 'F' -> EDayInWeek.FRIDAY;
+            case 'S' -> EDayInWeek.SATURDAY;
+            case 'U' -> EDayInWeek.SUNDAY;
+            default -> throw new IllegalStateException("Unexpected value: " + letter);
         };
     }
 
     public List<CourseSection> getCourseSectionList() {
         return courseSectionList;
     }
+
+    public RouteSummary getRouteSummary() {
+        return routeSummary;
+    }
+
+    public void setRouteSummary(RouteSummary routeSummary) {
+        this.routeSummary = routeSummary;
+    }
 }
+

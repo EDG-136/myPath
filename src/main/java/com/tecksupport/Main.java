@@ -23,7 +23,7 @@ public class Main {
 
 
 
-    testSQL(courseQuery);
+//    testSQL(courseQuery);
 
     InputHandler instance = new InputHandler(courseQuery, userAuthQuery, facultyQuery);
 
