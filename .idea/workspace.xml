@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="02ede23c-4a07-47ac-8281-c648fe85e8de" name="Changes" comment="Fixed Icons Path">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/utils/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/nodes.txt" beforeDir="false" afterPath="$PROJECT_DIR$/nodes.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/controller/InputHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/model/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/model/Entity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/utils/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/utils/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/tecksupport/glfw/view/Camera.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/controller/InputHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/model/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/tecksupport/glfw/model/Entity.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,12 +53,12 @@
     &quot;assignee&quot;: &quot;Endless09&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/EDG-136/myPath.git&quot;,
-    &quot;accountId&quot;: &quot;1d328eb2-84b9-4442-a141-6abcd002dd3c&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/EDG-136/myPath.git",
+    "accountId": "b19adda5-8d00-44ed-bcae-3f55889d134e"
   }
-}</component>
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 3
@@ -93,7 +93,7 @@
       <recent name="C:\Users\gorek\For-resume\pathfinder_algorithum\CampusGraph\src\main\resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration name="GUI" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.tecksupport.GUI.LoginPage" />
       <module name="MyPath" />

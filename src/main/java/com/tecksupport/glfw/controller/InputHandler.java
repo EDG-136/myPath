@@ -73,15 +73,15 @@ public class InputHandler {
         fishModel = loader.loadToVAO(OBJFileLoader.loadOBJ("fish"));
         fishTextured = new TexturedModel(fishModel, new ModelTexture(loader.loadTexture("fish_texture")));
         allEntities.add(entity);
-//        read();
-//        for(int i = 0; i < nodes.size(); i++){
-//            float x = nodes.get(i).getX();
-//            float y = nodes.get(i).getY();
-//            float z = nodes.get(i).getZ();
-//
-//            allEntities.add(new Entity(fishTextured, new Vector3f(x,y,z), 0,0,0, 1));
-//
-//        }
+        read();
+        for(int i = 0; i < nodes.size(); i++){
+            float x = nodes.get(i).getX();
+            float y = nodes.get(i).getY();
+            float z = nodes.get(i).getZ();
+
+            allEntities.add(new Entity(fishTextured, new Vector3f(x,y,z), 0,0,0, 1));
+
+        }
 
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
@@ -110,13 +110,14 @@ public class InputHandler {
                 }
                 renderer.render();
 //                drawPath(allEntities);
+                //drawFullPath(nodes);
                 buildingInfoUI.renderUI();
 //            }
 
             endFrameImGui();
             window.update();
         }
-        export();
+        //export();
         cleanup();
     }
 
@@ -159,6 +160,11 @@ public class InputHandler {
             if (currentTime - lastPressedTime >= pressDelay){
                 allEntities.removeLast();
                 lastPressedTime = currentTime;
+            }
+        }
+        if(glfwGetKey(window.getWindowID(), GLFW_KEY_ENTER)== GLFW_PRESS){
+            if(currentTime - lastPressedTime >= pressDelay){
+                drawFullPath(nodes);
             }
         }
     }
@@ -227,7 +233,8 @@ public class InputHandler {
             int id = 0;
             for(Entity e: allEntities){
                 Vector3f position = e.getPosition();
-                String line = id + ":" + position.x + "," + position.y+ "," + position.z;
+                //String line = id + ":" + position.x + "," + position.y+ "," + position.z;
+                String line = position.x + "," + position.y+ "," + position.z;
                 writer.write(line);
                 writer.newLine();
                 id++;
@@ -256,6 +263,42 @@ public class InputHandler {
         glEnd();
 
     }
+    private void drawFullPath(ArrayList<Node> nodes){
+        for(int i = 0; i < nodes.size(); i++){
+            if(i != nodes.size() -1){
+                drawPath(nodes.get(i), nodes.get(i+1));
+            }
+
+           // drawPath(nodes.get(i), nodes.get(i+1));
+        }
+
+    }
+    private void drawPath(Node a, Node b){
+        int numberOfPoints = 10;
+        ArrayList<Node> pathPoints = generatePoints(a,b,numberOfPoints);
+        for(int i = 0; i < pathPoints.size(); i++){
+            float x = pathPoints.get(i).getX();
+            float y = pathPoints.get(i).getY();
+            float z = pathPoints.get(i).getZ();
+
+             allEntities.add(new Entity(fishTextured, new Vector3f(x,y,z), 0,0,0,1));
+        }
+    }
+
+    public static ArrayList<Node> generatePoints(Node a , Node b, int numberOfPoints){
+        ArrayList<Node> points = new ArrayList<>();
+
+        //P=A+t⋅(B−A)
+        for (int i = 0; i <= numberOfPoints; i ++){
+            float t = i / (float) numberOfPoints;
+            float x = a.getX() + t * (b.getX() - a.getX());
+            float y = a.getY() + t * (b.getY() - a.getY());
+            float z = a.getZ() + t * (b.getZ() - a.getZ());
+            points.add(new Node(x,y,z));
+        }
+        return points;
+    }
+
 
     public void cleanup() {
         shader.cleanup();
