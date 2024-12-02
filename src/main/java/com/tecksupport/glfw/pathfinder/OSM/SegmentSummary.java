@@ -2,18 +2,18 @@ package com.tecksupport.glfw.pathfinder.OSM;
 
 public class SegmentSummary {
     private final float distanceInMeter;
-    private final float timeInMeter;
+    private final float timeInSec;
 
-    public SegmentSummary(float distanceInMeter, float timeInMeter) {
+    public SegmentSummary(float distanceInMeter, float timeInSec) {
         this.distanceInMeter = distanceInMeter;
-        this.timeInMeter = timeInMeter;
+        this.timeInSec = timeInSec;
     }
 
     public float getDistanceInMeter() {
         return distanceInMeter;
     }
 
-    public float getTimeInMeter() {
-        return timeInMeter;
+    public float getTimeInSec() {
+        return timeInSec;
     }
 }

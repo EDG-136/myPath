@@ -24,6 +24,9 @@ public class StudentScheduleGenerator {
 
     public void generateScheduleIntoList(List<StudentSchedules> schedulesList, StudentSchedules studentSchedules, int i) {
         if (i >= selectedGeneralCourses.size()) {
+            if (schedulesList.size() > 10) {
+                return;
+            }
             RouteSummary routeSummary = ORSAPI.getRouteSummary(getFacultiesPerDay(studentSchedules));
             studentSchedules.setRouteSummary(routeSummary);
             schedulesList.add(studentSchedules);

@@ -7,9 +7,6 @@ import com.tecksupport.schedulePlanner.EDayInWeek;
 import com.tecksupport.schedulePlanner.Faculty;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +82,7 @@ public class TestArea {
                 continue;
             for (SegmentSummary segmentSummary : segmentSummaries) {
                 System.out.println("Distance: " + segmentSummary.getDistanceInMeter());
-                System.out.println("Duration: " + segmentSummary.getTimeInMeter());
+                System.out.println("Duration: " + segmentSummary.getTimeInSec());
             }
             System.out.println(String.format("%10s", "-").replace(' ', '-'));
         }

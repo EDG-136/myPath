@@ -140,8 +140,8 @@ public class FileReader {
             while (line != null) {
                 String query = ("UPDATE Faculties SET longitude = ?,  latitude = ? WHERE facultyID = ?;");
                 String facultyID = line.substring(0, line.indexOf(':'));
-                double latitude = Double.parseDouble(line.substring(line.indexOf('(') + 1, line.indexOf(',')));
-                double longitude = Double.parseDouble(line.substring(line.indexOf(',') + 1, line.indexOf(')')));
+                double longitude = Double.parseDouble(line.substring(line.indexOf('(') + 1, line.indexOf(',')));
+                double latitude = Double.parseDouble(line.substring(line.indexOf(',') + 1, line.indexOf(')')));
 
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setDouble(1, longitude);

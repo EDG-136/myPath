@@ -45,7 +45,7 @@ public class RouteSummary {
                     longest = segmentSummary.getDistanceInMeter();
             }
         }
-        return longest;
+        return longest == Float.MIN_VALUE ? 0 : longest;
     }
 
     public float getAverageDistance() {

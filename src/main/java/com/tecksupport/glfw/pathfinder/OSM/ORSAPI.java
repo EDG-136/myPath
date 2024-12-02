@@ -56,6 +56,8 @@ public class ORSAPI {
         currentIndex = 0;
         for (EDayInWeek dayInWeek : EDayInWeek.values()) {
             List<Faculty> facultyList = facultyMap.get(dayInWeek);
+            if (facultyList == null)
+                continue;
             for (int j = 0; j < facultyList.size() - 1; j++) {
                 JSONObject segment = segments.getJSONObject(currentIndex);
                 float segmentDistance = segment.getFloat("distance");
@@ -73,6 +75,7 @@ public class ORSAPI {
         routeSummary.setTotalDistanceInMeter(totalDistance);
         routeSummary.setTotalTimeInSec(totalDuration);
 
+
         return routeSummary;
     }
 
@@ -84,9 +87,6 @@ public class ORSAPI {
         JSONObject payload = new JSONObject();
         payload.put("coordinates", coordinates);
         payload.put("preference", "shortest");
-
-        if (payload.toString().contains("coordinates"))
-            return null;
 
         try (Response response = client.target(API_URL)
                 .request()
