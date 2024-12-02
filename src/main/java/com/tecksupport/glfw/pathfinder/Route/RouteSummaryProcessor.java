@@ -98,31 +98,31 @@ public class RouteSummaryProcessor {
     }
 
     // Test function
-    public static void main(String[] args) {
-        // Sample course schedule
-        Map<Integer, List<Faculty>> courseSchedule = new HashMap<>();
-        courseSchedule.put(1, Arrays.asList(new Faculty("CS370"), new Faculty("CS436")));
-        courseSchedule.put(2, Arrays.asList(new Faculty("HIST131")));
-
-        // API key for OpenRouteService (replace with your actual key)
-        String apiKey = "YOUR_API_KEY";
-
-        // Process the route data and get the summary
-        RouteSummary routeSummary = processRouteData(courseSchedule, apiKey);
-
-        if (routeSummary != null) {
-            // Output the route summary
-            System.out.println("Route Summary:");
-            System.out.println("Total Distance: " + routeSummary.getTotalDistanceInMeter() + " meters");
-            System.out.println("Total Time: " + routeSummary.getTotalTimeInSec() + " seconds");
-
-            // Print out the segments for each day/course
-            for (Map.Entry<Integer, List<SegmentSummary>> entry : routeSummary.getSegmentSummaryMap().entrySet()) {
-                System.out.println("Route " + entry.getKey() + " Segments:");
-                for (SegmentSummary segment : entry.getValue()) {
-                    System.out.println("  - Distance: " + segment.getDistanceInMeter() + " meters, Time: " + segment.getTimeInSec() + " seconds");
-                }
-            }
-        }
-    }
+//    public static void main(String[] args) {
+//        // Sample course schedule
+//        Map<Integer, List<Faculty>> courseSchedule = new HashMap<>();
+//        courseSchedule.put(1, Arrays.asList(new Faculty("CS370"), new Faculty("CS436")));
+//        courseSchedule.put(2, Arrays.asList(new Faculty("HIST131")));
+//
+//        // API key for OpenRouteService (replace with your actual key)
+//        String apiKey = "YOUR_API_KEY";
+//
+//        // Process the route data and get the summary
+//        RouteSummary routeSummary = processRouteData(courseSchedule, apiKey);
+//
+//        if (routeSummary != null) {
+//            // Output the route summary
+//            System.out.println("Route Summary:");
+//            System.out.println("Total Distance: " + routeSummary.getTotalDistanceInMeter() + " meters");
+//            System.out.println("Total Time: " + routeSummary.getTotalTimeInSec() + " seconds");
+//
+//            // Print out the segments for each day/course
+//            for (Map.Entry<Integer, List<SegmentSummary>> entry : routeSummary.getSegmentSummaryMap().entrySet()) {
+//                System.out.println("Route " + entry.getKey() + " Segments:");
+//                for (SegmentSummary segment : entry.getValue()) {
+//                    System.out.println("  - Distance: " + segment.getDistanceInMeter() + " meters, Time: " + segment.getTimeInSec() + " seconds");
+//                }
+//            }
+//        }
+//    }
 }

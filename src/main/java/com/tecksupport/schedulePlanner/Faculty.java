@@ -26,4 +26,12 @@ public class Faculty {
     public String getDescription() {
         return description;
     }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
 }

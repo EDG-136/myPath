@@ -3,6 +3,7 @@ package com.tecksupport.database;
 import org.apache.poi.ss.usermodel.*;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
@@ -125,8 +126,34 @@ public class FileReader {
             readCourse();
             readSchedules();
             readFacultyInfoCSV();
+            readFacultyLongitudeAndLatitude();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQL Error", e);
+        }
+    }
+
+    public void readFacultyLongitudeAndLatitude() {
+        try(BufferedReader br = new BufferedReader(new java.io.FileReader("src/main/resources/dataFiles/BuildingCoordinates.txt"))) {
+            String line = br.readLine();
+
+
+            while (line != null) {
+                String query = ("UPDATE Faculties SET longitude = ?,  latitude = ? WHERE facultyID = ?;");
+                String facultyID = line.substring(0, line.indexOf(':'));
+                double latitude = Double.parseDouble(line.substring(line.indexOf('(') + 1, line.indexOf(',')));
+                double longitude = Double.parseDouble(line.substring(line.indexOf(',') + 1, line.indexOf(')')));
+
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setDouble(1, longitude);
+                preparedStatement.setDouble(2, latitude);
+                preparedStatement.setString(3, facultyID);
+
+                preparedStatement.execute();
+
+                line = br.readLine();
+            }
+        } catch (IOException | SQLException e) {
+            logger.log(Level.SEVERE, "SQL read faculties longitude and latitude error", e);
         }
     }
 
