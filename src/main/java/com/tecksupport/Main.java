@@ -20,12 +20,13 @@ public class Main {
     CourseQuery courseQuery = new CourseQuery(database.getConnection());
     UserAuthQuery userAuthQuery = new UserAuthQuery(database.getConnection());
     FacultyQuery facultyQuery = new FacultyQuery(database.getConnection());
+    NodeQuery nodeQuery = new NodeQuery(database.getConnection());
 
 
 
 //    testSQL(courseQuery);
 
-    InputHandler instance = new InputHandler(courseQuery, userAuthQuery, facultyQuery);
+    InputHandler instance = new InputHandler(courseQuery, userAuthQuery, facultyQuery, nodeQuery);
 
     instance.init();
     instance.run();
@@ -45,7 +46,7 @@ public class Main {
 //      if (!matcher.find())
 //        continue;
 
-      days.add(schedule.getDaysInWeek());
+      days.add(schedule.getStartDate().toString());
 
       startTimes.add(String.valueOf(schedule.getCourseID()));
     }

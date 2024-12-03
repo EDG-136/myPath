@@ -3,8 +3,10 @@ package com.tecksupport.glfw.controller;
 
 import com.tecksupport.database.CourseQuery;
 import com.tecksupport.database.FacultyQuery;
+import com.tecksupport.database.NodeQuery;
 import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.model.*;
+import com.tecksupport.glfw.pathfinder.node.Node;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
 import com.tecksupport.glfw.ui.ScheduleGeneratorUI;
@@ -30,6 +32,7 @@ public class InputHandler {
     private final CourseQuery courseQuery;
     private final UserAuthQuery userAuthQuery;
     private final FacultyQuery facultyQuery;
+    private final NodeQuery nodeQuery;
     private Window window;
     private Shader shader;
     private Mesh mesh;
@@ -48,11 +51,12 @@ public class InputHandler {
     private FacultyInfoUI facultyInfoUI;
     private ScheduleGeneratorUI scheduleGeneratorUI;
 
-    public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery)
+    public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery, NodeQuery nodeQuery)
     {
         this.courseQuery = courseQuery;
         this.userAuthQuery = userAuthQuery;
         this.facultyQuery = facultyQuery;
+        this.nodeQuery = nodeQuery;
     }
 
     public void init() {
@@ -96,6 +100,10 @@ public class InputHandler {
 //        buildingInfoUI = new BuildingInfoUI(window);
         facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
         scheduleGeneratorUI = new ScheduleGeneratorUI(window, courseQuery, facultyQuery);
+
+        for (Node node : nodeQuery.getNodes()) {
+
+        }
     }
 
     public void run() {

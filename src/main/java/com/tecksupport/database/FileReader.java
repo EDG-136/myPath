@@ -33,6 +33,7 @@ public class FileReader {
 
             String dropFavoriteSchedule = "DROP TABLE IF EXISTS FavoriteSchedules;";
             String dropStudents = "DROP TABLE IF EXISTS Students;";
+            String dropPositionConnects = "DROP TABLE IF EXISTS PositionConnects";
             String dropPositions = "DROP TABLE IF EXISTS Positions;";
             String dropFaculties = "DROP TABLE IF EXISTS Faculties;";
             String dropEntries = "DROP TABLE IF EXISTS Entries;";
@@ -79,6 +80,15 @@ public class FileReader {
                     + "Z FLOAT(10, 5), "
                     + "CONSTRAINT PositionPK PRIMARY KEY (PositionID)"
                     + ");";
+            String positionConnectTable = "CREATE TABLE IF NOT EXISTS PositionConnects (" +
+                    "FromPosition INT(10) NOT NULL," +
+                    "ToPosition INT(10) NOT NULL," +
+                    "CONSTRAINT fromPositionFK FOREIGN KEY (FromPosition)" +
+                    "REFERENCES Positions(PositionID)," +
+                    "CONSTRAINT toPositionFK FOREIGN KEY (ToPosition)" +
+                    "REFERENCES Positions(PositionID)," +
+                    "CONSTRAINT positionConnectPK PRIMARY KEY (FromPosition,ToPosition)" +
+                    ");";
             String entriesTable = "CREATE TABLE IF NOT EXISTS Entries (" +
                     "FacultyID VARCHAR(20) NOT NULL," +
                     "PositionID INT(10) NOT NULL," +
@@ -114,9 +124,11 @@ public class FileReader {
             statement.execute(dropStudents);
             statement.execute(dropEntries);
             statement.execute(dropFaculties);
+            statement.execute(dropPositionConnects);
             statement.execute(dropPositions);
 
             statement.execute(positionTable);
+            statement.execute(positionConnectTable);
             statement.execute(facultyTable);
             statement.execute(entriesTable);
             statement.execute(studentTable);
@@ -131,8 +143,40 @@ public class FileReader {
             readFacultyLongitudeAndLatitude();
             readNodesIntoPositionsTable();
             readNodesIDIntoEntriesTable();
+            readNeighborNodesIntoConnectsTable();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQL Error", e);
+        }
+    }
+
+    public void readNeighborNodesIntoConnectsTable() {
+        try(BufferedReader br = new BufferedReader(new java.io.FileReader("src/main/resources/dataFiles/neighborNodes.txt"))) {
+            String line = br.readLine();
+
+            StringBuilder fromQuery = new StringBuilder();
+            StringBuilder toQuery = new StringBuilder();
+            fromQuery.append("INSERT IGNORE INTO PositionConnects (FromPosition, ToPosition) VALUES ");
+            toQuery.append("INSERT IGNORE INTO PositionConnects (ToPosition, FromPosition) VALUES ");
+            while (line != null) {
+                int fromPositionID = Integer.parseInt(line.substring(0, line.indexOf(':')));
+                int toPositionID = Integer.parseInt(line.substring(line.indexOf(':') + 1));
+
+                fromQuery.append("('").append(fromPositionID).append("','").append(toPositionID).append("'),");
+                toQuery.append("('").append(fromPositionID).append("','").append(toPositionID).append("'),");
+                System.out.println(fromQuery + "\n" + toQuery);
+                System.out.println("----");
+                line = br.readLine();
+            }
+            fromQuery.deleteCharAt(fromQuery.lastIndexOf(","));
+            toQuery.deleteCharAt(toQuery.lastIndexOf(","));
+
+            PreparedStatement fromStatement = connection.prepareStatement(fromQuery.toString());
+            PreparedStatement toStatement = connection.prepareStatement(toQuery.toString());
+            fromStatement.execute();
+            toStatement.execute();
+
+        } catch (IOException | SQLException e) {
+            logger.log(Level.SEVERE, "SQL read faculties longitude and latitude error", e);
         }
     }
 
