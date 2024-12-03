@@ -90,7 +90,7 @@ public class DijkstraAlgorithm {
      * @return The distance as an integer.
      */
     private int calculateWeight(Node a, Node b) {
-        return (int) Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
+        return (int) Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getZ() - b.getZ(), 2));
     }
 
     /**
