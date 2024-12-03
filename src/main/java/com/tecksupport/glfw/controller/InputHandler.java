@@ -6,6 +6,7 @@ import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
 import com.tecksupport.glfw.utils.Node;
 
+import com.tecksupport.glfw.utils.pathHandler;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
@@ -45,6 +46,9 @@ public class InputHandler {
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
 
     ArrayList<Node> nodes = new ArrayList<>();
+    private pathHandler path;
+    Map<Integer, List<Integer>> neighbors = new HashMap<>();
+
 
 
     private static double lastPressedTime = 0;
@@ -73,7 +77,9 @@ public class InputHandler {
         nodeModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Arrow"));
         nodeTextured = new TexturedModel(nodeModel, new ModelTexture(loader.loadTexture("ArrowTexture")));
         allEntities.add(entity);
+
         read();
+
         for(int i = 1; i < nodes.size(); i++){
             float x = nodes.get(i).getX();
             float y = nodes.get(i).getY();
@@ -163,6 +169,11 @@ public class InputHandler {
         }
         if(glfwGetKey(window.getWindowID(), GLFW_KEY_ENTER)== GLFW_PRESS){
             if(currentTime - lastPressedTime >= pressDelay){
+                drawFullPath(neighbors, nodes);
+            }
+        }
+        if(glfwGetKey(window.getWindowID(), GLFW_KEY_P)== GLFW_PRESS){
+            if(currentTime - lastPressedTime >= pressDelay){
                 drawFullPath(nodes);
             }
         }
@@ -190,6 +201,7 @@ public class InputHandler {
     }
     private void read(){
         String filename = "nodes.txt";
+        String filename1 = "neighborNodes.txt";
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
             String line;
@@ -200,6 +212,15 @@ public class InputHandler {
 
         }catch (IOException e){
             System.err.println("Error reading the file: " + e.getMessage());
+        }
+        try(BufferedReader reader = new BufferedReader(new FileReader(filename1))){
+            String line;
+            while((line = reader.readLine()) != null){
+                parseNeighbor(line, neighbors);
+            }
+
+        }catch(IOException e){
+            System.err.println(("Error reading neighbor file: "+ e.getMessage()));
         }
 
     }
@@ -220,12 +241,23 @@ public class InputHandler {
         }
 
     }
-//    private void createNodes(){
-//        ArrayList<Node> nodes;
-//        for(Node node : nodeList){
-//
-//        }
-//    }
+
+    private void parseNeighbor(String line, Map<Integer, List<Integer>> map){
+        try{
+            String[] parts = line.split(":");
+            int id = Integer.parseInt(parts[0].trim());
+            int neighbor = Integer.parseInt(parts[1].trim());
+
+            if(!map.containsKey(id)){
+                map.put(id, new ArrayList<>());
+            }
+            map.get(id).add(neighbor);
+
+        }catch (Exception e){
+            System.err.println("Error Parsing Strings: "+line);
+
+        }
+    }
     private void export(){
         String filename = "nodes.txt";
         try(BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
@@ -242,44 +274,42 @@ public class InputHandler {
             System.err.println("ERROR: "+ e.getMessage());
         }
     }
-    private void drawPath(List<Entity> corner){
 
-        glBegin(GL_LINE_STRIP);
-        glColor3f(0.0f, 1.0f, 0.0f);
-
-//        glLineWidth(100.0f);
-//        for(int i = 1; i <corner.size(); i++){
-//            Entity node = corner.get(i);
-//            float x = node.getX();
-//            float y= node.getY();
-//            float z= node.getZ();
-//            glVertex3f(x,y,z);
-//        }
-        glVertex3f(0.0f, 0.0f, 0.0f);
-        glVertex3f(50.0f, 50.0f, 50.0f);
-
-
-        glEnd();
-
-    }
     private void drawFullPath(ArrayList<Node> nodes){
         for(int i = 0; i < nodes.size(); i++){
             if(i != nodes.size() -1){
                 drawPath(nodes.get(i), nodes.get(i+1));
             }
-
-           // drawPath(nodes.get(i), nodes.get(i+1));
         }
-
+    }
+    private void drawFullPath(Map<Integer, List<Integer>> map, ArrayList<Node> nodes){
+        for(int i = 0; i < map.size(); i++){
+            if(i != map.size() -1){
+                if(!map.get(i).isEmpty())
+                {
+                    for(int j = 0; j < map.get(i).size(); j++){
+                        int x = map.get(i).get(j);
+                        Node nodeA  = nodes.get(i);
+                        Node nodeB = nodes.get(x);
+                        drawPath(nodeA,nodeB);
+                    }
+                }
+//                for(int j = 0; j < map.get(i).size(); j++){
+//                    int x = map.get(i).get(j);
+//                    Node nodeA  = nodes.get(i);
+//                    Node nodeB = nodes.get(x);
+//                    drawPath(nodeA,nodeB);
+//                }
+            }
+        }
     }
     private void drawPath(Node a, Node b){
-        int numberOfPoints = 10;
+        int numberOfPoints = 7;
         ArrayList<Node> pathPoints = generatePoints(a,b,numberOfPoints);
         for(int i = 0; i < pathPoints.size(); i++){
-            float x = pathPoints.get(i).getX();
-            float y = pathPoints.get(i).getY();
-            float z = pathPoints.get(i).getZ();
-
+            float x =pathPoints.get(i).getX();
+            float y =pathPoints.get(i).getY();
+            float z =pathPoints.get(i).getZ();
             if(i+1 != pathPoints.size()){
                 Vector3f lookAt = lookAtPostion(pathPoints.get(i+1).getPositon(), pathPoints.get(i).getPositon());
                 allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), (float) Math.toDegrees(lookAt.x()),(float) Math.toDegrees(lookAt.y) , 0,0.25f));
@@ -288,11 +318,25 @@ public class InputHandler {
                 allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), 0,0 , 0,0.25f));
             }
 
+
+//        if(neighbors.get(a.getId()).contains(b.getId())){
+//            ArrayList<Node> pathPoints = generatePoints(a,b,numberOfPoints);
+//            for(int i = 0; i < pathPoints.size(); i++){
+//                float x =pathPoints.get(i).getX();
+//                float y =pathPoints.get(i).getY();
+//                float z =pathPoints.get(i).getZ();
+//                if(i+1 != pathPoints.size()){
+//                    Vector3f lookAt = lookAtPostion(pathPoints.get(i+1).getPositon(), pathPoints.get(i).getPositon());
+//                    allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), (float) Math.toDegrees(lookAt.x()),(float) Math.toDegrees(lookAt.y) , 0,0.25f));
+//                }
+//                else{
+//                    allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), 0,0 , 0,0.25f));
+//                }
+            }
         }
-    }
+
 
     private Vector3f lookAtPostion(Vector3f target, Vector3f positon){
-
         //math is dope
         Vector3f direction = new Vector3f(target.sub(positon).normalize());
         float yaw = (float) Math.atan2(direction.x, direction.z);
