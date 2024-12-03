@@ -29,11 +29,11 @@ public class InputHandler {
     private Mesh mesh;
     private Camera camera;
     private RawModel rawModel;
-    private RawModel fishModel;
+    private RawModel nodeModel;
     private Renderer renderer;
     private Loader loader;
     private TexturedModel texturedModel;
-    private TexturedModel fishTextured;
+    private TexturedModel nodeTextured;
     private RawModel square;
     private Entity entity;
     private ModelData modelData;
@@ -70,16 +70,16 @@ public class InputHandler {
 
         camera = new Camera();
         renderer = new Renderer(shader, window, camera);
-        fishModel = loader.loadToVAO(OBJFileLoader.loadOBJ("fish"));
-        fishTextured = new TexturedModel(fishModel, new ModelTexture(loader.loadTexture("fish_texture")));
+        nodeModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Arrow"));
+        nodeTextured = new TexturedModel(nodeModel, new ModelTexture(loader.loadTexture("ArrowTexture")));
         allEntities.add(entity);
         read();
-        for(int i = 0; i < nodes.size(); i++){
+        for(int i = 1; i < nodes.size(); i++){
             float x = nodes.get(i).getX();
             float y = nodes.get(i).getY();
             float z = nodes.get(i).getZ();
 
-            allEntities.add(new Entity(fishTextured, new Vector3f(x,y,z), 0,0,0, 1));
+            allEntities.add(new Entity(nodeTextured, new Vector3f(x,y+20,z), 90.0f,0,0, 0.5f));
 
         }
 
@@ -109,8 +109,7 @@ public class InputHandler {
                     renderer.processEntity(instance);
                 }
                 renderer.render();
-//                drawPath(allEntities);
-                //drawFullPath(nodes);
+
                 buildingInfoUI.renderUI();
 //            }
 
@@ -152,7 +151,7 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_N)== GLFW_PRESS){
             Vector3f pos = camera.getPosition();
             if (currentTime - lastPressedTime >= pressDelay){
-                allEntities.add(new Entity(fishTextured, new Vector3f(pos.x(), pos.y(), pos.z()), 0,  0, 0f, 0.5f));
+                allEntities.add(new Entity(nodeTextured, new Vector3f(pos.x(), pos.y(), pos.z()), 0,  0, 0f, 0.5f));
                 lastPressedTime = currentTime;
             }
         }
@@ -206,14 +205,14 @@ public class InputHandler {
     }
     private Node parseLine(String line){
         try{
-//            String coordPart = line.split(":")[1];
-//            int id = Integer.parseInt(lines[0].trim());
-            String[] coords = line.split(",");
+            String[] parts = line.split(":");
+            int id = Integer.parseInt(parts[0].trim());
+            String[] coords = parts[1].split(",");
             float x = Float.parseFloat(coords[0].trim());
             float y = Float.parseFloat(coords[1].trim());
             float z = Float.parseFloat(coords[2].trim());
 
-            return new Node(0,x,y,z);
+            return new Node(id,x,y,z);
 
         }catch (Exception e){
             System.err.println("Error Parsing Strings: "+line);
@@ -233,8 +232,8 @@ public class InputHandler {
             int id = 0;
             for(Entity e: allEntities){
                 Vector3f position = e.getPosition();
-                //String line = id + ":" + position.x + "," + position.y+ "," + position.z;
-                String line = position.x + "," + position.y+ "," + position.z;
+                String line = id + ":" + position.x + "," + position.y+ "," + position.z;
+                //String line = position.x + "," + position.y+ "," + position.z;
                 writer.write(line);
                 writer.newLine();
                 id++;
@@ -281,8 +280,25 @@ public class InputHandler {
             float y = pathPoints.get(i).getY();
             float z = pathPoints.get(i).getZ();
 
-             allEntities.add(new Entity(fishTextured, new Vector3f(x,y,z), 0,0,0,1));
+            if(i+1 != pathPoints.size()){
+                Vector3f lookAt = lookAtPostion(pathPoints.get(i+1).getPositon(), pathPoints.get(i).getPositon());
+                allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), (float) Math.toDegrees(lookAt.x()),(float) Math.toDegrees(lookAt.y) , 0,0.25f));
+            }
+            else{
+                allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), 0,0 , 0,0.25f));
+            }
+
         }
+    }
+
+    private Vector3f lookAtPostion(Vector3f target, Vector3f positon){
+
+        //math is dope
+        Vector3f direction = new Vector3f(target.sub(positon).normalize());
+        float yaw = (float) Math.atan2(direction.x, direction.z);
+        float pitch = (float) Math.asin(direction.y);
+        return new Vector3f(pitch, yaw, 0.0f);
+
     }
 
     public static ArrayList<Node> generatePoints(Node a , Node b, int numberOfPoints){

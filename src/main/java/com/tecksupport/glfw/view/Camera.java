@@ -5,7 +5,7 @@ import org.joml.Vector3f;
 
 
 public class Camera {
-    private static final float MOVE_SPEED = 3.0f;
+    private static final float MOVE_SPEED = 1.0f;
     private static final float ROTATE_SENSITIVE = 0.1f;
     private Vector3f position = new Vector3f(0,0,0);
     private float pitch;

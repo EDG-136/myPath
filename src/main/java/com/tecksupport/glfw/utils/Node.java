@@ -1,5 +1,7 @@
 package com.tecksupport.glfw.utils;
 
+import org.joml.Vector3f;
+
 public class Node {
     private float x;
     private float y;
@@ -28,6 +30,9 @@ public class Node {
     }
     public float getZ() {
         return z;
+    }
+    public Vector3f getPositon(){
+        return new Vector3f(x,y,z);
     }
     public int getId() {
         return id;
