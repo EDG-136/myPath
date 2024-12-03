@@ -1,9 +1,8 @@
 package com.tecksupport.schedulePlanner;
 
-import com.tecksupport.database.CourseQuery;
 import com.tecksupport.database.FacultyQuery;
 import com.tecksupport.glfw.pathfinder.OSM.ORSAPI;
-import com.tecksupport.glfw.pathfinder.OSM.RouteSummary;
+import com.tecksupport.glfw.pathfinder.Route.RouteSummary;
 
 import java.util.*;
 

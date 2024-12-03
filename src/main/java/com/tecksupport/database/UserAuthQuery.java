@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 public class UserAuthQuery {
     private final Connection connection;
     private final Logger logger = Logger.getLogger(this.getClass().getName());
+    private int studentID;
 
     public UserAuthQuery(Connection connection) {
         this.connection = connection;
@@ -75,7 +76,7 @@ public class UserAuthQuery {
             return true;
 
         try {
-            String query = "SELECT UserName,HashedPassword " +
+            String query = "SELECT StudentID, UserName,HashedPassword " +
                     "FROM Students " +
                     "WHERE UserName = ?;";
             PreparedStatement statement = connection.prepareStatement(query);
@@ -86,7 +87,10 @@ public class UserAuthQuery {
 
             if (result.next()) {
                 String hashPassword = result.getString("HashedPassword");
-                return BCrypt.checkpw(password, hashPassword);
+                if (BCrypt.checkpw(password, hashPassword)) {
+                    studentID = result.getInt("StudentID");
+                    return true;
+                }
             }
             return false;
 
@@ -94,5 +98,9 @@ public class UserAuthQuery {
             logger.log(Level.SEVERE, "MySQL query error when checking password!", e);
             return false;
         }
+    }
+
+    public int getStudentID() {
+        return studentID;
     }
 }

@@ -1,6 +1,9 @@
 package com.tecksupport.database;
 
+import com.tecksupport.glfw.model.Entity;
+import com.tecksupport.glfw.model.TexturedModel;
 import com.tecksupport.glfw.pathfinder.node.Node;
+import org.joml.Vector3f;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,9 +21,11 @@ public class NodeQuery {
     private final List<Node> nodeList;
     private final Connection connection;
     private final Logger logger = Logger.getLogger(getClass().getName());
+    private final TexturedModel texturedModel;
 
-    public NodeQuery(Connection connection) {
+    public NodeQuery(Connection connection, TexturedModel texturedModel) {
         this.connection = connection;
+        this.texturedModel = texturedModel;
         this.nodeList = getNodeListFromDB();
         this.entryMap = getEntryNodesFromDB();
     }
@@ -39,7 +44,7 @@ public class NodeQuery {
                 float y = resultSet.getFloat("Y");
                 float z = resultSet.getFloat("Z");
 
-                Node node = new Node(id, x, y, z);
+                Node node = new Node(texturedModel, id, x, y, z);
                 nodes.add(node);
             }
 

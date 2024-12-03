@@ -1,19 +1,20 @@
 package com.tecksupport.glfw.pathfinder.Route;
 
-import java.util.Map;
+import com.tecksupport.schedulePlanner.EDayInWeek;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class RouteSummary {
+    private float totalDistanceInMeter;
+    private float totalTimeInSec;
+    private final HashMap<EDayInWeek, List<SegmentSummary>> segmentSummaryMap = new HashMap<>();
 
-    private final float totalDistanceInMeter;
-    private final float totalTimeInSec;
-    private final Map<Integer, List<SegmentSummary>> segmentSummaryMap;
+    public void addSegment(EDayInWeek day, SegmentSummary segmentSummary) {
+        List<SegmentSummary> summaries = segmentSummaryMap.computeIfAbsent(day, k -> new ArrayList<>());
 
-    public RouteSummary(float totalDistanceInMeter, float totalTimeInSec,
-                        Map<Integer, List<SegmentSummary>> segmentSummaryMap) {
-        this.totalDistanceInMeter = totalDistanceInMeter;
-        this.totalTimeInSec = totalTimeInSec;
-        this.segmentSummaryMap = segmentSummaryMap;
+        summaries.add(segmentSummary);
     }
 
     public float getTotalDistanceInMeter() {
@@ -24,7 +25,51 @@ public class RouteSummary {
         return totalTimeInSec;
     }
 
-    public Map<Integer, List<SegmentSummary>> getSegmentSummaryMap() {
+    public HashMap<EDayInWeek, List<SegmentSummary>> getSegmentSummaryMap() {
         return segmentSummaryMap;
     }
+
+    public void setTotalDistanceInMeter(float totalDistanceInMeter) {
+        this.totalDistanceInMeter = totalDistanceInMeter;
+    }
+
+    public void setTotalTimeInSec(float totalTimeInSec) {
+        this.totalTimeInSec = totalTimeInSec;
+    }
+
+    public float getLongestDistance() {
+        float longest = Float.MIN_VALUE;
+        for (List<SegmentSummary> segmentSummaryList : segmentSummaryMap.values()) {
+            for (SegmentSummary segmentSummary : segmentSummaryList) {
+                if (segmentSummary.getDistanceInMeter() > longest)
+                    longest = segmentSummary.getDistanceInMeter();
+            }
+        }
+        return longest == Float.MIN_VALUE ? 0 : longest;
+    }
+
+    public float getAverageDistance() {
+        float total = 0;
+        float segmentCounter = 0;
+        for (List<SegmentSummary> segmentSummaryList : segmentSummaryMap.values()) {
+            for (SegmentSummary segmentSummary : segmentSummaryList) {
+                total += segmentSummary.getDistanceInMeter();
+                segmentCounter++;
+            }
+        }
+
+        return segmentCounter == 0 ? 0 : total / segmentCounter;
+    }
+
+    public float getShortestDistance() {
+        float shortest = Float.MAX_VALUE;
+        for (List<SegmentSummary> segmentSummaryList : segmentSummaryMap.values()) {
+            for (SegmentSummary segmentSummary : segmentSummaryList) {
+                if (segmentSummary.getDistanceInMeter() < shortest)
+                    shortest = segmentSummary.getDistanceInMeter();
+            }
+        }
+        return shortest == Float.MAX_VALUE ? 0 : shortest;
+    }
 }
+

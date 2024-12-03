@@ -13,7 +13,7 @@ public class SegmentSummary {
         return distanceInMeter;
     }
 
-    public float getTimeInSec(){
+    public float getTimeInSec() {
         return timeInSec;
     }
 }

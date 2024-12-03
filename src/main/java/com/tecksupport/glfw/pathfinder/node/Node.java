@@ -1,12 +1,18 @@
 package com.tecksupport.glfw.pathfinder.node;
 
+import com.tecksupport.glfw.model.Entity;
+import com.tecksupport.glfw.model.TexturedModel;
+import org.joml.Vector3f;
+
 public class Node {
+    private final Entity entity;
     private final long id;
     private final double x, y, z;
     private String label;  // Labels can be updated dynamically
     private int distance;
 
-    public Node(long id, double x, double y, double z) {
+    public Node(TexturedModel texturedModel, long id, double x, double y, double z) {
+        this.entity = new Entity(texturedModel, new Vector3f((float) x, (float) y, (float) z), 0, 0, 0, 0.25f);
         this.id = id;
         this.x = x;
         this.y = y;

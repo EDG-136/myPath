@@ -2,7 +2,7 @@ package com.tecksupport.glfw.ui;
 
 import com.tecksupport.database.CourseQuery;
 import com.tecksupport.database.FacultyQuery;
-import com.tecksupport.glfw.pathfinder.OSM.RouteSummary;
+import com.tecksupport.glfw.pathfinder.Route.RouteSummary;
 import com.tecksupport.schedulePlanner.*;
 import com.tecksupport.glfw.view.Window;
 import imgui.*;
@@ -12,7 +12,6 @@ import imgui.type.ImBoolean;
 import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class ScheduleGeneratorUI {
     private final static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
