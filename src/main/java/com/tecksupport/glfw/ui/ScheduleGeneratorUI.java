@@ -145,7 +145,7 @@ public class ScheduleGeneratorUI {
             ImGui.tableSetColumnIndex(0);
             if (ImGui.button("View##" + studentSchedules)) {
                 boolean isNew = true;
-                String newID = ScheduleUI.calculateID(studentSchedules);
+                String newID = StudentSchedules.calculateID(studentSchedules);
                 for (ScheduleUI scheduleUI : openedSchedules) {
                     if (scheduleUI.getId().equals(newID)) {
                         isNew = false;

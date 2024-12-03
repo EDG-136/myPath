@@ -11,16 +11,18 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StudentSchedules {
+    private final String id;
     private final List<CourseSection> courseSectionList = new ArrayList<>();
     private RouteSummary routeSummary;
 
     // Had   to keep this for the first empty schedule
     public StudentSchedules() {
-
+        id = "";
     }
 
     public StudentSchedules(StudentSchedules studentSchedules) {
         courseSectionList.addAll(studentSchedules.getCourseSectionList());
+        id = calculateID(this);
     }
 
     public boolean addCourseSection(CourseSection newCourseSection) {
@@ -86,6 +88,18 @@ public class StudentSchedules {
 
     public void setRouteSummary(RouteSummary routeSummary) {
         this.routeSummary = routeSummary;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public static String calculateID(StudentSchedules studentSchedules) {
+        StringBuilder id = new StringBuilder();
+        for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
+            id.append(courseSection.getID());
+        }
+        return id.toString();
     }
 }
 

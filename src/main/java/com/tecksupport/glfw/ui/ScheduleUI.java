@@ -50,7 +50,7 @@ public class ScheduleUI {
         this.offset = offset;
         this.isOpen = new ImBoolean(true);
 
-        this.id = calculateID(studentSchedules);
+        this.id = studentSchedules.getId();
 
         width = window.getScreenWidth() / 3;
         height = window.getScreenHeight() / 2;
@@ -230,14 +230,6 @@ public class ScheduleUI {
 
     public String getId() {
         return id;
-    }
-
-    public static String calculateID(StudentSchedules studentSchedules) {
-        StringBuilder id = new StringBuilder();
-        for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
-            id.append(courseSection.getID());
-        }
-        return id.toString();
     }
 
     public static class ColoredBlock {

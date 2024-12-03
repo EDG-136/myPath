@@ -31,7 +31,7 @@ public class FileReader {
         try {
             Statement statement = connection.createStatement();
 
-            String dropEnrollments = "DROP TABLE IF EXISTS Enrollments;";
+            String dropFavoriteSchedule = "DROP TABLE IF EXISTS FavoriteSchedules;";
             String dropStudents = "DROP TABLE IF EXISTS Students;";
             String dropPositions = "DROP TABLE IF EXISTS Positions;";
             String dropFaculties = "DROP TABLE IF EXISTS Faculties;";
@@ -73,7 +73,7 @@ public class FileReader {
                     "ON DELETE CASCADE" +
                     ");";
             String positionTable = "CREATE TABLE IF NOT EXISTS Positions ("
-                    + "PositionID VARCHAR(10) NOT NULL, "
+                    + "PositionID INT(10) NOT NULL, "
                     + "X FLOAT(10, 5), "
                     + "Y FLOAT(10, 5), "
                     + "Z FLOAT(10, 5), "
@@ -81,7 +81,7 @@ public class FileReader {
                     + ");";
             String entriesTable = "CREATE TABLE IF NOT EXISTS Entries (" +
                     "FacultyID VARCHAR(20) NOT NULL," +
-                    "PositionID VARCHAR(10) NOT NULL," +
+                    "PositionID INT(10) NOT NULL," +
                     "CONSTRAINT entriesPK PRIMARY KEY (FacultyID, PositionID)," +
                     "CONSTRAINT facultyFK FOREIGN KEY (FacultyID)" +
                     "REFERENCES Faculties(facultyID)," +
@@ -96,17 +96,19 @@ public class FileReader {
                     "HashedPassword VARCHAR(60) NOT NULL," +
                     "CONSTRAINT studentPK PRIMARY KEY (StudentID)" +
                     ");";
-            String enrollmentTable = "CREATE TABLE IF NOT EXISTS Enrollments (" +
+            String favoriteSchedule = "CREATE TABLE IF NOT EXISTS FavoriteSchedules (" +
+                    "StudentScheduleID VARCHAR(100) NOT NULL," +
                     "StudentID INT(9) NOT NULL," +
                     "CourseID INT(5) NOT NULL," +
-                    "CONSTRAINT StudentFK FOREIGN KEY (StudentID)" +
+                    "CONSTRAINT studentFK FOREIGN KEY (StudentID)" +
                     "REFERENCES Students(StudentID)," +
-                    "CONSTRAINT CourseFK FOREIGN KEY (CourseID)" +
+                    "CONSTRAINT courseFK FOREIGN KEY (CourseID)" +
                     "REFERENCES Courses(CourseID)," +
-                    "CONSTRAINT EnrollPK PRIMARY KEY (StudentID, CourseID)" +
+                    "CONSTRAINT studentSchedulePK PRIMARY KEY (StudentScheduleID, StudentID, CourseID)" +
                     ");";
 
-            statement.execute(dropEnrollments);
+
+            statement.execute(dropFavoriteSchedule);
             statement.execute(dropSchedules);
             statement.execute(dropCourses);
             statement.execute(dropStudents);
@@ -120,15 +122,70 @@ public class FileReader {
             statement.execute(studentTable);
             statement.execute(courseTable);
             statement.execute(scheduleTable);
-            statement.execute(enrollmentTable);
+            statement.execute(favoriteSchedule);
 
             readFaculties();
             readCourse();
             readSchedules();
             readFacultyInfoCSV();
             readFacultyLongitudeAndLatitude();
+            readNodesIntoPositionsTable();
+            readNodesIDIntoEntriesTable();
         } catch (SQLException e) {
             logger.log(Level.SEVERE, "SQL Error", e);
+        }
+    }
+
+    public void readNodesIDIntoEntriesTable() {
+        try(BufferedReader br = new BufferedReader(new java.io.FileReader("src/main/resources/dataFiles/entries.txt"))) {
+            String line = br.readLine();
+
+            StringBuilder query = new StringBuilder();
+            query.append("INSERT INTO Entries (FacultyID, PositionID) VALUES ");
+            while (line != null) {
+                String facultyID = line.substring(0, line.indexOf(' '));
+                int positionID = Integer.parseInt(line.substring(line.indexOf(' ') + 1));
+
+                query.append("('").append(facultyID).append("',");
+                query.append("'").append(positionID).append("'),");
+
+                line = br.readLine();
+            }
+            query.deleteCharAt(query.lastIndexOf(","));
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
+            preparedStatement.execute();
+
+        } catch (IOException | SQLException e) {
+            logger.log(Level.SEVERE, "SQL read faculties longitude and latitude error", e);
+        }
+    }
+
+    public void readNodesIntoPositionsTable() {
+        try(BufferedReader br = new BufferedReader(new java.io.FileReader("src/main/resources/dataFiles/nodes.txt"))) {
+            String line = br.readLine();
+
+            StringBuilder query = new StringBuilder();
+            query.append("INSERT INTO Positions (PositionID, x, y, z) VALUES ");
+            while (line != null) {
+                String id = line.substring(0, line.indexOf(':'));
+                float x = Float.parseFloat(line.substring(line.indexOf(':') + 1, line.indexOf(',')));
+                float y = Float.parseFloat(line.substring(line.indexOf(',') + 1, line.lastIndexOf(',')));
+                float z = Float.parseFloat(line.substring(line.lastIndexOf(',') + 1));
+                query.append("('").append(id).append("',");
+                query.append("'").append(x).append("',");
+                query.append("'").append(y).append("',");
+                query.append("'").append(z).append("'),");
+
+                line = br.readLine();
+            }
+            query.deleteCharAt(query.lastIndexOf(","));
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query.toString());
+            preparedStatement.execute();
+
+        } catch (IOException | SQLException e) {
+            logger.log(Level.SEVERE, "SQL read faculties longitude and latitude error", e);
         }
     }
 
@@ -265,7 +322,7 @@ public class FileReader {
                 query.append("),\n");
             }
             int lastComma = query.lastIndexOf(",");
-            query.replace(lastComma, lastComma + 1, ";");
+            query.deleteCharAt(lastComma);
             Statement statement = connection.createStatement();
             statement.execute(query.toString());
 
