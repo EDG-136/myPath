@@ -69,7 +69,7 @@ public class RouteSummary {
                     shortest = segmentSummary.getDistanceInMeter();
             }
         }
-        return shortest;
+        return shortest == Float.MAX_VALUE ? 0 : shortest;
     }
 }
 

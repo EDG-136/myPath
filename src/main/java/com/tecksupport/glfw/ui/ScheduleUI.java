@@ -79,7 +79,7 @@ public class ScheduleUI {
 
     public void render() {
         ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
-        ImGui.setNextWindowPos((window.getScreenWidth() / 3 - width + offset * OFFSET_SIZE) % window.getScreenWidth(), (40 + offset * OFFSET_SIZE) % window.getScreenHeight(), ImGuiCond.Always);
+        ImGui.setNextWindowPos((window.getScreenWidth() / 3 - width + offset * OFFSET_SIZE) % window.getScreenWidth(), (40 + offset * OFFSET_SIZE) % window.getScreenHeight(), ImGuiCond.FirstUseEver);
         if (!ImGui.begin(TITLE + "##" + id, isOpen)) {
             ImGui.end();
             return;

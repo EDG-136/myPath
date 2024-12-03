@@ -9,6 +9,7 @@ import imgui.*;
 import imgui.flag.*;
 import imgui.type.ImBoolean;
 
+import java.text.DecimalFormat;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -19,8 +20,6 @@ public class ScheduleGeneratorUI {
     private final ImBoolean isOpen = new ImBoolean();
     private final Window window;
     private final CourseQuery courseQuery;
-    private final FacultyQuery facultyQuery;
-    private final ImGuiTextFilter filter = new ImGuiTextFilter();
     private final HashSet<Integer> selectedCourseIndexes = new HashSet<>();
     private final HashSet<Integer> blackListForGenerator = new HashSet<>();
     private final HashSet<Integer> courseSectionBlackListIndexes = new HashSet<>();
@@ -43,7 +42,6 @@ public class ScheduleGeneratorUI {
     public ScheduleGeneratorUI(Window window, CourseQuery courseQuery, FacultyQuery facultyQuery) {
         this.window = window;
         this.courseQuery = courseQuery;
-        this.facultyQuery = facultyQuery;
         this.studentScheduleGenerator = new StudentScheduleGenerator(facultyQuery);
         this.defaultFont = ImGui.getFont();
         this.isOpen.set(true);
@@ -171,17 +169,19 @@ public class ScheduleGeneratorUI {
                 longest = routeSummary.getLongestDistance();
             }
 
+            DecimalFormat df = new DecimalFormat("0.0");
+
             ImGui.tableSetColumnIndex(1);
-            ImGui.text(total + "m");
+            ImGui.text(df.format(total) + "m");
 
             ImGui.tableSetColumnIndex(2);
-            ImGui.text(shortest + "m");
+            ImGui.text(df.format(shortest) + "m");
 
             ImGui.tableSetColumnIndex(3);
-            ImGui.text(average + "m");
+            ImGui.text(df.format(average) + "m");
 
             ImGui.tableSetColumnIndex(4);
-            ImGui.text(longest + "m");
+            ImGui.text(df.format(longest) + "m");
         }
 
         ImGui.endTable();
@@ -385,12 +385,18 @@ public class ScheduleGeneratorUI {
         if (!ImGui.beginCombo("##CourseCatalog", selectedCatalog)) {
             return;
         }
+        List<String> catalogList = new ArrayList<>();
         for (GeneralCourse generalCourse : generalCourseList) {
             if (!generalCourse.getSubject().equals(selectedSubject))
                 continue;
-            boolean isSelected = generalCourse.getCatalog().equals(selectedCatalog);
-            if (ImGui.selectable(generalCourse.getCatalog(), isSelected))
-                selectedCatalog = generalCourse.getCatalog();
+            catalogList.add(generalCourse.getCatalog());
+        }
+        Collections.sort(catalogList);
+
+        for (String catalog : catalogList) {
+            boolean isSelected = selectedCatalog.contains(catalog);
+            if (ImGui.selectable(catalog, isSelected))
+                selectedCatalog = catalog;
 
             if (isSelected)
                 ImGui.setItemDefaultFocus();
