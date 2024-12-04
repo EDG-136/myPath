@@ -126,41 +126,55 @@ public class InputHandler {
 
         majorNodes = nodeQuery.getNodes();
 
-        int current = 0;
+        Node kelNode = nodeQuery.getEntryNodeFromFacultyID("KEL");
+        Entity majorNodeEntity = new Entity(wayPointTexture, kelNode.getPosition(), 0, 0, 0, 2);
+        majorNodeEntity.addPosition(0, 50, 0);
+        kelNode.setEntity(majorNodeEntity);
+
+        Node markNode = nodeQuery.getEntryNodeFromFacultyID("MARK");
+        Entity markEntity = new Entity(wayPointTexture, markNode.getPosition(), 0, 0, 0, 2);
+        markEntity.addPosition(0, 50, 0);
+        markNode.setEntity(markEntity);
+
+        List<Node> shortestPath = DijkstraAlgorithm.getShortestPath(kelNode, markNode);
+        for (int i = 0; i < shortestPath.size() - 1; i++) {
+            drawPath(shortestPath.get(i), shortestPath.get(i + 1));
+            System.out.println("From " + shortestPath.get(i).getId() + " to " + shortestPath.get(i + 1).getId());
+        }
+
         for (Node node : majorNodes) {
-            Entity majorNodeEntity = new Entity(wayPointTexture, node.getPosition(), 0, 0, 0, 2);
-            majorNodeEntity.addPosition(0, 100, 0);
-            node.setEntity(majorNodeEntity);
-//            int maxPath = 62;
-//            int current = 1;
-//            hsv[0] = getHueValue(current, maxPath);
-//            hsv[1] = 1;
-//            hsv[2] = 1;
-//
+//            Entity majorNodeEntity = new Entity(wayPointTexture, node.getPosition(), 0, 0, 0, 2);
+//            majorNodeEntity.addPosition(0, 100, 0);
+//            node.setEntity(majorNodeEntity);
+
+//            int maxPath = 10;
+//            int current = 0;
 //
 //            for (Node minorNode : node.getNeighborList()) {
 //                drawPath(node, minorNode);
+//                hsv[0] = getHueValue(current, maxPath);
+//                hsv[1] = 1;
+//                hsv[2] = 1;
 //                ImGui.colorConvertHSVtoRGB(hsv, rgb);
-//                System.out.println(rgb);
 //                current++;
 //            }
         }
 
-        for (Node from : nodeQuery.getNodes()) {
-            for (Node to : nodeQuery.getNodes()) {
-                List<Node> shortestPath = DijkstraAlgorithm.getShortestPath(from, to);
-                System.out.println("Finding Path From " + from.getId() + " to " + to.getId());
-                if (shortestPath.isEmpty()) {
-                    System.out.println("Can't find path from " + from.getId() + " to " + to.getId());
-                    continue;
-                }
-                System.out.print("\t");
-                for (Node node : shortestPath) {
-                    System.out.print(node.getId() + " -> ");
-                }
-                System.out.println();
-            }
-        }
+//        for (Node from : nodeQuery.getNodes()) {
+//            for (Node to : nodeQuery.getNodes()) {
+//                List<Node> shortestPath = DijkstraAlgorithm.getShortestPath(from, to);
+//                System.out.println("Finding Path From " + from.getId() + " to " + to.getId());
+//                if (shortestPath.isEmpty()) {
+//                    System.out.println("Can't find path from " + from.getId() + " to " + to.getId());
+//                    continue;
+//                }
+//                System.out.print("\t");
+//                for (Node node : shortestPath) {
+//                    System.out.print(node.getId() + " -> ");
+//                }
+//                System.out.println();
+//            }
+//        }
     }
 
     public float getHueValue(int index, int total) {
@@ -273,16 +287,16 @@ public class InputHandler {
     }
 
     public void drawPath(Node a, Node b) {
-        int numberOfPoints = 7;
-        List<Node> pathPoints = generatePoints(a, b, numberOfPoints);
+        float distanceBetweenPoints = 100;
+        List<Node> pathPoints = generatePoints(a, b, distanceBetweenPoints);
         for (int i = 0; i < pathPoints.size(); i++) {
             float x = pathPoints.get(i).getX();
             float y = pathPoints.get(i).getY();
             float z = pathPoints.get(i).getZ();
             if (i + 1 != pathPoints.size()) {
                 Vector3f lookAt = lookAtPostion(pathPoints.get(i + 1).getPosition(), pathPoints.get(i).getPosition());
-                Entity nodeEntity = new Entity(nodeTextured, new Vector3f(x, y, z), (float) Math.toDegrees(lookAt.x()), (float) Math.toDegrees(lookAt.y), 0, 0.25f);
-                nodeEntity.setColor(new Vector4f(rgb[0], rgb[1], rgb[2], 1));
+                Entity nodeEntity = new Entity(nodeTextured, new Vector3f(x, y + 50, z), (float) Math.toDegrees(lookAt.x()), (float) Math.toDegrees(lookAt.y), 0, 0.25f);
+                nodeEntity.setColor(new Vector4f(0.7f, 0, 0, 0.1f));
                 pathNodeList.add(nodeEntity);
             }
         }
@@ -297,16 +311,24 @@ public class InputHandler {
 
     }
 
-    public static List<Node> generatePoints(Node a , Node b, int numberOfPoints){
+    public static List<Node> generatePoints(Node a , Node b, float distanceBetweenPoints){
         List<Node> points = new ArrayList<>();
+
+        float x = b.getX() - a.getX();
+        float y = b.getY() - a.getY();
+        float z = b.getZ() - a.getZ();
+
+        double distance = Math.sqrt(x * x + y * y + z * z);
+
+        int numberOfPoints = (int) (distance / distanceBetweenPoints);
 
         //P=A+t⋅(B−A)
         for (int i = 0; i <= numberOfPoints; i ++){
             float t = i / (float) numberOfPoints;
-            float x = a.getX() + t * (b.getX() - a.getX());
-            float y = a.getY() + t * (b.getY() - a.getY());
-            float z = a.getZ() + t * (b.getZ() - a.getZ());
-            points.add(new Node(0, x,y,z));
+            float pointX = a.getX() + t * (b.getX() - a.getX());
+            float pointY = a.getY() + t * (b.getY() - a.getY());
+            float pointZ = a.getZ() + t * (b.getZ() - a.getZ());
+            points.add(new Node(0, pointX,pointY,pointZ));
         }
         return points;
     }
