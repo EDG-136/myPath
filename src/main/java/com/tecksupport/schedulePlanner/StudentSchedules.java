@@ -1,26 +1,32 @@
 package com.tecksupport.schedulePlanner;
 
-import com.tecksupport.glfw.pathfinder.OSM.RouteSummary;
+import com.tecksupport.glfw.pathfinder.Route.RouteSummary;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class StudentSchedules {
     private final String id;
-    private final List<CourseSection> courseSectionList = new ArrayList<>();
+    private final List<CourseSection> courseSectionList;
     private RouteSummary routeSummary;
 
     // Had   to keep this for the first empty schedule
     public StudentSchedules() {
         id = "";
+        courseSectionList = new ArrayList<>();
+    }
+
+    // For db query
+    public StudentSchedules(String id, List<CourseSection> courseSectionList) {
+        this.id = id;
+        this.courseSectionList = courseSectionList;
     }
 
     public StudentSchedules(StudentSchedules studentSchedules) {
+        courseSectionList = new ArrayList<>();
         courseSectionList.addAll(studentSchedules.getCourseSectionList());
         id = calculateID(this);
     }

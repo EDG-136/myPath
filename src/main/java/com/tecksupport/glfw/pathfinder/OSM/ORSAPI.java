@@ -1,5 +1,7 @@
 package com.tecksupport.glfw.pathfinder.OSM;
 
+import com.tecksupport.glfw.pathfinder.Route.RouteSummary;
+import com.tecksupport.glfw.pathfinder.Route.SegmentSummary;
 import com.tecksupport.schedulePlanner.EDayInWeek;
 import com.tecksupport.schedulePlanner.Faculty;
 import org.json.JSONArray;

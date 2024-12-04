@@ -1,8 +1,8 @@
 package com.tecksupport.utils;
 
 import com.tecksupport.glfw.pathfinder.OSM.ORSAPI;
-import com.tecksupport.glfw.pathfinder.OSM.RouteSummary;
-import com.tecksupport.glfw.pathfinder.OSM.SegmentSummary;
+import com.tecksupport.glfw.pathfinder.Route.RouteSummary;
+import com.tecksupport.glfw.pathfinder.Route.SegmentSummary;
 import com.tecksupport.schedulePlanner.EDayInWeek;
 import com.tecksupport.schedulePlanner.Faculty;
 import org.junit.jupiter.api.Test;

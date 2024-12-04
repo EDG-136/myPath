@@ -1,12 +1,20 @@
 package com.tecksupport.glfw.pathfinder.node;
 
+import com.tecksupport.glfw.model.Entity;
+import org.joml.Vector3f;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Node {
-    private final long id;
-    private final double x, y, z;
+    private final int id;
+    private final float x, y, z;
     private String label;  // Labels can be updated dynamically
     private int distance;
+    private Entity entity;
+    private List<Node> neighborList = new ArrayList<>();
 
-    public Node(long id, double x, double y, double z) {
+    public Node(int id, float x, float y, float z) {
         this.id = id;
         this.x = x;
         this.y = y;
@@ -15,20 +23,24 @@ public class Node {
         this.distance = Integer.MAX_VALUE; // Default distance to "infinity"
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public double getX() {
+    public float getX() {
         return x;
     }
 
-    public double getY() {
+    public float getY() {
         return y;
     }
 
-    public double getZ() {
+    public float getZ() {
         return z;
+    }
+
+    public Vector3f getPosition() {
+        return new Vector3f(x, y, z);
     }
 
     public String getLabel() {
@@ -45,6 +57,18 @@ public class Node {
 
     public void setDistance(int distance) {
         this.distance = distance;
+    }
+
+    public Entity getEntity() {
+        return entity;
+    }
+
+    public void setEntity(Entity entity) {
+        this.entity = entity;
+    }
+
+    public void addNeighborNode(Node node) {
+        neighborList.add(node);
     }
 
     @Override

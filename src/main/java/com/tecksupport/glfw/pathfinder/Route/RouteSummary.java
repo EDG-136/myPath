@@ -1,4 +1,4 @@
-package com.tecksupport.glfw.pathfinder.OSM;
+package com.tecksupport.glfw.pathfinder.Route;
 
 import com.tecksupport.schedulePlanner.EDayInWeek;
 
