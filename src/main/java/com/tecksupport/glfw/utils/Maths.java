@@ -30,14 +30,5 @@ public class Maths {
         viewMatrix.translate(negativeCameraPos);
         return viewMatrix;
     }
-    public static Vector3f lookAtPostion(Vector3f target, Vector3f positon){
-
-        //math is dope
-        Vector3f direction = new Vector3f(target.sub(positon).normalize());
-        float yaw = (float) Math.atan2(direction.x, direction.z);
-        float pitch = (float) Math.asin(direction.y);
-        return new Vector3f(pitch, yaw, 0.0f);
-
-    }
 
 }

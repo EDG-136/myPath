@@ -1,40 +1,46 @@
 package com.tecksupport.glfw.controller;
 
 
+import com.tecksupport.database.CourseQuery;
+import com.tecksupport.database.FacultyQuery;
+import com.tecksupport.database.NodeQuery;
+import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.model.*;
+import com.tecksupport.glfw.pathfinder.node.Node;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
-import com.tecksupport.glfw.utils.Node;
-
-import com.tecksupport.glfw.utils.pathHandler;
+import com.tecksupport.glfw.ui.ScheduleGeneratorUI;
+import com.tecksupport.glfw.ui.FacultyInfoUI;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
 import imgui.ImGui;
+import imgui.ImGuiIO;
 import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
-import org.joml.Vector3f;
-
-import java.io.*;
-import java.util.*;
 
 
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL11C.GL_LINE_STRIP;
+
 
 public class InputHandler {
+    private static final int ORIGINAL_WIDTH = 800;
+    private static final int ORIGINAL_HEIGHT = 600;
+    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
+    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private final CourseQuery courseQuery;
+    private final UserAuthQuery userAuthQuery;
+    private final FacultyQuery facultyQuery;
+    private final NodeQuery nodeQuery;
     private Window window;
     private Shader shader;
     private Mesh mesh;
     private Camera camera;
     private RawModel rawModel;
-    private RawModel nodeModel;
     private Renderer renderer;
     private Loader loader;
     private TexturedModel texturedModel;
-    private TexturedModel nodeTextured;
     private RawModel square;
     private Entity entity;
     private ModelData modelData;
@@ -42,94 +48,92 @@ public class InputHandler {
     private double oldPitch;
     private BuildingInfoUI buildingInfoUI;
     private AuthUI authUI;
-    private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
-    private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private FacultyInfoUI facultyInfoUI;
+    private ScheduleGeneratorUI scheduleGeneratorUI;
 
-    ArrayList<Node> nodes = new ArrayList<>();
-    private pathHandler path;
-    Map<Integer, List<Integer>> neighbors = new HashMap<>();
-
-
-
-    private static double lastPressedTime = 0;
-    private static final double pressDelay = 0.3;
-
-    private Random random = new Random();
-
-    private List<Entity> allEntities = new ArrayList<Entity>();
+    public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery, NodeQuery nodeQuery)
+    {
+        this.courseQuery = courseQuery;
+        this.userAuthQuery = userAuthQuery;
+        this.facultyQuery = facultyQuery;
+        this.nodeQuery = nodeQuery;
+    }
 
     public void init() {
-        window = new Window(800, 600, "myPath");
+        window = new Window(ORIGINAL_WIDTH, ORIGINAL_HEIGHT, "myPath");
         window.init();
         loader = new Loader();
         shader = new Shader(
                 "src/main/java/com/tecksupport/glfw/shader/vertexShader.txt",
                 "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt"
         );
-        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+        renderer = new Renderer(shader, window);
 
-        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
-
-        entity = new Entity(texturedModel, new Vector3f(0, 0, 0), 0, 0, 0, 20);
-
+//        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+//
+//        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
+//
+//        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
         camera = new Camera();
-        renderer = new Renderer(shader, window, camera);
-        nodeModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Arrow"));
-        nodeTextured = new TexturedModel(nodeModel, new ModelTexture(loader.loadTexture("ArrowTexture")));
-        allEntities.add(entity);
-
-        read();
-
-        for(int i = 1; i < nodes.size(); i++){
-            float x = nodes.get(i).getX();
-            float y = nodes.get(i).getY();
-            float z = nodes.get(i).getZ();
-
-            allEntities.add(new Entity(nodeTextured, new Vector3f(x,y+20,z), 90.0f,0,0, 0.5f));
-
-        }
+        // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
+        //Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
+        // shader.setUniform("camera", camMat);
 
         glfwSetCursorPosCallback(window.getWindowID(), this::cursorCallback);
         glfwSetMouseButtonCallback(window.getWindowID(), this::mouseButtonCallback);
 
+
         System.out.println("Initializing ImGui");
         ImGui.createContext();
+
+        ImGuiIO io = ImGui.getIO();
+        io.addConfigFlags(ImGuiConfigFlags.DockingEnable);
+        io.addConfigFlags(ImGuiConfigFlags.ViewportsEnable);
+
         imGuiGlfw.init(window.getWindowID(), true);
         imGuiGl3.init(window.getGlslVersion());
         System.out.println("Initialized ImGui");
 
-        authUI = new AuthUI(window);
-        buildingInfoUI = new BuildingInfoUI(window);
+        io.setIniFilename(null);
+
+        authUI = new AuthUI(window, userAuthQuery);
+//        buildingInfoUI = new BuildingInfoUI(window);
+        facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
+        scheduleGeneratorUI = new ScheduleGeneratorUI(window, courseQuery, facultyQuery);
+
+        for (Node node : nodeQuery.getNodes()) {
+
+        }
     }
 
     public void run() {
         while (!window.shouldClose()) {
             startFrameImGui();
 
-//            if (!authUI.isLoggedIn()) {
-//                authUI.renderLoginPage();
-//            } else {
+            if (!authUI.isLoggedIn()) {
+                renderer.prepare(0f,0f,0f,0f);
+                authUI.renderLoginPage();
+                scheduleGeneratorUI.render();
+                ImGui.showDemoWindow();
+            } else {
                 // Only render the main application if the user is logged in
                 processInput();
-                for(Entity instance : allEntities){
-                    renderer.processEntity(instance);
-                }
-                renderer.render();
-
+                renderer.prepare(0.6f, 0.8f, 1f, 1f);
+                shader.bind();
+                shader.loadViewMatrix(camera);
+                renderer.render(entity, shader);
+                shader.unbind();
                 buildingInfoUI.renderUI();
-//            }
-
+                facultyInfoUI.render();
+                //scheduleGeneratorUI.render();
+            }
             endFrameImGui();
             window.update();
         }
-        //export();
         cleanup();
     }
 
     public void processInput() {
-
-        double currentTime = glfwGetTime();
-
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_W) == GLFW_PRESS) {
             camera.forward();
         }
@@ -154,30 +158,9 @@ public class InputHandler {
         if (glfwGetKey(window.getWindowID(), GLFW_KEY_E) == GLFW_PRESS) {
             camera.yawRight();
         }
-        if (glfwGetKey(window.getWindowID(), GLFW_KEY_N)== GLFW_PRESS){
-            Vector3f pos = camera.getPosition();
-            if (currentTime - lastPressedTime >= pressDelay){
-                allEntities.add(new Entity(nodeTextured, new Vector3f(pos.x(), pos.y(), pos.z()), 0,  0, 0f, 0.5f));
-                lastPressedTime = currentTime;
-            }
-        }
-        if (glfwGetKey(window.getWindowID(), GLFW_KEY_M)== GLFW_PRESS){
-            if (currentTime - lastPressedTime >= pressDelay){
-                allEntities.removeLast();
-                lastPressedTime = currentTime;
-            }
-        }
-        if(glfwGetKey(window.getWindowID(), GLFW_KEY_ENTER)== GLFW_PRESS){
-            if(currentTime - lastPressedTime >= pressDelay){
-                drawFullPath(neighbors, nodes);
-            }
-        }
-        if(glfwGetKey(window.getWindowID(), GLFW_KEY_P)== GLFW_PRESS){
-            if(currentTime - lastPressedTime >= pressDelay){
-                drawFullPath(nodes);
-            }
-        }
+        // Handle more inputs here
     }
+
 
     void mouseButtonCallback(long window, int button, int action, int mods) {
         if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
@@ -193,182 +176,27 @@ public class InputHandler {
             oldPitch = yPos;
             return;
         }
+
         double yaw = xPos - oldYaw;
         double pitch = yPos - oldPitch;
+
         camera.addRotation((float) pitch, (float) yaw, 0);
+
         oldYaw = xPos;
         oldPitch = yPos;
     }
-    private void read(){
-        String filename = "nodes.txt";
-        String filename1 = "neighborNodes.txt";
-
-        try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
-            String line;
-            while ((line = reader.readLine()) != null){
-                Node node = parseLine(line);
-                nodes.add(node);
-            }
-
-        }catch (IOException e){
-            System.err.println("Error reading the file: " + e.getMessage());
-        }
-        try(BufferedReader reader = new BufferedReader(new FileReader(filename1))){
-            String line;
-            while((line = reader.readLine()) != null){
-                parseNeighbor(line, neighbors);
-            }
-
-        }catch(IOException e){
-            System.err.println(("Error reading neighbor file: "+ e.getMessage()));
-        }
-
-    }
-    private Node parseLine(String line){
-        try{
-            String[] parts = line.split(":");
-            int id = Integer.parseInt(parts[0].trim());
-            String[] coords = parts[1].split(",");
-            float x = Float.parseFloat(coords[0].trim());
-            float y = Float.parseFloat(coords[1].trim());
-            float z = Float.parseFloat(coords[2].trim());
-
-            return new Node(id,x,y,z);
-
-        }catch (Exception e){
-            System.err.println("Error Parsing Strings: "+line);
-            return null;
-        }
-
-    }
-
-    private void parseNeighbor(String line, Map<Integer, List<Integer>> map){
-        try{
-            String[] parts = line.split(":");
-            int id = Integer.parseInt(parts[0].trim());
-            int neighbor = Integer.parseInt(parts[1].trim());
-
-            if(!map.containsKey(id)){
-                map.put(id, new ArrayList<>());
-            }
-            map.get(id).add(neighbor);
-
-        }catch (Exception e){
-            System.err.println("Error Parsing Strings: "+line);
-
-        }
-    }
-    private void export(){
-        String filename = "nodes.txt";
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(filename))){
-            int id = 0;
-            for(Entity e: allEntities){
-                Vector3f position = e.getPosition();
-                String line = id + ":" + position.x + "," + position.y+ "," + position.z;
-                //String line = position.x + "," + position.y+ "," + position.z;
-                writer.write(line);
-                writer.newLine();
-                id++;
-            }
-        }catch(IOException e){
-            System.err.println("ERROR: "+ e.getMessage());
-        }
-    }
-
-    private void drawFullPath(ArrayList<Node> nodes){
-        for(int i = 0; i < nodes.size(); i++){
-            if(i != nodes.size() -1){
-                drawPath(nodes.get(i), nodes.get(i+1));
-            }
-        }
-    }
-    private void drawFullPath(Map<Integer, List<Integer>> map, ArrayList<Node> nodes){
-        for(int i = 0; i < map.size(); i++){
-            if(i != map.size() -1){
-                if(!map.get(i).isEmpty())
-                {
-                    for(int j = 0; j < map.get(i).size(); j++){
-                        int x = map.get(i).get(j);
-                        Node nodeA  = nodes.get(i);
-                        Node nodeB = nodes.get(x);
-                        drawPath(nodeA,nodeB);
-                    }
-                }
-//                for(int j = 0; j < map.get(i).size(); j++){
-//                    int x = map.get(i).get(j);
-//                    Node nodeA  = nodes.get(i);
-//                    Node nodeB = nodes.get(x);
-//                    drawPath(nodeA,nodeB);
-//                }
-            }
-        }
-    }
-    private void drawPath(Node a, Node b){
-        int numberOfPoints = 7;
-        ArrayList<Node> pathPoints = generatePoints(a,b,numberOfPoints);
-        for(int i = 0; i < pathPoints.size(); i++){
-            float x =pathPoints.get(i).getX();
-            float y =pathPoints.get(i).getY();
-            float z =pathPoints.get(i).getZ();
-            if(i+1 != pathPoints.size()){
-                Vector3f lookAt = lookAtPostion(pathPoints.get(i+1).getPositon(), pathPoints.get(i).getPositon());
-                allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), (float) Math.toDegrees(lookAt.x()),(float) Math.toDegrees(lookAt.y) , 0,0.25f));
-            }
-            else{
-                allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), 0,0 , 0,0.25f));
-            }
-
-
-//        if(neighbors.get(a.getId()).contains(b.getId())){
-//            ArrayList<Node> pathPoints = generatePoints(a,b,numberOfPoints);
-//            for(int i = 0; i < pathPoints.size(); i++){
-//                float x =pathPoints.get(i).getX();
-//                float y =pathPoints.get(i).getY();
-//                float z =pathPoints.get(i).getZ();
-//                if(i+1 != pathPoints.size()){
-//                    Vector3f lookAt = lookAtPostion(pathPoints.get(i+1).getPositon(), pathPoints.get(i).getPositon());
-//                    allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), (float) Math.toDegrees(lookAt.x()),(float) Math.toDegrees(lookAt.y) , 0,0.25f));
-//                }
-//                else{
-//                    allEntities.add(new Entity(nodeTextured, new Vector3f(x,y,z), 0,0 , 0,0.25f));
-//                }
-            }
-        }
-
-
-    private Vector3f lookAtPostion(Vector3f target, Vector3f positon){
-        //math is dope
-        Vector3f direction = new Vector3f(target.sub(positon).normalize());
-        float yaw = (float) Math.atan2(direction.x, direction.z);
-        float pitch = (float) Math.asin(direction.y);
-        return new Vector3f(pitch, yaw, 0.0f);
-
-    }
-
-    public static ArrayList<Node> generatePoints(Node a , Node b, int numberOfPoints){
-        ArrayList<Node> points = new ArrayList<>();
-
-        //P=A+t⋅(B−A)
-        for (int i = 0; i <= numberOfPoints; i ++){
-            float t = i / (float) numberOfPoints;
-            float x = a.getX() + t * (b.getX() - a.getX());
-            float y = a.getY() + t * (b.getY() - a.getY());
-            float z = a.getZ() + t * (b.getZ() - a.getZ());
-            points.add(new Node(x,y,z));
-        }
-        return points;
-    }
-
 
     public void cleanup() {
         shader.cleanup();
         loader.cleanUp();
-
+        // renderer.cleanup();
+        // mesh.cleanup();
         imGuiGl3.shutdown();
         imGuiGlfw.shutdown();
         ImGui.destroyContext();
         window.cleanup();
     }
+
     void startFrameImGui() {
         imGuiGl3.newFrame();
         imGuiGlfw.newFrame();
