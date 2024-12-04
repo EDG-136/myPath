@@ -32,6 +32,8 @@ public class FileReader {
             Statement statement = connection.createStatement();
 
             String dropStudents = "DROP TABLE IF EXISTS Students;";
+            String dropEnrollment = "DROP TABLE IF EXISTS Enrollments;";
+            String dropFavoriteSchedule = "DROP TABLE IF EXISTS FavoriteSchedule;";
             String dropPositionConnects = "DROP TABLE IF EXISTS PositionConnects";
             String dropPositions = "DROP TABLE IF EXISTS Positions;";
             String dropFaculties = "DROP TABLE IF EXISTS Faculties;";
@@ -106,7 +108,8 @@ public class FileReader {
                     "CONSTRAINT studentPK PRIMARY KEY (StudentID)" +
                     ");";
 
-
+            statement.execute(dropFavoriteSchedule);
+            statement.execute(dropEnrollment);
             statement.execute(dropSchedules);
             statement.execute(dropCourses);
             statement.execute(dropStudents);
