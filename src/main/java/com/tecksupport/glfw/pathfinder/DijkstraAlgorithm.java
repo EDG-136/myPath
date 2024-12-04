@@ -5,7 +5,11 @@ import com.tecksupport.glfw.pathfinder.node.Node;
 import java.util.*;
 
 public class DijkstraAlgorithm {
-    private static final double MAX_HEIGHT_DIFFERENCE = 1000.0; // Adjustable height difference threshold
+    private static final double MAX_HEIGHT_DIFFERENCE = 400.0; // Adjustable height difference threshold
+    private static final double SCALING_FACTOR = 1.2; // For normalized height penalty
+    private static final double STEEPNESS_FACTOR = 500; // For angle-based penalty
+    private static final double HEIGHT_THRESHOLD = 50; // Acceptable height difference without penalty
+    private static double averageHeightDifference = 1.0; // Default value, should be calculated
 
     /**
      * Finds the shortest path between two nodes using Dijkstra's algorithm.
@@ -51,15 +55,7 @@ public class DijkstraAlgorithm {
                     continue;
                 }
 
-                double heightDiff = Math.abs(current.getZ() - neighbor.getZ());
                 int weight = calculateWeight(current, neighbor);
-
-                // Apply penalty instead of skipping
-                if (heightDiff > MAX_HEIGHT_DIFFERENCE) {
-                    double penalty = (heightDiff - MAX_HEIGHT_DIFFERENCE) * 1.5; // Penalty factor
-                    System.out.println("Applying height penalty for neighbor " + neighbor.getId() + ": " + penalty);
-                    weight += penalty;
-                }
 
                 int newDist = distances.getOrDefault(current, Integer.MAX_VALUE) + weight;
 
@@ -119,17 +115,43 @@ public class DijkstraAlgorithm {
     }
 
     /**
-     * Calculates the weight (distance) between two nodes using the Euclidean distance formula.
+     * Calculates the weight (distance) between two nodes using the refined formula.
      *
      * @param a The first node.
      * @param b The second node.
      * @return The distance as an integer.
      */
     private static int calculateWeight(Node a, Node b) {
-        double baseDistance = Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getZ() - b.getZ(), 2));
-        double heightPenalty = Math.abs(a.getY() - b.getY()) * 2; // Adjusted penalty for height difference
+        double baseDistance = Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getY() - b.getY(), 2));
+        double heightDifference = Math.abs(a.getZ() - b.getZ());
+
+        // Normalize height penalty
+        double normalizedHeightPenalty = (heightDifference / averageHeightDifference) * SCALING_FACTOR;
+
+        // Angle-based penalty
+        double angle = Math.atan2(heightDifference, baseDistance);
+        double anglePenalty = Math.sin(angle) * STEEPNESS_FACTOR;
+
+        // Dynamic penalty for large height differences
+        double dynamicPenalty = heightDifference > HEIGHT_THRESHOLD ? (heightDifference - HEIGHT_THRESHOLD) * SCALING_FACTOR : 0;
+
+        // Combine all penalties
+        double totalPenalty = normalizedHeightPenalty + anglePenalty + dynamicPenalty;
+
         System.out.println("Calculating weight from Node " + a.getId() + " to Node " + b.getId());
-        System.out.println("Base Distance: " + baseDistance + ", Height Penalty: " + heightPenalty);
-        return (int) (baseDistance + heightPenalty);
+        System.out.println("Base Distance: " + baseDistance + ", Height Penalty: " + totalPenalty);
+
+        return (int) (baseDistance + totalPenalty);
+    }
+
+    /**
+     * Sets the average height difference for normalization.
+     * This should be called before the pathfinding algorithm.
+     *
+     * @param averageHeightDiff The average height difference across the graph.
+     */
+    public static void setAverageHeightDifference(double averageHeightDiff) {
+        averageHeightDifference = averageHeightDiff;
+        System.out.println("Set average height difference to: " + averageHeightDifference);
     }
 }
