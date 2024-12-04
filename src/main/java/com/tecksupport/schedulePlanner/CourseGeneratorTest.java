@@ -16,7 +16,7 @@ public class CourseGeneratorTest {
 
     @BeforeEach
     public void init() {
-        MySQLDatabase database = new MySQLDatabase("//TeckSupportDB", "client", "TeckSupport");
+        MySQLDatabase database = new MySQLDatabase("localhost/TeckSupportDB", "client", "TeckSupport");
         database.connect();
         generator = new StudentScheduleGenerator(new FacultyQuery(database.getConnection()));
     }
