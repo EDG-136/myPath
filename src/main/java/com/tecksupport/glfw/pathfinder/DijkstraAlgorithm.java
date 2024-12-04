@@ -5,7 +5,7 @@ import com.tecksupport.glfw.pathfinder.node.Node;
 import java.util.*;
 
 public class DijkstraAlgorithm {
-    private static final double MAX_HEIGHT_DIFFERENCE = 10.0;
+    private static final double MAX_HEIGHT_DIFFERENCE = 10.0; // Maximum Z difference
 
     /**
      * Finds the shortest path between two nodes using Dijkstra's algorithm.
@@ -20,38 +20,69 @@ public class DijkstraAlgorithm {
         Map<Node, Node> previous = new HashMap<>();
         Set<Node> visited = new HashSet<>();
 
-
         distances.put(start, 0);
         start.setDistance(0);
         pq.add(start);
 
+        // Debug: Initial state
+        System.out.println("Starting Pathfinding from Node " + start.getId() + " to Node " + end.getId());
+        System.out.println("Initial Distances Map: " + distances);
+        System.out.println("Initial Priority Queue: " + pq);
 
         while (!pq.isEmpty()) {
             Node current = pq.poll();
-            if (!visited.add(current)) continue;
-            if (current.equals(end)) break;
 
+            // Debug: Node being processed
+            System.out.println("Processing Node: " + current.getId());
+
+            if (!visited.add(current)) {
+                System.out.println("Node " + current.getId() + " already visited.");
+                continue;
+            }
+
+            if (current.equals(end)) {
+                System.out.println("Reached Destination Node: " + current.getId());
+                break;
+            }
+
+            // Debug: Neighbors of the current node
+            System.out.println("Neighbors of Node " + current.getId() + ": " + current.getNeighborList());
 
             for (Node neighbor : current.getNeighborList()) {
-                if (visited.contains(neighbor)) continue;
-
+                if (visited.contains(neighbor)) {
+                    System.out.println("Skipping visited neighbor: " + neighbor.getId());
+                    continue;
+                }
 
                 double heightDiff = Math.abs(current.getZ() - neighbor.getZ());
-                if (heightDiff > MAX_HEIGHT_DIFFERENCE) continue;
-
+                if (heightDiff > MAX_HEIGHT_DIFFERENCE) {
+                    System.out.println("Skipping neighbor " + neighbor.getId() + " due to height difference.");
+                    continue;
+                }
 
                 int weight = calculateWeight(current, neighbor);
                 int newDist = distances.getOrDefault(current, Integer.MAX_VALUE) + weight;
+
+                // Debug: Distance comparison
+                System.out.println("Checking Neighbor " + neighbor.getId() + " | Current Dist: " + distances.getOrDefault(neighbor, Integer.MAX_VALUE) + " | New Dist: " + newDist);
 
                 if (newDist < distances.getOrDefault(neighbor, Integer.MAX_VALUE)) {
                     distances.put(neighbor, newDist);
                     previous.put(neighbor, current);
                     neighbor.setDistance(newDist);
                     pq.add(neighbor);
+
+                    // Debug: Updated states
+                    System.out.println("Updated Distance for Node " + neighbor.getId() + ": " + newDist);
+                    System.out.println("Previous Node for " + neighbor.getId() + ": " + current.getId());
+                    System.out.println("Added Node " + neighbor.getId() + " to Priority Queue");
                 }
             }
         }
 
+        // Debug: Final state before path reconstruction
+        System.out.println("Final Distances Map: " + distances);
+        System.out.println("Final Previous Map: " + previous);
 
         return reconstructPath(previous, start, end);
     }
@@ -66,10 +97,16 @@ public class DijkstraAlgorithm {
      */
     private List<Node> reconstructPath(Map<Node, Node> previous, Node start, Node end) {
         List<Node> path = new ArrayList<>();
+        System.out.println("Reconstructing Path from Node " + end.getId() + " to Node " + start.getId());
+
         for (Node at = end; at != null; at = previous.get(at)) {
             path.add(at);
+            // Debug: Add to path
+            System.out.println("Adding Node " + at.getId() + " to Path");
         }
+
         Collections.reverse(path);
+        System.out.println("Final Path: " + path);
         return path;
     }
 
@@ -81,6 +118,6 @@ public class DijkstraAlgorithm {
      * @return The distance as an integer.
      */
     private int calculateWeight(Node a, Node b) {
-        return (int) Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getZ() - b.getZ(), 2)); // Euclidean distance
+        return (int) Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getZ() - b.getZ(), 2));
     }
 }
