@@ -14,7 +14,7 @@ public class DijkstraAlgorithm {
      * @param end   The destination node.
      * @return A list of Node objects representing the shortest path.
      */
-    public List<Node> getShortestPath(Node start, Node end) {
+    public static List<Node> getShortestPath(Node start, Node end) {
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(Node::getDistance));
         Map<Node, Integer> distances = new HashMap<>();
         Map<Node, Node> previous = new HashMap<>();
@@ -64,7 +64,7 @@ public class DijkstraAlgorithm {
      * @param end      The destination node.
      * @return A list of Node objects representing the shortest path.
      */
-    private List<Node> reconstructPath(Map<Node, Node> previous, Node start, Node end) {
+    private static List<Node> reconstructPath(Map<Node, Node> previous, Node start, Node end) {
         List<Node> path = new ArrayList<>();
         for (Node at = end; at != null; at = previous.get(at)) {
             path.add(at);
@@ -80,7 +80,7 @@ public class DijkstraAlgorithm {
      * @param b The second node.
      * @return The distance as an integer.
      */
-    private int calculateWeight(Node a, Node b) {
+    private static int calculateWeight(Node a, Node b) {
         return (int) Math.sqrt(Math.pow(a.getX() - b.getX(), 2) + Math.pow(a.getZ() - b.getZ(), 2)); // Euclidean distance
     }
 }

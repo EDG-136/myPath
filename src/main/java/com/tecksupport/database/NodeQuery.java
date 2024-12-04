@@ -99,7 +99,7 @@ public class NodeQuery {
         return nodeMap.values().stream().toList();
     }
 
-    public Map<String, Node> getEntryMap() {
-        return entryMap;
+    public Node getEntryNodeFromFacultyID(String facultyID) {
+        return entryMap.get(facultyID);
     }
 }

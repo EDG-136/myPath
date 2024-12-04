@@ -1,6 +1,7 @@
 package com.tecksupport.glfw.model;
 
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 public class Entity {
 
@@ -10,6 +11,7 @@ public class Entity {
     private float rotY;
     private float rotZ;
     private float scale;
+    private Vector4f color = new Vector4f();
 
     public Entity(TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale) {
         this.model = model;
@@ -35,6 +37,12 @@ public class Entity {
 
     public Vector3f getPosition() {
         return position;
+    }
+
+    public void addPosition(float x, float y, float z) {
+        position.x += x;
+        position.y += y;
+        position.z += z;
     }
 
     public TexturedModel getModel() {
@@ -75,5 +83,13 @@ public class Entity {
 
     public void setScale(float scale) {
         this.scale = scale;
+    }
+
+    public Vector4f getColor() {
+        return color;
+    }
+
+    public void setColor(Vector4f color) {
+        this.color = color;
     }
 }

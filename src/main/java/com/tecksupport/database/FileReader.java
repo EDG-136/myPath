@@ -150,8 +150,6 @@ public class FileReader {
 
                 fromQuery.append("('").append(fromPositionID).append("','").append(toPositionID).append("'),");
                 toQuery.append("('").append(fromPositionID).append("','").append(toPositionID).append("'),");
-                System.out.println(fromQuery + "\n" + toQuery);
-                System.out.println("----");
                 line = br.readLine();
             }
             fromQuery.deleteCharAt(fromQuery.lastIndexOf(","));
