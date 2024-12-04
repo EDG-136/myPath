@@ -5,7 +5,7 @@ import com.tecksupport.glfw.pathfinder.node.Node;
 import java.util.*;
 
 public class DijkstraAlgorithm {
-    private static final double MAX_HEIGHT_DIFFERENCE = 100.0; // Maximum height difference allowed
+    private static final double MAX_HEIGHT_DIFFERENCE = 500.0; // Maximum height difference allowed
 
     /**
      * Finds the shortest path between two nodes using Dijkstra's algorithm.
@@ -29,15 +29,12 @@ public class DijkstraAlgorithm {
         while (!pq.isEmpty()) {
             Node current = pq.poll();
 
-            // Skip stale nodes
-            if (current.getDistance() > distances.getOrDefault(current, Integer.MAX_VALUE)) {
-                continue;
-            }
-
             if (!visited.add(current)) {
                 System.out.println("Node " + current.getId() + " already visited.");
                 continue;
             }
+
+            System.out.println("Processing Node: " + current.getId());
 
             if (current.equals(end)) {
                 System.out.println("Reached Destination Node: " + current.getId());
@@ -46,18 +43,19 @@ public class DijkstraAlgorithm {
 
             for (Node neighbor : current.getNeighborList()) {
                 if (visited.contains(neighbor)) {
+                    System.out.println("Skipping visited neighbor: " + neighbor.getId());
                     continue;
                 }
 
                 double heightDiff = Math.abs(current.getZ() - neighbor.getZ());
                 if (heightDiff > MAX_HEIGHT_DIFFERENCE) {
+                    System.out.println("Skipping neighbor " + neighbor.getId() + " due to height difference.");
                     continue;
                 }
 
                 int weight = calculateWeight(current, neighbor);
                 int newDist = distances.getOrDefault(current, Integer.MAX_VALUE) + weight;
 
-                // Debug: Distance comparison
                 System.out.println("Checking Neighbor " + neighbor.getId() +
                         " | Current Distance: " + distances.getOrDefault(neighbor, Integer.MAX_VALUE) +
                         " | New Distance: " + newDist);
@@ -68,19 +66,17 @@ public class DijkstraAlgorithm {
                     neighbor.setDistance(newDist);
                     pq.add(neighbor); // Re-add neighbor with updated distance
 
-                    // Debug: Updated states
-                    System.out.println("Updated Distance for Node " + neighbor.getId() + ": " + newDist);
-                    System.out.println("Previous Node for " + neighbor.getId() + ": " + current.getId());
+                    System.out.println("Added Node " + neighbor.getId() + " to Priority Queue with distance " + newDist);
                 }
             }
         }
 
-        // Debug: Final state before path reconstruction
         System.out.println("Final Distances Map: " + distances);
         System.out.println("Final Previous Map: " + previous);
 
         return reconstructPath(previous, start, end);
     }
+
 
     /**
      * Reconstructs the shortest path from the start node to the end node.
