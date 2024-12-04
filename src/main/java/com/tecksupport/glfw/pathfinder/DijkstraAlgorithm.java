@@ -9,8 +9,6 @@ public class DijkstraAlgorithm {
     private static final double MAX_HEIGHT_DIFFERENCE = 10.0; // Maximum Z difference
     private final Map<Long, Node> nodeMap = new HashMap<>();
 
-
-
     /**
      * Finds the shortest path between two nodes using Dijkstra's algorithm.
      *
@@ -20,7 +18,7 @@ public class DijkstraAlgorithm {
      * @param edges  A map representing the graph's adjacency list (node ID to a list of connected node IDs).
      * @return A list of Node objects representing the shortest path.
      */
-    public List<Node> getShortestPath(Node start, Node end, Map<Long, Node> nodes, Map<Long, List<Long>> edges) {
+    public List<Node> getShortestPath(Node start, Node end, Map<Integer, Node> nodes, Map<Integer, List<Long>> edges) {
         PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(Node::getDistance));
         Map<Node, Integer> distances = new HashMap<>();
         Map<Node, Node> previous = new HashMap<>();

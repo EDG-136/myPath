@@ -20,7 +20,12 @@ public class Camera {
     private float roll;
 
 
-    public Camera(){}
+    public Camera(Vector3f position, Vector3f rotation) {
+        this.position = position;
+        this.yaw = rotation.x;
+        this.pitch = rotation.y;
+        this.roll = rotation.z;
+    }
 
     public void setPosition(float x, float y, float z) {
         position.x = x;

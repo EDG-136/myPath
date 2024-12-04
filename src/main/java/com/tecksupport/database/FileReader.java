@@ -31,7 +31,6 @@ public class FileReader {
         try {
             Statement statement = connection.createStatement();
 
-            String dropFavoriteSchedule = "DROP TABLE IF EXISTS FavoriteSchedules;";
             String dropStudents = "DROP TABLE IF EXISTS Students;";
             String dropPositionConnects = "DROP TABLE IF EXISTS PositionConnects";
             String dropPositions = "DROP TABLE IF EXISTS Positions;";
@@ -106,19 +105,8 @@ public class FileReader {
                     "HashedPassword VARCHAR(60) NOT NULL," +
                     "CONSTRAINT studentPK PRIMARY KEY (StudentID)" +
                     ");";
-            String favoriteSchedule = "CREATE TABLE IF NOT EXISTS FavoriteSchedules (" +
-                    "StudentScheduleID VARCHAR(100) NOT NULL," +
-                    "StudentID INT(9) NOT NULL," +
-                    "CourseID INT(5) NOT NULL," +
-                    "CONSTRAINT studentFK FOREIGN KEY (StudentID)" +
-                    "REFERENCES Students(StudentID)," +
-                    "CONSTRAINT courseFK FOREIGN KEY (CourseID)" +
-                    "REFERENCES Courses(CourseID)," +
-                    "CONSTRAINT studentSchedulePK PRIMARY KEY (StudentScheduleID, StudentID, CourseID)" +
-                    ");";
 
 
-            statement.execute(dropFavoriteSchedule);
             statement.execute(dropSchedules);
             statement.execute(dropCourses);
             statement.execute(dropStudents);
@@ -134,7 +122,6 @@ public class FileReader {
             statement.execute(studentTable);
             statement.execute(courseTable);
             statement.execute(scheduleTable);
-            statement.execute(favoriteSchedule);
 
             readFaculties();
             readCourse();

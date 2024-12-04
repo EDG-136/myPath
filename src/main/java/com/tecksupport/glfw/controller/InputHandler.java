@@ -19,7 +19,11 @@ import imgui.ImGuiIO;
 import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
+import org.joml.Vector3f;
 
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -29,6 +33,8 @@ public class InputHandler {
     private static final int ORIGINAL_HEIGHT = 600;
     private final ImGuiImplGlfw imGuiGlfw = new ImGuiImplGlfw();
     private final ImGuiImplGl3 imGuiGl3 = new ImGuiImplGl3();
+    private final List<Entity> allEntities = new ArrayList<>();
+    private final List<Entity> pathNodeList = new ArrayList<>();
     private final CourseQuery courseQuery;
     private final UserAuthQuery userAuthQuery;
     private final FacultyQuery facultyQuery;
@@ -38,9 +44,11 @@ public class InputHandler {
     private Mesh mesh;
     private Camera camera;
     private RawModel rawModel;
+    private TexturedModel texturedModel;
+    private RawModel nodeModel;
+    private TexturedModel nodeTextured;
     private Renderer renderer;
     private Loader loader;
-    private TexturedModel texturedModel;
     private RawModel square;
     private Entity entity;
     private ModelData modelData;
@@ -50,6 +58,7 @@ public class InputHandler {
     private AuthUI authUI;
     private FacultyInfoUI facultyInfoUI;
     private ScheduleGeneratorUI scheduleGeneratorUI;
+    private List<Node> majorNodes;
 
     public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery, NodeQuery nodeQuery)
     {
@@ -67,14 +76,21 @@ public class InputHandler {
                 "src/main/java/com/tecksupport/glfw/shader/vertexShader.txt",
                 "src/main/java/com/tecksupport/glfw/shader/fragmentShader.txt"
         );
-        renderer = new Renderer(shader, window);
+        camera = new Camera(new Vector3f(0, 1100, 0), new Vector3f(0, 90, 0));
+        renderer = new Renderer(shader, window, camera);
 
-//        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
-//
-//        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
-//
-//        entity = new Entity(texturedModel, new Vector3f(0, 0, -25), 0, 0, 0, 10);
-        camera = new Camera();
+        rawModel = loader.loadToVAO(OBJFileLoader.loadOBJ("School"));
+        texturedModel = new TexturedModel(rawModel, new ModelTexture(loader.loadTexture("SchoolTexture")));
+        entity = new Entity(texturedModel, new Vector3f(0, 0, 0), 0, 0, 0, 20);
+
+
+        nodeModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Arrow"));
+        nodeTextured = new TexturedModel(nodeModel, new ModelTexture(loader.loadTexture("ArrowTexture")));
+
+        RawModel wayPointModel = loader.loadToVAO(OBJFileLoader.loadOBJ("Waypoint"));
+        TexturedModel wayPointTexture = new TexturedModel(wayPointModel, new ModelTexture(loader.loadTexture("Waypoint")));
+
+        allEntities.add(entity);
         // camera.createMatrix(45.0f, 0.1f, 100, shader, "camera");
         //Matrix4f camMat = camera.getMatrix(45.0f, 0.1f, 100, shader, "camera");
         // shader.setUniform("camera", camMat);
@@ -101,8 +117,10 @@ public class InputHandler {
         facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
         scheduleGeneratorUI = new ScheduleGeneratorUI(window, courseQuery, facultyQuery);
 
-        for (Node node : nodeQuery.getNodes()) {
+        majorNodes = nodeQuery.getNodes();
 
+        for (Node node : majorNodes) {
+            node.setEntity(new Entity(wayPointTexture, node.getPosition(), 0, 0, 0, 2));
         }
     }
 
@@ -119,11 +137,19 @@ public class InputHandler {
                 // Only render the main application if the user is logged in
                 processInput();
                 renderer.prepare(0.6f, 0.8f, 1f, 1f);
-                shader.bind();
-                shader.loadViewMatrix(camera);
-                renderer.render(entity, shader);
-                shader.unbind();
-                buildingInfoUI.renderUI();
+                for (Entity instance : allEntities){
+                    renderer.processEntity(instance);
+                }
+
+                for (Node node : majorNodes) {
+                    renderer.processEntity(node.getEntity());
+                }
+
+                for (Entity nodeOnPath : pathNodeList) {
+                    renderer.processEntity(nodeOnPath);
+                }
+                renderer.render();
+//                buildingInfoUI.renderUI();
                 facultyInfoUI.render();
                 //scheduleGeneratorUI.render();
             }
@@ -180,7 +206,7 @@ public class InputHandler {
         double yaw = xPos - oldYaw;
         double pitch = yPos - oldPitch;
 
-        camera.addRotation((float) pitch, (float) yaw, 0);
+        camera.addRotation((float) yaw, (float) pitch, 0);
 
         oldYaw = xPos;
         oldPitch = yPos;
@@ -195,6 +221,52 @@ public class InputHandler {
         imGuiGlfw.shutdown();
         ImGui.destroyContext();
         window.cleanup();
+    }
+
+    public void clearPath() {
+        pathNodeList.clear();
+    }
+
+    public void AddNodeToRender(Node node) {
+        pathNodeList.add(node.getEntity());
+    }
+
+    public void drawPath(Node a, Node b) {
+        int numberOfPoints = 7;
+        List<Node> pathPoints = generatePoints(a, b, numberOfPoints);
+        for (int i = 0; i < pathPoints.size(); i++) {
+            float x = pathPoints.get(i).getX();
+            float y = pathPoints.get(i).getY();
+            float z = pathPoints.get(i).getZ();
+            if (i + 1 != pathPoints.size()) {
+                Vector3f lookAt = lookAtPostion(pathPoints.get(i + 1).getPosition(), pathPoints.get(i).getPosition());
+                Entity nodeEntity = new Entity(nodeTextured, new Vector3f(x, y, z), (float) Math.toDegrees(lookAt.x()), (float) Math.toDegrees(lookAt.y), 0, 0.25f);
+                pathNodeList.add(nodeEntity);
+            }
+        }
+    }
+
+    private Vector3f lookAtPostion(Vector3f target, Vector3f positon){
+        //math is dope
+        Vector3f direction = new Vector3f(target.sub(positon).normalize());
+        float yaw = (float) Math.atan2(direction.x, direction.z);
+        float pitch = (float) Math.asin(direction.y);
+        return new Vector3f(pitch, yaw, 0.0f);
+
+    }
+
+    public static List<Node> generatePoints(Node a , Node b, int numberOfPoints){
+        List<Node> points = new ArrayList<>();
+
+        //P=A+t⋅(B−A)
+        for (int i = 0; i <= numberOfPoints; i ++){
+            float t = i / (float) numberOfPoints;
+            float x = a.getX() + t * (b.getX() - a.getX());
+            float y = a.getY() + t * (b.getY() - a.getY());
+            float z = a.getZ() + t * (b.getZ() - a.getZ());
+            points.add(new Node(0, x,y,z));
+        }
+        return points;
     }
 
     void startFrameImGui() {

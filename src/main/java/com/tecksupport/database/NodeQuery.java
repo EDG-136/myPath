@@ -1,9 +1,6 @@
 package com.tecksupport.database;
 
-import com.tecksupport.glfw.model.Entity;
-import com.tecksupport.glfw.model.TexturedModel;
 import com.tecksupport.glfw.pathfinder.node.Node;
-import org.joml.Vector3f;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,21 +14,20 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class NodeQuery {
-    private final Map<String, Node> entryMap;
-    private final List<Node> nodeList;
+    private final Map<String, Node> entryMap; // FacultyID, Node
+    private final Map<Integer, Node> nodeMap; // NodeId, Node
     private final Connection connection;
     private final Logger logger = Logger.getLogger(getClass().getName());
-    private final TexturedModel texturedModel;
 
-    public NodeQuery(Connection connection, TexturedModel texturedModel) {
+    public NodeQuery(Connection connection) {
         this.connection = connection;
-        this.texturedModel = texturedModel;
-        this.nodeList = getNodeListFromDB();
+        this.nodeMap = getNodeMapFromDB();
         this.entryMap = getEntryNodesFromDB();
+        getNeighborNodesFromDB();
     }
 
-    private List<Node> getNodeListFromDB() {
-        List<Node> nodes = new ArrayList<>();
+    private Map<Integer, Node> getNodeMapFromDB() {
+        Map<Integer, Node> nodes = new HashMap<>();
         try {
             String query = "SELECT PositionID, X, Y, Z FROM Positions;";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
@@ -44,8 +40,8 @@ public class NodeQuery {
                 float y = resultSet.getFloat("Y");
                 float z = resultSet.getFloat("Z");
 
-                Node node = new Node(texturedModel, id, x, y, z);
-                nodes.add(node);
+                Node node = new Node(id, x, y, z);
+                nodes.put(id, node);
             }
 
         } catch (SQLException e) {
@@ -53,6 +49,28 @@ public class NodeQuery {
         }
 
         return nodes;
+    }
+
+    private void getNeighborNodesFromDB() {
+        try {
+            String query = "SELECT FromPosition, ToPosition FROM PositionConnects;";
+
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            preparedStatement.execute();
+
+            ResultSet resultSet = preparedStatement.getResultSet();
+            while (resultSet.next()) {
+                int fromPositionID = resultSet.getInt("FromPosition");
+                int toPositionID = resultSet.getInt("ToPosition");
+                Node fromNode = nodeMap.get(fromPositionID);
+                Node toNode = nodeMap.get(toPositionID);
+                fromNode.addNeighborNode(toNode);
+            }
+
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, "MySQL Node Query Error!");
+        }
     }
 
     private Map<String, Node> getEntryNodesFromDB() {
@@ -67,13 +85,7 @@ public class NodeQuery {
                 String facultyID = resultSet.getString("FacultyID");
                 int positionID = resultSet.getInt("PositionID");
 
-                Node node = null;
-                for (Node n : nodeList) {
-                    if (n.getId() == positionID) {
-                        node = n;
-                        break;
-                    }
-                }
+                Node node = nodeMap.get(positionID);
                 entryMap.put(facultyID, node);
             }
         } catch (SQLException e) {
@@ -84,7 +96,7 @@ public class NodeQuery {
     }
 
     public List<Node> getNodes() {
-        return nodeList;
+        return nodeMap.values().stream().toList();
     }
 
     public Map<String, Node> getEntryMap() {

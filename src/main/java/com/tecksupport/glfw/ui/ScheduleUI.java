@@ -85,10 +85,6 @@ public class ScheduleUI {
             return;
         }
 
-        if (ImGui.button("Save")) {
-            studentScheduleGenerator.addSavedSchedule(studentSchedules);
-        }
-
         handleCalendarTable();
 
         ImGui.end();
