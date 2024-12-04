@@ -71,6 +71,10 @@ public class Node {
         neighborList.add(node);
     }
 
+    public List<Node> getNeighborList() {
+        return neighborList;
+    }
+
     @Override
     public String toString() {
         return String.format("Node{id=%d, x=%.2f, y=%.2f, z=%.2f, label=%s}", id, x, y, z, label);
