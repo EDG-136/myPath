@@ -5,7 +5,7 @@ import com.tecksupport.glfw.pathfinder.node.Node;
 import java.util.*;
 
 public class DijkstraAlgorithm {
-    private static final double MAX_HEIGHT_DIFFERENCE = 10.0; // Maximum Z difference
+    private static final double MAX_HEIGHT_DIFFERENCE = 100.0;
 
     /**
      * Finds the shortest path between two nodes using Dijkstra's algorithm.
