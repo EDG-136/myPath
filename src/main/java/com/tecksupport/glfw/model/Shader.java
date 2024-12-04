@@ -4,6 +4,7 @@ import com.tecksupport.glfw.utils.Maths;
 import com.tecksupport.glfw.view.Camera;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 import org.lwjgl.BufferUtils;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class Shader {
     private int location_transformationMatrix;
     private int location_projectionMatrix;
     private int location_viewMatrix;
+    private int location_color;
 
     public Shader(String vertexFile, String fragmentFile) {
 
@@ -106,8 +108,6 @@ public class Shader {
     public void bindAttributes() {
         glBindAttribLocation(programId, 0, "position");
         glBindAttribLocation(programId, 1, "aTex");
-
-
     }
 
     int getUniformLocation(String uniformName) {
@@ -119,7 +119,7 @@ public class Shader {
         location_transformationMatrix = getUniformLocation("transformationMatrix");
         location_projectionMatrix = getUniformLocation("projectionMatrix");
         location_viewMatrix = getUniformLocation("viewMatrix");
-
+        location_color = getUniformLocation("addColor");
     }
 
     public void loadTransformationMatrix(Matrix4f matrix) {
@@ -135,6 +135,9 @@ public class Shader {
         loadMatrix(location_projectionMatrix, projection);
     }
 
+    public void loadColorVec(Vector4f color) {
+        glUniform4f(location_color, color.x, color.y, color.z, color.w);
+    }
 
     public int getProgramId() {
         return programId;

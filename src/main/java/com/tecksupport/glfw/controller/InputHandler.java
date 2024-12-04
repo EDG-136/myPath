@@ -6,6 +6,7 @@ import com.tecksupport.database.FacultyQuery;
 import com.tecksupport.database.NodeQuery;
 import com.tecksupport.database.UserAuthQuery;
 import com.tecksupport.glfw.model.*;
+import com.tecksupport.glfw.pathfinder.DijkstraAlgorithm;
 import com.tecksupport.glfw.pathfinder.node.Node;
 import com.tecksupport.glfw.ui.AuthUI;
 import com.tecksupport.glfw.ui.BuildingInfoUI;
@@ -14,14 +15,18 @@ import com.tecksupport.glfw.ui.FacultyInfoUI;
 import com.tecksupport.glfw.view.Camera;
 import com.tecksupport.glfw.view.Renderer;
 import com.tecksupport.glfw.view.Window;
+import imgui.ImColor;
 import imgui.ImGui;
 import imgui.ImGuiIO;
+import imgui.app.Color;
 import imgui.flag.*;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
 import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 
+import javax.xml.transform.Source;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +64,8 @@ public class InputHandler {
     private FacultyInfoUI facultyInfoUI;
     private ScheduleGeneratorUI scheduleGeneratorUI;
     private List<Node> majorNodes;
+    private float[] rgb = new float[3];
+    private float[] hsv = new float[3];
 
     public InputHandler(CourseQuery courseQuery, UserAuthQuery userAuthQuery, FacultyQuery facultyQuery, NodeQuery nodeQuery)
     {
@@ -113,15 +120,51 @@ public class InputHandler {
         io.setIniFilename(null);
 
         authUI = new AuthUI(window, userAuthQuery);
-//        buildingInfoUI = new BuildingInfoUI(window);
+        buildingInfoUI = new BuildingInfoUI(window);
         facultyInfoUI = new FacultyInfoUI(window, facultyQuery);
-        scheduleGeneratorUI = new ScheduleGeneratorUI(window, courseQuery, facultyQuery);
+        scheduleGeneratorUI = new ScheduleGeneratorUI(window, courseQuery, facultyQuery, this, nodeQuery);
 
         majorNodes = nodeQuery.getNodes();
 
+        int current = 0;
         for (Node node : majorNodes) {
-            node.setEntity(new Entity(wayPointTexture, node.getPosition(), 0, 0, 0, 2));
+            Entity majorNodeEntity = new Entity(wayPointTexture, node.getPosition(), 0, 0, 0, 2);
+            majorNodeEntity.addPosition(0, 100, 0);
+            node.setEntity(majorNodeEntity);
+//            int maxPath = 62;
+//            int current = 1;
+//            hsv[0] = getHueValue(current, maxPath);
+//            hsv[1] = 1;
+//            hsv[2] = 1;
+//
+//
+//            for (Node minorNode : node.getNeighborList()) {
+//                drawPath(node, minorNode);
+//                ImGui.colorConvertHSVtoRGB(hsv, rgb);
+//                System.out.println(rgb);
+//                current++;
+//            }
         }
+
+        for (Node from : nodeQuery.getNodes()) {
+            for (Node to : nodeQuery.getNodes()) {
+                List<Node> shortestPath = DijkstraAlgorithm.getShortestPath(from, to);
+                System.out.println("Finding Path From " + from.getId() + " to " + to.getId());
+                if (shortestPath.isEmpty()) {
+                    System.out.println("Can't find path from " + from.getId() + " to " + to.getId());
+                    continue;
+                }
+                System.out.print("\t");
+                for (Node node : shortestPath) {
+                    System.out.print(node.getId() + " -> ");
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    public float getHueValue(int index, int total) {
+        return (float) index / total;
     }
 
     public void run() {
@@ -131,8 +174,6 @@ public class InputHandler {
             if (!authUI.isLoggedIn()) {
                 renderer.prepare(0f,0f,0f,0f);
                 authUI.renderLoginPage();
-                scheduleGeneratorUI.render();
-                ImGui.showDemoWindow();
             } else {
                 // Only render the main application if the user is logged in
                 processInput();
@@ -149,9 +190,9 @@ public class InputHandler {
                     renderer.processEntity(nodeOnPath);
                 }
                 renderer.render();
-//                buildingInfoUI.renderUI();
+                buildingInfoUI.renderUI();
                 facultyInfoUI.render();
-                //scheduleGeneratorUI.render();
+                scheduleGeneratorUI.render();
             }
             endFrameImGui();
             window.update();
@@ -241,6 +282,7 @@ public class InputHandler {
             if (i + 1 != pathPoints.size()) {
                 Vector3f lookAt = lookAtPostion(pathPoints.get(i + 1).getPosition(), pathPoints.get(i).getPosition());
                 Entity nodeEntity = new Entity(nodeTextured, new Vector3f(x, y, z), (float) Math.toDegrees(lookAt.x()), (float) Math.toDegrees(lookAt.y), 0, 0.25f);
+                nodeEntity.setColor(new Vector4f(rgb[0], rgb[1], rgb[2], 1));
                 pathNodeList.add(nodeEntity);
             }
         }

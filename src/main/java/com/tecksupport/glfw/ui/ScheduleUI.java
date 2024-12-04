@@ -1,10 +1,11 @@
 package com.tecksupport.glfw.ui;
 
+import com.tecksupport.database.NodeQuery;
+import com.tecksupport.glfw.controller.InputHandler;
+import com.tecksupport.glfw.pathfinder.DijkstraAlgorithm;
+import com.tecksupport.glfw.pathfinder.node.Node;
 import com.tecksupport.glfw.view.Window;
-import com.tecksupport.schedulePlanner.CourseSection;
-import com.tecksupport.schedulePlanner.Schedule;
-import com.tecksupport.schedulePlanner.StudentScheduleGenerator;
-import com.tecksupport.schedulePlanner.StudentSchedules;
+import com.tecksupport.schedulePlanner.*;
 import imgui.ImColor;
 import imgui.ImGui;
 import imgui.ImVec4;
@@ -16,6 +17,7 @@ import imgui.type.ImBoolean;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleUI {
@@ -33,20 +35,22 @@ public class ScheduleUI {
     private final ColoredBlock[] fridayBlocks = new ColoredBlock[TOTAL_BLOCK];
     private final ColoredBlock[] saturdayBlocks = new ColoredBlock[TOTAL_BLOCK];
     private final ColoredBlock[] sundayBlocks = new ColoredBlock[TOTAL_BLOCK];
+    private final NodeQuery nodeQuery;
+    private final InputHandler inputHandler;
     private final String id;
 
     private final Window window;
-    private final StudentScheduleGenerator studentScheduleGenerator;
     private final StudentSchedules studentSchedules;
     private final ImBoolean isOpen;
     private final int offset;
     private float width;
     private float height;
 
-    public ScheduleUI(Window window, StudentScheduleGenerator studentScheduleGenerator, StudentSchedules studentSchedules, int offset) {
+    public ScheduleUI(Window window, StudentSchedules studentSchedules, NodeQuery nodeQuery, InputHandler inputHandler, int offset) {
         this.window = window;
-        this.studentScheduleGenerator = studentScheduleGenerator;
         this.studentSchedules = studentSchedules;
+        this.nodeQuery = nodeQuery;
+        this.inputHandler = inputHandler;
         this.offset = offset;
         this.isOpen = new ImBoolean(true);
 
@@ -64,6 +68,7 @@ public class ScheduleUI {
                 coloredBlock.hue = getHueValueFor(courseSection);
                 coloredBlock.courseSection = courseSection;
                 coloredBlock.startBlock = startBlock;
+                coloredBlock.facultyID = schedule.getFacultyID();
                 char[] days = schedule.getDaysInWeek().toCharArray();
                 for (char dayInChar : days) {
                     ColoredBlock[] coloredBlocks = getDayInWeekBlock(dayInChar);
@@ -92,10 +97,52 @@ public class ScheduleUI {
 
     private void handleShowPathButtons() {
         for (int i = 1; i <= DAYS_IN_A_WEEK; i++) {
-            String day = getDayInWeekFromNum(i);
+            EDayInWeek currentDayInWeek = getDayInWeekFromNum(i);
             ImGui.tableSetColumnIndex(i);
-            if (ImGui.button("Show##" + day)) {
+            if (!ImGui.button("Show##" + currentDayInWeek))
+                continue;
 
+            ColoredBlock[] blockArray = getDayInWeekBlock(i);
+            if (blockArray == null)
+                continue;
+            System.out.println("You actually clicked?");
+
+            List<Node> nodes = new ArrayList<>();
+            for (ColoredBlock block : blockArray) {
+                System.out.println("Ain't no way block is null");
+                if (block == null)
+                    continue;
+                String facultyID = block.facultyID;
+                Node node = nodeQuery.getEntryNodeFromFacultyID(facultyID);
+                System.out.println("Is node contain?");
+                if (nodes.contains(node))
+                    continue;
+                nodes.add(node);
+                System.out.println("Getting facultyID from blocks");
+            }
+            System.out.println("At least you know I got here");
+            for (Node node : nodes) {
+                System.out.println("Node: " + node.getId());
+            }
+            for (int j = 0; j < nodes.size() - 1; j++) {
+                Node fromNode = nodes.get(j);
+                Node toNode = nodes.get(j + 1);
+                System.out.println("Getting Path");
+                System.out.println("From: " + fromNode.getId() + " to " + toNode.getId());
+                List<Node> nodesOnPath = DijkstraAlgorithm.getShortestPath(fromNode, toNode);
+                for (Node node : nodesOnPath) {
+                    System.out.println("Node: " + node.getId());
+                    System.out.println("Neighbors: ");
+                    for (Node neighbor : node.getNeighborList()) {
+                        System.out.println(neighbor.getId());
+                    }
+                }
+                for (int k = 0; k < nodesOnPath.size() - 1; k++) {
+                    Node from = nodesOnPath.get(k);
+                    Node to = nodesOnPath.get(k + 1);
+                    inputHandler.drawPath(from, to);
+                    System.out.println("Drew");
+                }
             }
         }
     }
@@ -149,6 +196,7 @@ public class ScheduleUI {
                 }
                 if (ImGui.isItemHovered()) {
                     ImGui.beginTooltip();
+                    ImGui.text(coloredBlock.facultyID);
                     ImGui.text(String.valueOf(courseSection.getID()));
                     ImGui.text(courseSection.getSubject() + " " + courseSection.getCatalog() + " - " + courseSection.getSection());
                     ImGui.text(courseSection.getName());
@@ -204,15 +252,15 @@ public class ScheduleUI {
         };
     }
 
-    private String getDayInWeekFromNum(int dayInNum) {
+    private EDayInWeek getDayInWeekFromNum(int dayInNum) {
         return switch (dayInNum) {
-            case 1 -> "Monday";
-            case 2 -> "Tuesday";
-            case 3 -> "Wednesday";
-            case 4 -> "Thursday";
-            case 5 -> "Friday";
-            case 6 -> "Saturday";
-            case 7 -> "Sunday";
+            case 1 -> EDayInWeek.MONDAY;
+            case 2 -> EDayInWeek.TUESDAY;
+            case 3 -> EDayInWeek.WEDNESDAY;
+            case 4 -> EDayInWeek.THURSDAY;
+            case 5 -> EDayInWeek.FRIDAY;
+            case 6 -> EDayInWeek.SATURDAY;
+            case 7 -> EDayInWeek.SUNDAY;
             default -> null;
         };
     }
@@ -221,7 +269,7 @@ public class ScheduleUI {
         if (studentSchedules.getCourseSectionList().size() == 1)
             return 0.5f;
         List<CourseSection> courseSectionList = studentSchedules.getCourseSectionList();
-        return (float) 1 / courseSectionList.size() * courseSectionList.indexOf(courseSection);
+        return (float) courseSectionList.indexOf(courseSection) / courseSectionList.size();
     }
 
     public String getId() {
@@ -229,8 +277,9 @@ public class ScheduleUI {
     }
 
     public static class ColoredBlock {
-        private float hue;
         private CourseSection courseSection;
+        private String facultyID;
+        private float hue;
         private int startBlock;
     }
 }

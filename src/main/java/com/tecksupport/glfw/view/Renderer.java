@@ -67,6 +67,7 @@ public class Renderer {
         Matrix4f transformationMatrix = Maths.createTransformationMatrix(entity.getPosition(),
                 entity.getRotX(), entity.getRotY(), entity.getRotZ(), entity.getScale()*20);
         shader.loadTransformationMatrix(transformationMatrix);
+        shader.loadColorVec(entity.getColor());
     }
 
 
@@ -107,6 +108,8 @@ public class Renderer {
         projectionMatrix = new Matrix4f().perspective((float) Math.toRadians(FOV), (float) window.getWindowWidth() / window.getWindowWidth(), NEAR_PLANE, FAR_PLANE);
     }
     public void processEntity(Entity entity){
+        if (entity == null)
+            return;
         TexturedModel entityModel = entity.getModel();
         List<Entity> batch = entities.get(entityModel);
         if(batch!=null){

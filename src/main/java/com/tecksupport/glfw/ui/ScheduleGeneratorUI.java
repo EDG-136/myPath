@@ -2,6 +2,8 @@ package com.tecksupport.glfw.ui;
 
 import com.tecksupport.database.CourseQuery;
 import com.tecksupport.database.FacultyQuery;
+import com.tecksupport.database.NodeQuery;
+import com.tecksupport.glfw.controller.InputHandler;
 import com.tecksupport.glfw.pathfinder.Route.RouteSummary;
 import com.tecksupport.schedulePlanner.*;
 import com.tecksupport.glfw.view.Window;
@@ -16,32 +18,39 @@ import java.util.*;
 public class ScheduleGeneratorUI {
     private final static DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mma");
     private final StudentScheduleGenerator studentScheduleGenerator;
-    private final ImBoolean isOpen = new ImBoolean();
-    private final Window window;
+    private final InputHandler inputHandler;
     private final CourseQuery courseQuery;
+    private final NodeQuery nodeQuery;
+    private final Window window;
+
+    private final ImBoolean isOpen = new ImBoolean();
+
     private final HashSet<Integer> selectedCourseIndexes = new HashSet<>();
     private final HashSet<Integer> blackListForGenerator = new HashSet<>();
     private final HashSet<Integer> courseSectionBlackListIndexes = new HashSet<>();
-    private List<StudentSchedules> generatedSchedules;
+
     private final List<ScheduleUI> openedSchedules = new ArrayList<>();
+    private final List<String> subjectList = new ArrayList<>();
+
+    private List<StudentSchedules> generatedSchedules;
+    private List<CourseSection> courseSectionList;
+    private List<GeneralCourse> generalCourseList;
+
     private int courseIndexToViewSection = -1;
     private float width;
     private float height;
     private final ImFont defaultFont;
     private float fontSize;
-    private List<String> subjectList = new ArrayList<>();
-    private List<CourseSection> courseSectionList;
-    private List<GeneralCourse> generalCourseList;
 
     private String selectedSubject = "";
     private String selectedCatalog = "";
 
-
-
-    public ScheduleGeneratorUI(Window window, CourseQuery courseQuery, FacultyQuery facultyQuery) {
+    public ScheduleGeneratorUI(Window window, CourseQuery courseQuery, FacultyQuery facultyQuery, InputHandler inputHandler, NodeQuery nodeQuery) {
         this.window = window;
         this.courseQuery = courseQuery;
         this.studentScheduleGenerator = new StudentScheduleGenerator(facultyQuery);
+        this.inputHandler = inputHandler;
+        this.nodeQuery = nodeQuery;
         this.defaultFont = ImGui.getFont();
         this.isOpen.set(true);
         this.courseSectionList = courseQuery.getCourseSectionList();
@@ -152,7 +161,7 @@ public class ScheduleGeneratorUI {
                     }
                 }
                 if (isNew)
-                    openedSchedules.add(new ScheduleUI(window, studentScheduleGenerator, studentSchedules, openedSchedules.size()));
+                    openedSchedules.add(new ScheduleUI(window, studentSchedules, nodeQuery, inputHandler, openedSchedules.size()));
             }
 
             RouteSummary routeSummary = studentSchedules.getRouteSummary();
