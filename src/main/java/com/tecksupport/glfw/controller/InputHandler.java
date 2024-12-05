@@ -126,38 +126,33 @@ public class InputHandler {
 
         majorNodes = nodeQuery.getNodes();
 
-        Node kelNode = nodeQuery.getEntryNodeFromFacultyID("KEL");
-        Entity majorNodeEntity = new Entity(wayPointTexture, kelNode.getPosition(), 0, 0, 0, 2);
-        majorNodeEntity.addPosition(0, 50, 0);
-        kelNode.setEntity(majorNodeEntity);
-
-        Node markNode = nodeQuery.getEntryNodeFromFacultyID("MARK");
-        Entity markEntity = new Entity(wayPointTexture, markNode.getPosition(), 0, 0, 0, 2);
-        markEntity.addPosition(0, 50, 0);
-        markNode.setEntity(markEntity);
-
-        List<Node> shortestPath = DijkstraAlgorithm.getShortestPath(kelNode, markNode);
-        for (int i = 0; i < shortestPath.size() - 1; i++) {
-            drawPath(shortestPath.get(i), shortestPath.get(i + 1));
-            System.out.println("From " + shortestPath.get(i).getId() + " to " + shortestPath.get(i + 1).getId());
-        }
+//        Node kelNode = nodeQuery.getEntryNodeFromFacultyID("KEL");
+//        Entity majorNodeEntity = new Entity(wayPointTexture, kelNode.getPosition(), 0, 0, 0, 2);
+//        majorNodeEntity.addPosition(0, 50, 0);
+//        kelNode.setEntity(majorNodeEntity);
+//
+//        Node markNode = nodeQuery.getEntryNodeFromFacultyID("MARK");
+//        Entity markEntity = new Entity(wayPointTexture, markNode.getPosition(), 0, 0, 0, 2);
+//        markEntity.addPosition(0, 50, 0);
+//        markNode.setEntity(markEntity);
+//
+////        Node node3 = nodeQuery.getNodes().get(13);
+////        Entity node3Entity = new Entity(wayPointTexture, node3.getPosition(), 0, 0, 0, 2);
+////        node3Entity.addPosition(0, 50, 0);
+////        node3.setEntity(node3Entity);
+////        System.out.println("Node: " + node3.getId());
+////        System.out.println("Node: " + node3.getX() + " " + node3.getY() + " " + node3.getZ());
+//
+//        List<Node> shortestPath = DijkstraAlgorithm.getShortestPath(kelNode, markNode);
+//        for (int i = 0; i < shortestPath.size() - 1; i++) {
+//            drawPath(shortestPath.get(i), shortestPath.get(i + 1));
+//            System.out.println("From " + shortestPath.get(i).getId() + " to " + shortestPath.get(i + 1).getId());
+//        }
 
         for (Node node : majorNodes) {
-//            Entity majorNodeEntity = new Entity(wayPointTexture, node.getPosition(), 0, 0, 0, 2);
-//            majorNodeEntity.addPosition(0, 100, 0);
-//            node.setEntity(majorNodeEntity);
-
-//            int maxPath = 10;
-//            int current = 0;
-//
-//            for (Node minorNode : node.getNeighborList()) {
-//                drawPath(node, minorNode);
-//                hsv[0] = getHueValue(current, maxPath);
-//                hsv[1] = 1;
-//                hsv[2] = 1;
-//                ImGui.colorConvertHSVtoRGB(hsv, rgb);
-//                current++;
-//            }
+            Entity majorNodeEntity = new Entity(wayPointTexture, node.getPosition(), 0, 0, 0, 2);
+            majorNodeEntity.addPosition(0, 50, 0);
+            node.setEntity(majorNodeEntity);
         }
 
 //        for (Node from : nodeQuery.getNodes()) {
@@ -194,10 +189,6 @@ public class InputHandler {
                 renderer.prepare(0.6f, 0.8f, 1f, 1f);
                 for (Entity instance : allEntities){
                     renderer.processEntity(instance);
-                }
-
-                for (Node node : majorNodes) {
-                    renderer.processEntity(node.getEntity());
                 }
 
                 for (Entity nodeOnPath : pathNodeList) {
@@ -282,10 +273,6 @@ public class InputHandler {
         pathNodeList.clear();
     }
 
-    public void AddNodeToRender(Node node) {
-        pathNodeList.add(node.getEntity());
-    }
-
     public void drawPath(Node a, Node b) {
         float distanceBetweenPoints = 100;
         List<Node> pathPoints = generatePoints(a, b, distanceBetweenPoints);
@@ -296,10 +283,14 @@ public class InputHandler {
             if (i + 1 != pathPoints.size()) {
                 Vector3f lookAt = lookAtPostion(pathPoints.get(i + 1).getPosition(), pathPoints.get(i).getPosition());
                 Entity nodeEntity = new Entity(nodeTextured, new Vector3f(x, y + 50, z), (float) Math.toDegrees(lookAt.x()), (float) Math.toDegrees(lookAt.y), 0, 0.25f);
-                nodeEntity.setColor(new Vector4f(0.7f, 0, 0, 0.1f));
+                nodeEntity.setColor(new Vector4f(rgb[0], rgb[1], rgb[2], 0.1f));
                 pathNodeList.add(nodeEntity);
             }
         }
+    }
+
+    public void addNodeToRender(Node node) {
+        pathNodeList.add(node.getEntity());
     }
 
     private Vector3f lookAtPostion(Vector3f target, Vector3f positon){
@@ -350,4 +341,6 @@ public class InputHandler {
             glfwMakeContextCurrent(backupWindowPtr);
         }
     }
+
+
 }

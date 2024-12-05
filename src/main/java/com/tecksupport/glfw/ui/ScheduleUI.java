@@ -13,6 +13,7 @@ import imgui.flag.ImGuiCond;
 import imgui.flag.ImGuiTableBgTarget;
 import imgui.flag.ImGuiTableFlags;
 import imgui.type.ImBoolean;
+import org.joml.Vector4f;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -38,6 +39,8 @@ public class ScheduleUI {
     private final NodeQuery nodeQuery;
     private final InputHandler inputHandler;
     private final String id;
+    private final float[] hsv = new float[3];
+    private final float[] rgb = new float[3];
 
     private final Window window;
     private final StudentSchedules studentSchedules;
@@ -60,7 +63,7 @@ public class ScheduleUI {
         height = window.getScreenHeight() / 2;
 
         for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
-
+            System.out.println(courseSection.getSection());
             for (Schedule schedule : courseSection.getSchedules()) {
                 int startBlock = timeToBlockIndex(schedule.getStartTime());
                 int endBlock = timeToBlockIndex(schedule.getEndTime());
@@ -80,6 +83,7 @@ public class ScheduleUI {
                 }
             }
         }
+        hsv[2] = 1;
     }
 
     public void render() {
@@ -105,34 +109,30 @@ public class ScheduleUI {
             ColoredBlock[] blockArray = getDayInWeekBlock(i);
             if (blockArray == null)
                 continue;
-            System.out.println("You actually clicked?");
 
             List<Node> nodes = new ArrayList<>();
             for (ColoredBlock block : blockArray) {
-                System.out.println("Ain't no way block is null");
                 if (block == null)
                     continue;
                 String facultyID = block.facultyID;
                 Node node = nodeQuery.getEntryNodeFromFacultyID(facultyID);
-                System.out.println("Is node contain?");
                 if (nodes.contains(node))
                     continue;
                 nodes.add(node);
-                System.out.println("Getting facultyID from blocks");
+                hsv[0] = block.hue;
+                ImGui.colorConvertHSVtoRGB(hsv, rgb);
+                System.out.println(rgb[0] + " " + rgb[1] + " " + rgb[2]);
+                node.getEntity().setColor(new Vector4f(rgb[0], rgb[1], rgb[2], 1));
             }
-            System.out.println("At least you know I got here");
+            inputHandler.clearPath();
             for (Node node : nodes) {
-                System.out.println("Node: " + node.getId());
+                inputHandler.addNodeToRender(node);
             }
             for (int j = 0; j < nodes.size() - 1; j++) {
                 Node fromNode = nodes.get(j);
                 Node toNode = nodes.get(j + 1);
-                System.out.println("Getting Path");
-                System.out.println("From: " + fromNode.getId() + " to " + toNode.getId());
                 List<Node> nodesOnPath = DijkstraAlgorithm.getShortestPath(fromNode, toNode);
                 for (Node node : nodesOnPath) {
-                    System.out.println("Node: " + node.getId());
-                    System.out.println("Neighbors: ");
                     for (Node neighbor : node.getNeighborList()) {
                         System.out.println(neighbor.getId());
                     }
@@ -141,7 +141,6 @@ public class ScheduleUI {
                     Node from = nodesOnPath.get(k);
                     Node to = nodesOnPath.get(k + 1);
                     inputHandler.drawPath(from, to);
-                    System.out.println("Drew");
                 }
             }
         }
