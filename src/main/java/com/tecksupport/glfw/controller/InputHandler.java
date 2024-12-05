@@ -29,6 +29,7 @@ import org.joml.Vector4f;
 import javax.xml.transform.Source;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -273,8 +274,9 @@ public class InputHandler {
         pathNodeList.clear();
     }
 
-    public void drawPath(Node a, Node b) {
+    public void drawPath(Node a, Node b, Vector4f color) {
         float distanceBetweenPoints = 100;
+        System.out.println("From " + a.getId() + " to " + b.getId());
         List<Node> pathPoints = generatePoints(a, b, distanceBetweenPoints);
         for (int i = 0; i < pathPoints.size(); i++) {
             float x = pathPoints.get(i).getX();
@@ -283,7 +285,7 @@ public class InputHandler {
             if (i + 1 != pathPoints.size()) {
                 Vector3f lookAt = lookAtPostion(pathPoints.get(i + 1).getPosition(), pathPoints.get(i).getPosition());
                 Entity nodeEntity = new Entity(nodeTextured, new Vector3f(x, y + 50, z), (float) Math.toDegrees(lookAt.x()), (float) Math.toDegrees(lookAt.y), 0, 0.25f);
-                nodeEntity.setColor(new Vector4f(rgb[0], rgb[1], rgb[2], 0.1f));
+                nodeEntity.setColor(color);
                 pathNodeList.add(nodeEntity);
             }
         }

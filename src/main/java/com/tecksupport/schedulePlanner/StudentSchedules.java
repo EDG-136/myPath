@@ -19,12 +19,6 @@ public class StudentSchedules {
         courseSectionList = new ArrayList<>();
     }
 
-    // For db query
-    public StudentSchedules(String id, List<CourseSection> courseSectionList) {
-        this.id = id;
-        this.courseSectionList = courseSectionList;
-    }
-
     public StudentSchedules(StudentSchedules studentSchedules) {
         courseSectionList = new ArrayList<>();
         courseSectionList.addAll(studentSchedules.getCourseSectionList());
@@ -34,8 +28,9 @@ public class StudentSchedules {
     public boolean addCourseSection(CourseSection newCourseSection) {
         for (CourseSection currentCourseSection : courseSectionList) {
             for (Schedule schedule : newCourseSection.getSchedules()) {
-                if (isScheduleOverlap(schedule, currentCourseSection.getSchedules()))
+                if (isScheduleOverlap(schedule, currentCourseSection.getSchedules())) {
                     return false;
+                }
             }
         }
 
@@ -52,7 +47,7 @@ public class StudentSchedules {
 
             if (isScheduleOverlap(schedule, currentSchedule))
                 return true;
-        }
+            }
         return false;
     }
 
@@ -65,8 +60,12 @@ public class StudentSchedules {
     }
     private static boolean isTimeBetween(LocalTime time, Schedule schedule) {
         // Confusing isn't it?
+        // This one check if they are the same time
+        if (time.toSecondOfDay() == schedule.getStartTime().toSecondOfDay() || time.toSecondOfDay() == schedule.getEndTime().toSecondOfDay())
+            return true;
+
         // just read code without "get" and it would make sense (perchance)
-        return time.isAfter(schedule.getStartTime()) && time.isBefore(schedule.getEndTime());
+        return  time.isAfter(schedule.getStartTime()) && time.isBefore(schedule.getEndTime());
     }
 
     public static EDayInWeek getDayInWeek(char letter) {

@@ -57,13 +57,12 @@ public class ScheduleUI {
         this.offset = offset;
         this.isOpen = new ImBoolean(true);
 
-        this.id = studentSchedules.getId();
+        this.id = StudentSchedules.calculateID(studentSchedules);
 
         width = window.getScreenWidth() / 3;
         height = window.getScreenHeight() / 2;
 
         for (CourseSection courseSection : studentSchedules.getCourseSectionList()) {
-            System.out.println(courseSection.getSection());
             for (Schedule schedule : courseSection.getSchedules()) {
                 int startBlock = timeToBlockIndex(schedule.getStartTime());
                 int endBlock = timeToBlockIndex(schedule.getEndTime());
@@ -83,6 +82,7 @@ public class ScheduleUI {
                 }
             }
         }
+        hsv[1] = 1;
         hsv[2] = 1;
     }
 
@@ -116,12 +116,11 @@ public class ScheduleUI {
                     continue;
                 String facultyID = block.facultyID;
                 Node node = nodeQuery.getEntryNodeFromFacultyID(facultyID);
-                if (nodes.contains(node))
+                if (node == null || nodes.contains(node))
                     continue;
                 nodes.add(node);
                 hsv[0] = block.hue;
                 ImGui.colorConvertHSVtoRGB(hsv, rgb);
-                System.out.println(rgb[0] + " " + rgb[1] + " " + rgb[2]);
                 node.getEntity().setColor(new Vector4f(rgb[0], rgb[1], rgb[2], 1));
             }
             inputHandler.clearPath();
@@ -132,15 +131,13 @@ public class ScheduleUI {
                 Node fromNode = nodes.get(j);
                 Node toNode = nodes.get(j + 1);
                 List<Node> nodesOnPath = DijkstraAlgorithm.getShortestPath(fromNode, toNode);
-                for (Node node : nodesOnPath) {
-                    for (Node neighbor : node.getNeighborList()) {
-                        System.out.println(neighbor.getId());
-                    }
-                }
+                hsv[0] = (float) j / nodes.size();
+                ImGui.colorConvertHSVtoRGB(hsv, rgb);
                 for (int k = 0; k < nodesOnPath.size() - 1; k++) {
                     Node from = nodesOnPath.get(k);
                     Node to = nodesOnPath.get(k + 1);
-                    inputHandler.drawPath(from, to);
+
+                    inputHandler.drawPath(from, to, new Vector4f(rgb[0], rgb[1], rgb[2], 1));
                 }
             }
         }

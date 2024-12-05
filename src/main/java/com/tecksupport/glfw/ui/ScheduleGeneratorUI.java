@@ -23,8 +23,6 @@ public class ScheduleGeneratorUI {
     private final NodeQuery nodeQuery;
     private final Window window;
 
-    private final ImBoolean isOpen = new ImBoolean();
-
     private final HashSet<Integer> selectedCourseIndexes = new HashSet<>();
     private final HashSet<Integer> blackListForGenerator = new HashSet<>();
     private final HashSet<Integer> courseSectionBlackListIndexes = new HashSet<>();
@@ -52,7 +50,6 @@ public class ScheduleGeneratorUI {
         this.inputHandler = inputHandler;
         this.nodeQuery = nodeQuery;
         this.defaultFont = ImGui.getFont();
-        this.isOpen.set(true);
         this.courseSectionList = courseQuery.getCourseSectionList();
         this.generalCourseList = courseQuery.getGeneralCourseList();
         for (GeneralCourse generalCourse : generalCourseList) {
@@ -72,7 +69,7 @@ public class ScheduleGeneratorUI {
         ImGui.setNextWindowSize(width, height, ImGuiCond.FirstUseEver);
         ImGui.setNextWindowPos(window.getScreenWidth() - width, 35, ImGuiCond.FirstUseEver);
 
-        if (!ImGui.begin(title, isOpen, generalCourseSearchFlag)) {
+        if (!ImGui.begin(title, generalCourseSearchFlag)) {
             ImGui.end();
             return;
         }

@@ -32,7 +32,7 @@ public class CourseGeneratorTest {
         CourseSection cs436Section1 = new CourseSection(29324, "Intro to Networking", "CS", "436", "10");
         CourseSection cs436Section2 = new CourseSection(28323, "Intro to Networking", "CS", "436", "20");
 
-        Schedule schedule1 = new Schedule(12345, "SCI2 302", "SCI2", "08:00:00", "09:20:00", "TR", "2024-08-30", "2024-12-10");
+        Schedule schedule1 = new Schedule(12345, "SCI2 302", "SCI2", "10:30:00", "11:45:00", "TR", "2024-08-30", "2024-12-10");
         Schedule schedule2 = new Schedule(12345, "SCI2 302", "SCI2", "09:30:00", "10:15:00", "TR", "2024-08-30", "2024-12-10");
 
         Schedule schedule3 = new Schedule(23452, "ACD 209", "ACD", "10:30:00", "11:45:00", "TR", "2024-08-30", "2024-12-10");
@@ -48,7 +48,7 @@ public class CourseGeneratorTest {
         cs370Section2.addSchedule(schedule3);
         cs370Section2.addSchedule(schedule4);
 
-        cs436Section1.addSchedule(schedule5);
+        cs436Section1.addSchedule(schedule3);
         cs436Section2.addSchedule(schedule6);
 
         cs370.addSection(cs370Section1);
