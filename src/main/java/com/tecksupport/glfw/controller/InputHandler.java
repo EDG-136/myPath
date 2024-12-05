@@ -118,8 +118,6 @@ public class InputHandler {
         imGuiGl3.init(window.getGlslVersion());
         System.out.println("Initialized ImGui");
 
-        io.setIniFilename(null);
-
         authUI = new AuthUI(window, userAuthQuery);
         buildingInfoUI = new BuildingInfoUI(window);
         facultyInfoUI = new FacultyInfoUI(window, facultyQuery);

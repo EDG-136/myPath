@@ -1,5 +1,6 @@
 package com.tecksupport.database;
 
+import com.tecksupport.schedulePlanner.StudentSchedules;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
@@ -88,7 +89,6 @@ public class UserAuthQuery {
             if (result.next()) {
                 String hashPassword = result.getString("HashedPassword");
                 if (BCrypt.checkpw(password, hashPassword)) {
-                    studentID = result.getInt("StudentID");
                     return true;
                 }
             }

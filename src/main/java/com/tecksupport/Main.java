@@ -14,8 +14,8 @@ public class Main {
     System.out.println("Program Starting");
 
     database.connect();
-    FileReader fileReader = new FileReader(database.getConnection());
-    fileReader.createTables();
+//    FileReader fileReader = new FileReader(database.getConnection());
+//    fileReader.createTables();
 
     CourseQuery courseQuery = new CourseQuery(database.getConnection());
     UserAuthQuery userAuthQuery = new UserAuthQuery(database.getConnection());
