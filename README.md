@@ -20,7 +20,7 @@ How to Login/Signup
 How to use the UI
 --
 - After the User login the rest of the UI is rendered for the Building info the panel is hidden by default the user has to hit the dropdown button
-- They then can click through all the difernt Catigories to find the building they are looking for
+- They then can click through all the differnt Catigories to find the building they are looking for
 - There is also a search bar where the user can Search for the building name and it will show the buttons that fit the search.
 
 Schedule Assitant
