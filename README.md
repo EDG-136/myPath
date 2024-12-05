@@ -2,7 +2,7 @@
 
 How to Login/Signup
 --
-- First, if user Does not have an account they will need to hit the signup button and input their info like Student ID number Name Username and password
+- First, if the user Does not have an account they will need to hit the signup button and input their info like Student ID number Name Username, and password
 - Once a User sign up they then can sign up with thier username/password they Hit the Sign in Button.
 
 Camera Movement 
@@ -29,7 +29,7 @@ Schedule Assitant
 - Select Course Catalog after selecting Course Subject to add the course to the Selected Courses section
 - Click checkboxes to blacklist courses from joining Schedule Generator
 - Click checkboxes under View Sections to blacklist sections from joining Schedule Generator
-- Press the Generate Button to generate a list of possible schedules and their distance summaries (Note that classes in the same area or classes that don't have any follow-up class are not counted inthe  Distance Summary)
+- Press the Generate Button to generate a list of possible schedules and their distance summaries (Note that classes in the same area or classes that don't have any follow-up class are not counted in the  Distance Summary)
 - Press View Button to open a window with details about a schedule
 - Hover on the name of each class on Schedule UI to view extra information related to that class
 - Above the Schedule Window, Press Show Buttons to display optimal paths on a 3D map (Note that classes that share the same location might not display arrows)
