@@ -29,8 +29,6 @@ public class DijkstraAlgorithm {
         start.setDistance(0);
         pq.add(start);
 
-        System.out.println("Starting Pathfinding from Node " + start.getId() + " to Node " + end.getId());
-
         while (!pq.isEmpty()) {
             Node current = pq.poll();
 
@@ -46,7 +44,6 @@ public class DijkstraAlgorithm {
 
             // Check if we reached the end
             if (current.equals(end)) {
-                System.out.println("Reached Destination Node: " + end.getId());
                 break;
             }
 
@@ -67,15 +64,11 @@ public class DijkstraAlgorithm {
                     pq.remove(neighbor); // Ensure no stale entries
                     pq.add(neighbor);    // Add the updated node
 
-                    System.out.println("Updated Distance for Node " + neighbor.getId() + ": " + newDist);
-                    System.out.println("Previous Node for " + neighbor.getId() + ": " + current.getId());
                 }
             }
         }
 
         // Final debug output
-        System.out.println("Final Distances Map: " + distances);
-        System.out.println("Final Previous Map: " + previous);
 
         return reconstructPath(previous, start, end);
     }
@@ -90,15 +83,12 @@ public class DijkstraAlgorithm {
      */
     private static List<Node> reconstructPath(Map<Node, Node> previous, Node start, Node end) {
         List<Node> path = new ArrayList<>();
-        System.out.println("Reconstructing Path from Node " + end.getId() + " to Node " + start.getId());
 
         for (Node at = end; at != null; at = previous.get(at)) {
             path.add(at);
-            System.out.println("Adding Node " + at.getId() + " to Path");
         }
 
         Collections.reverse(path);
-        System.out.println("Final Path: " + path);
 
         // Calculate total path weight for debugging
         int totalWeight = 0;
@@ -107,9 +97,7 @@ public class DijkstraAlgorithm {
             Node to = path.get(i);
             int weight = calculateWeight(from, to);
             totalWeight += weight;
-            System.out.println("From " + from.getId() + " to " + to.getId() + " | Weight: " + weight);
         }
-        System.out.println("Total Path Weight: " + totalWeight);
 
         return path;
     }
@@ -138,9 +126,6 @@ public class DijkstraAlgorithm {
         // Combine all penalties
         double totalPenalty = normalizedHeightPenalty + anglePenalty + dynamicPenalty;
 
-        System.out.println("Calculating weight from Node " + a.getId() + " to Node " + b.getId());
-        System.out.println("Base Distance: " + baseDistance + ", Height Penalty: " + totalPenalty);
-
         return (int) (baseDistance + totalPenalty);
     }
 
@@ -152,6 +137,5 @@ public class DijkstraAlgorithm {
      */
     public static void setAverageHeightDifference(double averageHeightDiff) {
         averageHeightDifference = averageHeightDiff;
-        System.out.println("Set average height difference to: " + averageHeightDifference);
     }
 }
